@@ -12,3 +12,4 @@ www-dev-copy 2/
 *.sublime-workspace
 *.sln
 www-dev/vendor/
+Gruntfile.js

@@ -6,17 +6,16 @@ module.exports = function(grunt) {
 
 
 	/*packages for task: grunt dev =======
+	*/
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-browser-sync');
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-angular-templates');
-	*/
 
 
 	/*packages for task: grunt build =======
-	*/
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-ngmin');
@@ -32,6 +31,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-angular-templates');
 	grunt.loadNpmTasks('grunt-rev');
 	grunt.loadNpmTasks('grunt-string-replace');
+	*/
 
 
 	/*unused packages =====================
@@ -401,7 +401,7 @@ module.exports = function(grunt) {
 				options: {
 					port: 3002,
 					//hostname: '169.254.80.80',
-					hostname: '192.168.1.5',
+					hostname: '10.135.81.111',
 					base: '<%= distDir %>',
 					keepalive: true,
 					livereload: false,

@@ -2,7 +2,7 @@
 _DOCS/
 node_modules/
 platforms/
-plugins/
+/plugins/
 tenlua-bat-cmd/
 www-dev-copy/
 www-dev-copy 2/

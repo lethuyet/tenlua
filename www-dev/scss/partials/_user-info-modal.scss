@@ -1,0 +1,291 @@
+.user-info-modal{
+	.modal-body{
+		padding-top: .8em;
+	}
+	.nav-tabs{
+		margin: 0 0 1em;
+		text-align: center;
+		padding-bottom: .5em;
+		>li{
+			float: none;
+			display: block;
+			>a{
+				padding: .1em .5em;
+				border: none !important;
+				border-right: 1px solid #e1e1e1 !important;
+				font-size: .8em;
+				color: #999;
+				border-radius: 0;
+				background: transparent !important;
+				white-space: nowrap;
+			}
+			&.active{
+				>a{
+					color: #000 !important;
+				}
+			}
+			&:last-child{
+				>a{
+					border-right: none !important;
+				}
+			}
+		}
+	}
+
+	.storage-info{
+		.user{
+			.dropdown-toggle{
+				cursor: default;
+			}
+		}
+	}
+
+	.user{
+		text-align: left;
+		.avatar-wrap, .storage{
+			display: inline-block;
+		}
+		.storage-remain{
+			display: block;
+		}
+		.user-name{
+			span{
+				display: inline-block;
+			}
+		}
+		&.storage-overview{
+			.avatar-wrap{
+				font-size: .7em;
+				margin-right: 1em;
+			}
+			.wrapper{
+				.user-name{
+					margin-bottom: 0;
+					span{
+						max-width: 12em;
+						color: #666;
+					}
+				}
+				.storage{
+					font-size: 1.2em !important;
+				}
+				.storage-remain{
+					font-size: 1em !important;
+				}
+			}
+		}
+		&.storage-normal, &.storage-permanent{
+			font-size: .8em;
+			height: auto;
+			.avatar-wrap{
+				font-size: .45em;
+				margin-right: 1.5em;
+			}
+			.user-name{
+				margin-bottom: 0;
+				span{
+					color: #888;
+					max-width: none;
+					font-size: .9em;
+				}
+			}
+		}
+	}
+
+	.storage-overview-wrap{
+		.edit-avatar{
+			color: #999;
+			font-size: .8em;
+			display: block;
+			width: 6em;
+			text-align: center;
+			margin-top: -1em;
+			cursor: pointer;
+			&:hover{
+				color: #000;
+			}
+		}
+	}
+
+	.storage-detail-wrap{
+		border-left: 1px solid #e1e1e1;
+		>div:first-child{
+			border-bottom: 1px solid #e1e1e1;
+			padding-bottom: .7em;
+			margin-bottom: .3em;
+		}
+	}
+
+	.gold-info{
+		border: 1px solid #e1e1e1;
+		border-left: none;
+		border-right: none;
+		padding: 1.5em 0 1em;
+		margin: 1.5em 0;
+		.role{
+			text-transform: uppercase;
+			&.gold{
+				color: #dfb83d;
+			}
+			&.uploader{
+				color: orange;
+			}
+			&.admin{
+				color: $brand-danger;
+			}
+		}
+		>.col:nth-child(3){
+			text-align: center;
+			.tl-icon-dollar-sign{
+				font-size: 3.5em;
+				color: #dfb83d;
+				position: relative;
+				top: -.2em;
+			}
+		}
+		>.col:nth-child(2), >.col:nth-child(4){
+			font-size: .9em;
+			color: #666;
+			padding-left: 0;
+			b{
+				color: #333;
+			}
+		}
+	}
+
+	.user-info-detail{
+		h3{
+			font-size: 1em;
+			font-weight: normal;
+			text-transform: uppercase;
+		}
+		>.row{
+			>.col:first-child{
+				text-align: right;
+			}
+			>.col:last-child{
+				padding-left: 0;
+			}
+		}
+		.form-control{
+			margin-bottom: .3em;
+		}
+	}
+
+	.message{
+		color: $brand-danger;
+		text-align: center;
+	}
+
+	.change-password{
+		padding-left: 0;
+		h3{
+			font-size: 1em;
+			font-weight: normal;
+			text-transform: uppercase;
+		}
+		.form-control{
+			margin-bottom: .3em;
+		}
+	}
+
+	table{
+		width: 100%;
+		font-size: .9em;
+		tr:first-child{
+			background: #fafafa;
+			font-weight: bold;
+		}
+		td{
+			border: 1px solid #e1e1e1;
+			padding: .1em .5em;
+		}
+		.file-name{
+			@extend %text-truncate;
+			max-width: 290px;
+			display: inline-block;
+		}
+		a.file-name{
+			cursor: pointer;
+		}
+	}
+
+	.table-downloads-history{}
+
+	.table-gold-for-download{
+		margin-top: 15px;
+		.file-name{
+			max-width: 190px;
+		}
+	}
+
+	.gold-transfer-wrap{
+		.form-control{
+			padding: 0 1em;
+			margin-bottom: 1em;
+		}
+		textarea{
+			height: 7.5em;
+			padding: .5em !important;
+		}
+		.sec-code{
+			label{
+				padding-right: .5em;
+			}
+			// .form-control{
+			// 	margin-b: .5em;
+			// }
+		}
+		// .btn-wrap{
+		// 	text-align: center;
+		// 	margin-bottom: 1em;
+		// }
+	}
+
+	@media #{$xSmallDown}{
+		.nav-tabs{
+			>li{
+				>a{
+					border-right: none !important;
+				}
+			}
+		}
+		.storage-detail-wrap{
+			margin-left: 2em;
+			margin-top: 1em;
+			margin-bottom: 2em;
+		}
+		.gold-info{
+			padding: 2em 0 1.5em;
+			>.col:first-child{
+				float: left;
+				padding-left: 0;
+			}
+		}
+		.user-info{
+			padding: 0 2em;
+		}
+		.user-info-detail{
+			>.row{
+				>.col:first-child{
+					text-align: left;
+					padding-left: 0;
+				}
+			}
+		}
+	}
+
+	@media #{$small}{
+		.nav-tabs{
+			>li{
+				display: inline-block;
+			}
+		}
+	}
+
+	@media #{$medium}{
+		.change-password{
+			padding-left: 15px;
+		}
+	}
+}

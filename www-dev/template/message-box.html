@@ -1,0 +1,13 @@
+<div class="message-box">
+	<div class="modal-header">
+		<h2 class="modal-title"><i class="{{icon}}"></i>
+			<span>{{ title }}</span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		<p ng-bind-html="message"></p>
+	</div>
+	<div class="modal-footer">
+		<button ng-repeat="btn in buttons" ng-click="close(btn.result)" class="btn" ng-class="btn.cssClass">{{ btn.label }}</button>
+	</div>
+</div>

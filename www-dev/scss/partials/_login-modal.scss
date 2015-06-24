@@ -1,0 +1,151 @@
+.login-modal{
+	.modal-body{
+		>.row{
+			>.col{
+				padding-left: 2.1em;
+				padding-right: 2.1em;
+				&:first-child{
+					margin-bottom: 3em;
+				}
+			}
+		}
+		.message{
+			color: $brand-danger;
+			text-align: center;
+			font-weight: bold;
+			font-size: 1.1em;
+			margin-bottom: 1em;
+		}
+		// .content{
+		// 	&.ng-enter{
+		// 		opacity: 0;
+		// 		@include transition(all .4s);
+		// 		@include transform(translateX(-10px));
+		// 	}
+		// 	&.ng-enter-active{
+		// 		opacity: 1;
+		// 		@include transform(translateY(0));
+		// 	}
+		// }
+		h3{
+			font-size: 1em;
+			font-weight: normal;
+			border-bottom: 1px solid #e1e1e1;
+			padding-bottom: .5em;
+			margin-top: 0;
+			margin-bottom: 1.5em;
+			color: #999;
+		}
+		.oauth-buttons-wrap{
+			a{
+				display: block;
+				width: 127px;
+				height: 34px;
+				margin: 0 0 1em;
+				border-radius: 50em;
+				background: url(../img/social-connect.png) no-repeat;
+				@include transition(all 0.2s);
+				&:hover{
+					@include transform(scale(1.1));
+				}
+				&.facebook {
+					background-position: 0 0;
+				}
+				&.twitter {
+					background-position: -128px 0;
+				}
+				&.google {
+					background-position: -255px 0;
+				}
+				&.yahoo {
+					background-position: -382px 0;
+				}
+			}
+		}
+
+		input[type=text], input[type=email], input[type=password]{
+			display: block;
+			margin-top: .2em;
+			margin-bottom: .8em;
+			height: 2em;
+			padding: .2em .5em;
+		}
+
+		.sec-code{
+			label{
+				// vertical-align: bottom;
+				margin-right: .5em;
+			}
+			img{
+				border-radius: .3em;
+			}
+			.form-control{
+				margin-top: .5em;
+			}
+		}
+
+		.check-wrap{
+			font-size: .8em;
+			color: #666;
+			label{
+				padding-right: .3em;
+				white-space: nowrap;
+			}
+			a{
+				color: #666;
+				font-weight: bold;
+			}
+		}
+
+		.fake-input{
+			font-size: .7em;
+			margin-right: .3em;
+		}
+
+		.btn-wrap{
+			margin-top: 1em;
+		}
+
+		form[name=forgotPasswordForm], form[name=activationLinkForm], form[name=enterNewPasswordForm]{
+			.btn-wrap{
+				text-align: center;
+			}
+		}
+	}
+
+	.modal-footer{
+		text-align: center;
+		font-size: 1.3em;
+		padding-top: 15px;
+		padding-bottom: 17px;
+		.links{
+			font-size: .8em;
+			a{
+				display: inline-block;
+				margin-top: .3em;
+			}
+			a:nth-child(2){
+				margin-left: .7em;
+				padding-left: .7em;
+				border-left: 1px solid #ccc;
+			}
+		}
+	}
+
+	@media #{$small}{
+		.modal-body{
+			>.row{
+				>.col{
+					&:first-child{
+						margin-bottom: 0;
+						// border-right: 1px solid #e1e1e1;
+					}
+					&:nth-child(2){
+						border-left: 1px solid #e1e1e1;
+					}
+				}
+			}
+		}
+	}
+
+}

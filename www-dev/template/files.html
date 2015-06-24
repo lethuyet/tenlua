@@ -1,0 +1,213 @@
+<div class="view-wrapper" id="Files">
+	<div class="container-fluid">
+
+		<div id="FmBreadcrumb" class="container-fluid _{{::(filesSrv.maxBreadcrumbNodes - 1)}}" ng-class="{truncate:filesSrv.currentFolder.breadcrumb.length > filesSrv.maxBreadcrumbNodes}" ng-if="!searchSrv.isSearching()">
+			<a class="tl-icon-arrow-left-circle" ng-click="filesSrv.backOneNode($event)"></a>
+			<ul class="nodes">
+				<li class="node dropdown"><span class="dropdown-toggle"><a href=""><i class="{{routeParams.libName ? 'tl-icon-' + routeParams.libName : 'tl-icon-folder'}}"></i></a><i class="tl-icon-caret-down"></i></span>
+					<ul class="dropdown-menu" role="menu" ng-if="filesSrv.currentFolder.breadcrumb.length > filesSrv.maxBreadcrumbNodes">
+						<li class="node" ng-repeat="node in filesSrv.currentFolder.breadcrumb | reverse" ng-if="$index>=filesSrv.maxBreadcrumbNodes"><a ng-click="filesSrv.openNode(node,$event)"><i class="tl-icon-folder"></i><span>{{node.name}}</span></a></li>
+					</ul>
+				</li>
+				<li class="node" ng-class="{last: $index == filesSrv.currentFolder.breadcrumb.length - 2, current: $last}" ng-repeat="node in filesSrv.currentFolder.breadcrumb" ng-if="$index >= filesSrv.currentFolder.breadcrumb.length - filesSrv.maxBreadcrumbNodes"><a ng-click="filesSrv.openNode(node,$event)"><span>{{node.name}}</span></a><i class="tl-icon-caret-right" ng-if="!$last"></i></li>
+			</ul>
+		</div>
+
+
+		<div id="FmBreadcrumb" class="container-fluid _0 search" ng-if="searchSrv.isSearching()">
+			<a class="tl-icon-arrow-left-circle" ng-click="searchSrv.keyword=''"></a>
+			<ul class="nodes">
+				<li class="node"><span class="dropdown-toggle"><a href=""><i class="tl-icon-search"></i></a></span>
+				</li>
+				<li class="node last"><a><span>Tìm kiếm - {{searchSrv.activeOption.text}}</span></a></li>
+				<li class="node current" ng-if="!searchSrv.isSearchingCurrent()"><a><span>{{routeParams.keyword}} <em>({{searchSrv.paging.total}} Kết quả)</em></span></a></li>
+				<li class="node current" ng-if="searchSrv.isSearchingCurrent()">
+					<a>
+						<span>{{searchSrv.keyword}} <em>({{filesSrv.currentNodesList.nodes.length}} Kết quả)</em>
+							<!-- <b class="btn btn-sm btn-default" ng-click="searchSrv.keyword=''"><i class="tl-icon-delete"></i> Thoát</b> -->
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+
+
+		<div id="FmListHeader" class="container-fluid">
+			<div class="row">
+				<label class="checkbox-wrap" file-node-related><input type="checkbox" class="custom" ng-model="filesSrv.allNodesChecked" ng-change="filesSrv.allNodesCheckToggle($event)"><b class="fake-input"></b></label>
+				<a class="col-sm-6 col-md-5 sortable" ng-class="filesSrv.nodeListHeaderClass('name')" ng-click="filesSrv.setNodeListOrder('name')" file-node-related>Tên</a>
+				<a class="col-sm-1 col-md-1 sortable" ng-class="filesSrv.nodeListHeaderClass('size')" ng-click="filesSrv.setNodeListOrder('size')" file-node-related>Dung lượng</a>
+				<a class="col-sm-1 col-md-1 sortable" ng-class="filesSrv.nodeListHeaderClass('download')" ng-click="filesSrv.setNodeListOrder('download')" file-node-related>Tải</a>
+				<a class="col-sm-3 col-md-3 sortable" ng-class="filesSrv.nodeListHeaderClass('timeStamp')" ng-click="filesSrv.setNodeListOrder('timeStamp')" file-node-related>Sửa đổi</a>
+				<a class="col-sm-1 col-md-2 sortable" ng-class="filesSrv.nodeListHeaderClass('fileType')" ng-click="filesSrv.setNodeListOrder('fileType')" file-node-related>Loại</a>
+			</div>
+		</div>
+
+
+<!-- 		<div ng-if="filesSrv.fmHasTree && (searchSrv.activeOption.name == 'all' || (searchSrv.activeOption.name == 'current' && !searchSrv.keyword))">
+			<div id="FmListEmpty" ng-if="!filesSrv.currentFolder.nodes.length">Thư mục trống</div>
+			<ul id="FmList" class="container-fluid" ng-if="!filesSrv.slideShowingNode">
+				<li file-node="node"  ng-repeat="node in filesSrv.currentFolder.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse  track by node.id"></li>
+			</ul>
+		</div>
+
+		<div ng-if="filesSrv.fmHasTree && searchSrv.keyword && searchSrv.activeOption.name == 'current'">
+			<div id="FmListEmpty" ng-if="!searchSrv.paging.total">Không tìm thấy kết quả</div>
+			<ul id="FmList" class="container-fluid" ng-if="!filesSrv.slideShowingNode">
+				<li file-node="node"  ng-repeat="node in searchSrv.currentPage.nodes | filter: searchSrv.keyword | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse | startFrom: (searchSrv.currentPage.page-1)*searchSrv.paging.pageSize : searchSrv.paging.pageSize | limitTo: searchSrv.paging.pageSize  track by node.id"></li>
+			</ul>
+			<center ng-if="searchSrv.paging.total">
+				<pagination boundary-links="true" total-items="searchSrv.paging.total" ng-model="searchSrv.currentPage.page" max-size="5" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" id="SearchPagination"></pagination>
+			</center>
+		</div>
+
+		<div ng-if="uiState.page.fmName == 'search'">
+			<div id="FmListEmpty" ng-if="!searchSrv.paging.total">Không tìm thấy kết quả</div>
+			<ul id="FmList" class="container-fluid" ng-if="!filesSrv.slideShowingNode">
+				<li file-node="node"  ng-repeat="node in searchSrv.currentPage.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse  track by node.id"></li>
+			</ul>
+			<center ng-if="searchSrv.paging.total">
+				<pagination boundary-links="true" total-items="searchSrv.paging.total" ng-model="searchSrv.currentPage.page" max-size="5" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" id="SearchPagination"></pagination>
+			</center>
+		</div>
+ -->
+
+		<!-- <div ng-if="searchSrv.activeOption.name == 'all' || (searchSrv.activeOption.name == 'current' && !searchSrv.keyword)"> -->
+		<!-- CURRENT FOLDER NODES & SEARCH PAGE NODES -->
+		<div class="FmList-wrap" ng-if="filesSrv.useCurrentFolderNodes()">
+			<div class="spinner-wrap fm-list-spinner" ng-if="(!searchSrv.searchResultsReturned && uiState.page.fmName == 'search') || (!filesSrv.fsDataReturn && uiState.page.fmName != 'search') || (fileSrv.currentFolder && !fileSrv.currentFolder.dataReturned)"><i class="tl-icon-spinner"></i></div>
+			<div id="FmListEmpty" ng-if="!filesSrv.currentFolder.nodes.length">
+				<span ng-if="uiState.page.fmName != 'search' && filesSrv.fsDataReturn">Thư mục trống</span>
+				<span ng-if="uiState.page.fmName == 'search' && searchSrv.searchResultsReturned">Không tìm thấy kết quả</span>
+			</div>
+			<ul id="FmList" class="container-fluid" ng-class="{in: uiState.folderIn}" ng-if="!filesSrv.slideShowingNode || filesSrv.isMusic(filesSrv.slideShowingNode)">
+				<!-- <li file-node="node"  ng-repeat="node in filesSrv.currentFolder.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse  track by node.id"></li> -->
+				<li file-node="node" index="::$index"  ng-repeat="node in filesSrv.currentFolderNodes() track by node.id"></li>
+			</ul>
+			<center ng-if="searchSrv.paging.total/searchSrv.paging.pageSize > 1">
+				<pagination boundary-links="true" total-items="searchSrv.paging.total" items-per-page="searchSrv.paging.pageSize" ng-model="searchSrv.currentPage.page" max-size="5" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" id="SearchPagination"></pagination>
+			</center>
+		</div>
+
+		<!-- LIBRARIES NODES: -->
+		<div class="FmList-wrap" ng-if="filesSrv.useLibraryNodes()">
+			<div class="spinner-wrap fm-list-spinner" ng-if="(!filesSrv.fsDataReturn)"><i class="tl-icon-spinner"></i></div>
+			<div id="FmListEmpty" ng-if="!library.nodes.length">
+				<span ng-if="filesSrv.fsDataReturn">Chưa có {{library.name}}</span>
+			</div>
+			<ul id="FmList" class="container-fluid" ng-class="{in: uiState.folderIn}" ng-if="!filesSrv.slideShowingNode || filesSrv.isMusic(filesSrv.slideShowingNode)">
+				<!-- <li file-node="node"  ng-repeat="node in filesSrv.currentNodesList.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse | startFrom: (library.currentPage-1)*searchSrv.paging.pageSize : searchSrv.paging.pageSize | limitTo: searchSrv.paging.pageSize  track by node.id"></li> -->
+				<li file-node="node"  ng-repeat="node in filesSrv.currentLibraryNodes(library) track by node.id"></li>
+			</ul>
+			<center ng-if="filesSrv.currentNodesList.nodes.length/searchSrv.paging.pageSize > 1">
+				<pagination boundary-links="true" total-items="filesSrv.currentNodesList.nodes.length" items-per-page="searchSrv.paging.pageSize" ng-model="library.currentPage" max-size="5" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" id="SearchPagination"></pagination>
+			</center>
+		</div>
+
+
+		<!-- CURRENT FOLDER SEARCH: -->
+		<div class="FmList-wrap" ng-if="filesSrv.useCurrentFolderSearch()" class="is-searching-current">
+			<div id="FmListEmpty" ng-if="!filesSrv.currentNodesList.nodes.length">Không tìm thấy kết quả</div>
+			<ul id="FmList" class="container-fluid" ng-class="{in: uiState.folderIn}" ng-if="!filesSrv.slideShowingNode || filesSrv.isMusic(filesSrv.slideShowingNode)">
+				<!-- <li file-node="node"  ng-repeat="node in filesSrv.currentNodesList = (filesSrv.flatFs | filter: {name: searchSrv.keyword}) | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse | startFrom: (searchSrv.currentPage.page-1)*searchSrv.paging.pageSize : searchSrv.paging.pageSize | limitTo: searchSrv.paging.pageSize  track by node.id"></li> -->
+
+				<!-- <li file-node="node"  ng-repeat="node in filesSrv.currentNodesList.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse | startFrom: (searchSrv.currentPage.page-1)*searchSrv.paging.pageSize : searchSrv.paging.pageSize | limitTo: searchSrv.paging.pageSize  track by node.id"></li> -->
+				<li file-node="node"  ng-repeat="node in filesSrv.currentFolderSearch() track by node.id"></li>
+			</ul>
+			<center ng-if="filesSrv.currentNodesList.nodes.length/searchSrv.paging.pageSize > 1">
+				<pagination boundary-links="true" total-items="filesSrv.currentNodesList.nodes.length" items-per-page="searchSrv.paging.pageSize" ng-model="searchSrv.currentPage.page" max-size="5" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" id="SearchPagination"></pagination>
+			</center>
+		</div>
+
+
+
+
+		<span id="FmContextMenuMask" class="mask-fix"></span>
+		<div id="FmContextMenu" fm-context-menu class="list-group overthrow" ng-if="!device.mobile() && !device.tablet() && uiState.page.fmName != 'folder'" file-node-related>
+			<span class="list-group-item" ng-click="filesSrv.openNode(filesSrv.checkedNodes[0],$event)" ng-if="filesSrv.checkedNodes.length==1 && filesSrv.canView(filesSrv.checkedNodes[0])"><i class="tl-icon-eye"></i> Xem...</span>
+			<span class="list-group-item" ng-click="filesSrv.goToDownload()"><i class="tl-icon-download"></i> Tải về</span>
+			<span class="list-group-item" ng-click="filesSrv.share(filesSrv.checkedNodes[0])"><i class="tl-icon-link"></i> Chia sẻ...</span>
+			<span class="divider"></span>
+			<span class="list-group-item" ng-click="filesSrv.deleteCheckedNodes()"><i class="tl-icon-trash"></i> Xóa...</span>
+			<span class="list-group-item" ng-click="filesSrv.initRename()" ng-if="filesSrv.checkedNodes.length==1"><i class="tl-icon-text-edit"></i> Sửa tên</span>
+			<span class="list-group-item" ng-click="filesSrv.moveTo()"><i class="tl-icon-move"></i> Di chuyển...</span>
+			<!-- <span class="list-group-item"><i class="tl-icon-copy"></i> Sao chép...</span> -->
+			<span class="divider"></span>
+			<span class="list-group-item" ng-click="filesSrv.archive()" ng-if="filesSrv.checkedNodes.length==1"><i class="tl-icon-save-disk"></i> {{filesSrv.checkedNodes[0].archived ? 'Bỏ lưu trữ...' : 'Lưu trữ...'}}</span>
+			<span class="list-group-item" ng-click="filesSrv.setPrivate()" ng-if="filesSrv.checkedNodes.length==1"><i class="tl-icon-user"></i> {{filesSrv.checkedNodes[0].private ? 'Bỏ riêng tư...' : 'Riêng tư...'}}</span>
+			<span class="list-group-item" ng-click="filesSrv.doLock()" ng-if="filesSrv.checkedNodes.length==1"><i class="tl-icon-key"></i> {{'Mật khẩu...'}}</span>
+			<span class="divider"></span>
+			<span class="list-group-item" ng-click="reload()"><i class="tl-icon-refresh"></i> Refresh</span>
+		</div>
+
+
+		<div id="FmUploader" class="container-fluid" ng-if="$flow.files.length" ng-class="{paused:!$flow.isUploading(), complete: $flow.progress()==1, 'fm-uploader-expanded': uiState.fm.fmUploaderExpanded, error: $flow.progress()==1 && uploaderHasError, 'upload-accepted-all': !uploadSrv.uploadRequestsQueue.length}" ng-controller="FmUploaderCtrl">
+			<i class="tl-icon-ellipsis" ng-click="uiState.fm.fmUploaderExpanded=!uiState.fm.fmUploaderExpanded" title="Mở danh sách upload"></i>
+			<div class="overall progress-wrap">
+				<div class="progress progress-striped" ng-class="{active: $flow.isUploading()}">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$flow.progress() * 100}}" aria-valuemin="0" aria-valuemax="100"  ng-style="{width: ($flow.progress() * 100) + '%'}">
+						<span><b>{{flowProgress()}}</b><b>Hoàn tất! <em>(có lỗi)</em></b></span>
+					</div>
+				</div>
+				<div class="icon-group">
+					<i class="icon-rounded tl-icon-pause" ng-click="$flow.pause()" title="Tạm ngưng tất cả"></i>
+					<i class="icon-rounded tl-icon-play" ng-click="$flow.resume()" title="Tiếp tục"></i>
+					<i class="icon-rounded tl-icon-delete" ng-click="flowCancel()" title="Hủy tất cả"></i>
+				</div>
+			</div>
+			<!-- / .overall -->
+
+			<div class="list-header row">
+				<span class="col-sm-4">Tên</span>
+				<span class="col-sm-2">Dung lượng</span>
+				<span class="col-sm-1">Tốc độ</span>
+				<span class="col-sm-1">Thời gian còn</span>
+				<span class="col-sm-4">Tiến trình</span>
+			</div>
+			<!-- / .list-header -->
+
+			<div class="files-list overthrow" ng-if="uiState.fm.fmUploaderExpanded">
+				<div class="row" ng-repeat="file in $flow.files" ng-class="{error:file.error, paused:file.paused, complete: file.isComplete(), 'upload-accepted': file.uploadAccepted}">
+					<div class="col-sm-4">{{::file.relativePath}}</div>
+					<div class="col-sm-2">{{::file.size | byteFormat}}</div>
+					<div class="col-sm-1"><span>{{file.averageSpeed | byteFormat}}/s</span></div>
+					<!-- <div class="col-sm-1"><span ng-show="file.timeRemaining() > 0">{{file.timeRemaining() | readableTime}}</span></div> -->
+					<div class="col-sm-1"><span>{{file.timeRemaining() | readableTime}}</span></div>
+					<div class="col-sm-4 progress-wrap">
+						<div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+							<div class="progress-bar progress-bar-success" ng-class="{'progress-bar-danger':file.error}" role="progressbar" aria-valuenow="{{file.progress() * 100}}" aria-valuemin="0" aria-valuemax="100"  ng-style="{width: (file.progress() * 100) + '%'}">
+								<!-- <span>{{fileProgress(file)}}</span> -->
+							</div>
+						</div>
+						<div class="icon-group">
+							<!-- <i class="icon-rounded tl-icon-pause" ng-if="!file.paused" ng-click="file.pause()"></i>
+							<i class="icon-rounded tl-icon-play" ng-if="file.paused" ng-click="file.resume()"></i>
+							<i class="icon-rounded tl-icon-delete" ng-click="file.cancel()"></i>
+							<i class="icon-rounded tl-icon-undo" ng-if="file.error" ng-click="file.retry()"></i> -->
+							<i class="icon-rounded tl-icon-pause" ng-click="file.pause()" title="Tạm ngưng"></i>
+							<i class="icon-rounded tl-icon-play" ng-click="file.resume()" title="Tiếp tục"></i>
+							<i class="icon-rounded tl-icon-delete" ng-click="fileCancel(file)" title="Hủy"></i>
+							<i class="icon-rounded tl-icon-undo" ng-click="file.retry()" title="Thử lại"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / .files-list -->
+		</div>
+		<!-- / #FmUploader -->
+
+		<div id="SideAd" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'">
+			<a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a>
+			<div class="ad-frame" page="uiState.page.fmName" position="'right'"></div>
+			<div class="ad-frame-fb"></div>
+		</div>
+
+		<div id="BottomAd" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'">
+			<a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a>
+			<div class="ad-frame" page="uiState.page.fmName" position="'bottom'"></div>
+		</div>
+
+	</div>
+	<!-- / .container-fluid -->
+</div>

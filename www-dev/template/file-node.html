@@ -1,0 +1,34 @@
+<li class="row" file-node-related ng-class="{selected: node.checked, updating: node.updating, archived: node.archived, lock: node.lock || node.justUnlocked, private: node.private}">
+	<label class="checkbox-wrap">
+		<input type="checkbox" class="custom" ng-model="node.checked" ng-change="filesSrv.nodeCheckToggle(node,$event)" ng-disabled="node.updating"><b class="fake-input"></b>
+	</label>
+	<div class="col col-sm-6 col-md-5">
+		<span class="order-num" ng-if="uiState.page.fmName == 'folder'">{{::(index + 1)}}</span>
+		<span class="item-link" ng-click="filesSrv.openNode(node,$event)"><b class="file-img _{{::node.ext}} {{::(node.type==1 ? 'folder' : '')}} {{::(node.image ? 'thumbnail' : '')}}" ng-style="::node.style"></b>
+			<span class="item-name" rename content-type="text" contenteditable="{{!!node.isRenaming}}" return-prevented="true" ng-model="node.name" title="{{node.name}}">{{node.name}}</span>
+		</span>
+		<span class="item-path" ng-click="filesSrv.openNode(filesSrv.fsLookup[node.parentId],$event, '/fm/' + uiState.page.fmName + (uiState.page.fmName == 'folder' ? '/' + routeParams.nodeId + '/' + $routeParams.folderName : ''))">{{node.breadcrumbString}}</span>
+		<!-- <a class="item-path" ng-href="#!/fm/{{::uiState.page.fmName}}?nodeId={{::node.parentId}}&nodeType=1" ng-click="filesSrv.openNode(filesSrv.fsLookup[node.parentId],$event)">{{node.breadcrumbString}}</a> -->
+	</div>
+	<div class="col col-sm-1 col-md-1">{{::node.size | byteFormat}}</div>
+	<div class="col col-sm-1 col-md-1"><span ng-hide="::(node.type == 1)"><span>Tải: </span>{{::node.download}}</span></div>
+	<div class="col col-sm-3 col-md-3">{{::node.timeStamp | date:'dd/MM/yyyy - h:mma'}}</div>
+	<div class="col col-sm-1 col-md-2">
+		<span>{{::node.fileType}}</span>
+		<div class="node-props-wrap" ng-if="uiState.page.fmName != 'folder' && uiState.page.fmName != 'search'">
+			<i class="tl-icon-save-disk" ng-click="filesSrv.archive(node)"><b class="hint--bottom hint--rounded" data-hint="Lưu trữ"></b></i>
+			<i class="tl-icon-user" ng-click="filesSrv.setPrivate(node)"><b class="hint--bottom hint--rounded" data-hint="Riêng tư"></b></i>
+			<i class="tl-icon-key" ng-click="filesSrv.doLock(node)"><b class="hint--bottom hint--rounded" data-hint="Mật khẩu"></b></i>
+		</div>
+	</div>
+	<i class="tl-icon-link" ng-click="filesSrv.share(node)"><b class="hint--left hint--rounded" data-hint="Chia sẻ"></b></i>
+</li>
+
+
+<!-- <li class="row">
+	<label class="checkbox-wrap"><input type="checkbox" class="custom"><b class="fake-input"></b></label>
+	<div class="col col-sm-6 col-md-4"><a class="item-link" href="#"><b class="img thumbnail" style="background-image:url(img/example/example-thumb.jpg)"></b><span class="item-name">example-thumb.jpg</span></a></div>
+	<div class="col col-sm-2 col-md-2">112 KB</div>
+	<div class="col col-sm-2 col-md-2">21/04/2014 17:34:45</div>
+	<div class="col col-sm-2 col-md-1">JPEG Image</div>
+</li> -->

@@ -1,0 +1,368 @@
+$duration: 1.5s;
+$delay: .2s;
+$function: ease;
+$fill: both;
+$visibility: hidden;
+
+@import "properties";
+@import "bounce";
+// @import "bounceIn";
+// @import "bounceInDown";
+@import "bounceInLeft";
+// @import "bounceInRight";
+// @import "bounceInUp";
+// @import "bounceOut";
+// @import "bounceOutDown";
+// @import "bounceOutLeft";
+// @import "bounceOutRight";
+// @import "bounceOutUp";
+@import "fadeIn";
+@import "fadeInDown";
+// @import "fadeInDownBig";
+// @import "fadeInLeft";
+// @import "fadeInLeftBig";
+// @import "fadeInRight";
+// @import "fadeInRightBig";
+// @import "fadeInUp";
+// @import "fadeInUpBig";
+// @import "fadeOut";
+// @import "fadeOutDown";
+// @import "fadeOutDownBig";
+// @import "fadeOutLeft";
+// @import "fadeOutLeftBig";
+// @import "fadeOutRight";
+// @import "fadeOutRightBig";
+// @import "fadeOutUp";
+// @import "fadeOutUpBig";
+// @import "flash";
+// @import "flip";
+// @import "flipInX";
+// @import "flipInY";
+// @import "flipOutX";
+// @import "flipOutY";
+// @import "hinge";
+// @import "lightSpeedIn";
+// @import "lightSpeedOut";
+@import "pulse";
+// @import "rollIn";
+// @import "rollOut";
+// @import "rotateIn";
+// @import "rotateInDownLeft";
+// @import "rotateInDownRight";
+// @import "rotateInUpLeft";
+// @import "rotateInUpRight";
+// @import "rotateOut";
+// @import "rotateOutDownLeft";
+// @import "rotateOutDownRight";
+// @import "rotateOutUpLeft";
+// @import "rotateOutUpRight";
+// @import "shake";
+// @import "swing";
+@import "tada";
+// @import "wiggle";
+// @import "wobble";
+
+%bounce {
+	@include bounce($duration, $delay, $function, $fill, $visibility);
+}
+// .bounceIn {
+// 	@include bounceIn($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceInDown {
+// 	@include bounceInDown($duration, $delay, $function, $fill, $visibility);
+// }
+%bounceInLeft {
+	@include bounceInLeft($duration, $delay, $function, $fill, $visibility);
+}
+// %bounceInRight {
+// 	@include bounceInRight(2s, $delay, $function, $fill, $visibility);
+// }
+// %bounceInUp {
+// 	@include bounceInUp($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceOut {
+// 	@include bounceOut($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceOutDown {
+// 	@include bounceOutDown($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceOutLeft {
+// 	@include bounceOutLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceOutRight {
+// 	@include bounceOutRight($duration, $delay, $function, $fill, $visibility);
+// }
+// .bounceOutUp {
+// 	@include bounceOutUp($duration, $delay, $function, $fill, $visibility);
+// }
+%fadeIn {
+	@include fadeIn($duration, $delay, $function, $fill, $visibility);
+}
+%fadeInDown {
+	@include fadeInDown(.5s, .1s, $function, $fill, $visibility);
+}
+// .fadeInDownBig {
+// 	@include fadeInDownBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeInLeft {
+// 	@include fadeInLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeInLeftBig {
+// 	@include fadeInLeftBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeInRight {
+// 	@include fadeInRight($duration, $delay, $function, $fill, $visibility);
+// }
+// %fadeInRightBig {
+// 	@include fadeInRightBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeInUp {
+// 	@include fadeInUp($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeInUpBig {
+// 	@include fadeInUpBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOut {
+// 	@include fadeOut($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutDown {
+// 	@include fadeOutDown($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutDownBig {
+// 	@include fadeOutDownBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutLeft {
+// 	@include fadeOutLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutLeftBig {
+// 	@include fadeOutLeftBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutRight {
+// 	@include fadeOutRight($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutRightBig {
+// 	@include fadeOutRightBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutUp {
+// 	@include fadeOutUp($duration, $delay, $function, $fill, $visibility);
+// }
+// .fadeOutUpBig {
+// 	@include fadeOutUpBig($duration, $delay, $function, $fill, $visibility);
+// }
+// .flash {
+// 	@include flash($duration, $delay, $function, $fill, $visibility);
+// }
+// %flip {
+// 	@include flip($duration, $delay, $function, $fill, $visibility);
+// }
+// .flipInX {
+// 	@include flipInX($duration, $delay, $function, $fill, $visibility);
+// }
+// .flipInY {
+// 	@include flipInY($duration, $delay, $function, $fill, $visibility);
+// }
+// .flipOutX {
+// 	@include flipOutX($duration, $delay, $function, $fill, $visibility);
+// }
+// .flipOutY {
+// 	@include flipOutY($duration, $delay, $function, $fill, $visibility);
+// }
+// .hinge {
+// 	@include hinge($duration, $delay, $function, $fill, $visibility);
+// }
+// .lightSpeedIn {
+// 	@include lightSpeedIn($duration, $delay, $fill, $visibility);
+// }
+// .lightSpeedOut {
+// 	@include lightSpeedOut($duration, $delay, $fill, $visibility);
+// }
+%pulse {
+	@include pulse($duration, $delay, $function, $fill, $visibility);
+}
+// %rollIn {
+// 	@include rollIn($duration, $delay, $function, $fill, $visibility);
+// }
+// .rollOut {
+// 	@include rollOut($duration, $delay, $function, $fill, $visibility);
+// }
+// %rotateIn {
+// 	@include rotateIn($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateInDownLeft {
+// 	@include rotateInDownLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateInDownRight {
+// 	@include rotateInDownRight($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateInUpLeft {
+// 	@include rotateInUpLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// %rotateInUpRight {
+// 	@include rotateInUpRight(.2s, $delay, $function, $fill, $visibility);
+// }
+// .rotateOut {
+// 	@include rotateOut($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateOutDownLeft {
+// 	@include rotateOutDownLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateOutDownRight {
+// 	@include rotateOutDownRight($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateOutUpLeft {
+// 	@include rotateOutUpLeft($duration, $delay, $function, $fill, $visibility);
+// }
+// .rotateOutUpRight {
+// 	@include rotateOutUpRight($duration, $delay, $function, $fill, $visibility);
+// }
+// .shake {
+// 	@include shake($duration, $delay, $function, $fill, $visibility);
+// }
+// .swing {
+// 	@include swing($duration, $delay, $function, $fill, $visibility);
+// }
+%tada {
+	@include tada($duration, $delay, $function, $fill, $visibility);
+}
+// %wiggle {
+// 	@include wiggle($duration, $delay, $function, $fill, $visibility);
+// }
+// %wobble {
+// 	@include wobble($duration, $delay, $function, $fill, $visibility);
+// }
+
+
+
+// Thuyet
+%spinner{
+	// @include animation(spinner 1s ($delay + $duration + .2s));
+	@include animation(spinner 1s 0s);
+	@include fill-mode(both);
+	@include animation-iteration-count(infinite);
+	@include animation-timing-function(linear);
+}
+@include keyframes(spinner) {
+	0% {
+		@include transform(rotate(0deg));
+	}
+	100% {
+		@include transform(rotate(360deg));
+	}
+}
+
+
+%slideInRight{
+	@include animation(slideInRight 1s 0);
+	@include fill-mode(backwards);
+	// @include visibility($visibility);
+}
+%slideInRightLate{
+	@include animation(slideInRight $duration/1.5 ($delay));
+	@include fill-mode(backwards);
+	// @include visibility($visibility);
+}
+@include keyframes(slideInRight) {
+	0% {@include transform(translate3d(2000px,0,0))}
+	100% {@include transform(translate3d(0,0,0))}
+}
+
+
+%resize{
+	.desktop &:hover{
+		@include animation(resize 0.2s linear);
+	}
+}
+
+@include keyframes(resize) {
+	0% {
+		@include transform(scale3d(1, 1, 1));
+	}
+	50% {
+		@include transform(scale3d(1.1, 0.9, 1));
+	}
+	100% {
+		@include transform(scale3d(1, 1, 1));
+	}
+}
+
+
+// Sun-shine
+// %sun-shine{
+// 		// @include animation(sun-shine 1s ($delay + $duration + .2s));
+// 		@include animation(sun-shine 1s .8s);
+// 		@include fill-mode(both);
+
+// }
+// @include keyframes(sun-shine) {
+// 	0% {
+// 		// opacity: .15;
+// 		@include transform(scaleX(1));
+// 	}
+// 	50% {
+// 		// opacity: .2;
+// 		@include transform(scaleX(2));
+// 	}
+// 	100% {
+// 		// opacity: .15;
+// 		@include transform(scaleX(1));
+// 	}
+// }
+
+%scale-roll{
+	@include animation(scale-roll .3s $delay);
+	@include fill-mode(both);
+}
+@-webkit-keyframes scale-roll {
+	0% { opacity: 0; -webkit-transform: translate3d(-500%,350%,0) rotate(-120deg) scale(10);}
+	100% { opacity: 1; -webkit-transform: translate3d(0px,0px,0) rotate(0deg) scale(1);}
+}
+@-moz-keyframes scale-roll {
+	0% { opacity: 0; -moz-transform: translate3d(-500%,350%,0) rotate(-120deg) scale(10);}
+	100% { opacity: 1; -moz-transform: translate3d(0px,0px,0) rotate(0deg) scale(1);}
+}
+@-ms-keyframes scale-roll {
+	0% { opacity: 0; -ms-transform: translate3d(-500%,350%,0) rotate(-120deg) scale(10);}
+	100% { opacity: 1; -ms-transform: translate3d(0px,0px,0) rotate(0deg) scale(1);}
+}
+@-o-keyframes scale-roll {
+	0% { opacity: 0; -o-transform: translate3d(-500%,350%,0) rotate(-120deg) scale(10);}
+	100% { opacity: 1; -o-transform: translate3d(0px,0px,0) rotate(0deg) scale(1);}
+}
+@keyframes scale-roll {
+	0% { opacity: 0; transform: translate3d(-500%,350%,0) rotate(-120deg) scale(10);}
+	100% { opacity: 1; transform: translate3d(0px,0px,0) rotate(0deg) scale(1);}
+}
+
+// %scale-in{
+// 	@include animation(scale-in .3s .05s);
+// 	@include fill-mode(both);
+// }
+// @include keyframes(scale-in) {
+// 	0% {
+// 		opacity: 0;
+// 		@include transform(scale(.8));
+// 	}
+// 	100%{
+// 		opacity: 1;
+// 		@include transform(scale(1));
+// 	}
+// }
+
+// %fade-in-out{
+// 	@include animation(fade-in-out 1.5s);
+// 	@include fill-mode(both);
+// }
+// @include keyframes(fade-in-out) {
+// 	0% {
+// 		opacity: 0;
+// 		visibility: hidden;
+// 	}
+// 	50%{
+// 		opacity: 1;
+// 		visibility: visible;
+// 	}
+// 	100%{
+// 		opacity: 0;
+// 		visibility: hidden;
+// 	}
+// }

@@ -1,0 +1,25 @@
+<form class="do-lock-modal" name="doLockForm" ng-submit="ok(doLockForm)" novalidate="">
+<!-- <div class="do-lock-modal"> -->
+	<div class="modal-header">
+		<h2 class="modal-title"><i class="tl-icon-key"></i>
+			<span>Xác lập mật khẩu</span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-12 message" ng-if="modalMessage" ng-bind-html="modalMessage"></div>
+		</div>
+		<div class="row content">
+			<div class="col col-sm-12">
+				<p>Hãy nhập mật khẩu mới cho {{::filesSrv.sNodeType(node)}} <strong>{{::node.name}}</strong>.<br>Nếu để trống, mật khẩu sẽ được gỡ bỏ.</p>
+				<input class="form-control" type="password" id="nodePassword" name="nodePassword" ng-model="node.password" placeholder="Mật khẩu" maxlength="{{passwordMaxLength}}">
+				<!-- <label class="checkbox-wrap"><input type="checkbox" class="custom" ng-model="node.lock"><b class="fake-input"></b> Xác nhận dùng mật khẩu trên</label> -->
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" ng-if="!isEnterNewPassword">
+		<a class="btn btn-md btn-default btn-remove" ng-click="removePassword()" ng-if="node.lock">Bỏ mật khẩu</a>
+		<button class="btn btn-md btn-success" type="submit">Lưu</button>
+		<a class="btn btn-md btn-default" ng-click="cancel()">Thôi</a>
+	</div>
+</form>

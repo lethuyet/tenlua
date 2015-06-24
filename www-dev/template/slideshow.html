@@ -1,0 +1,35 @@
+<div id="Slideshow" ng-class="{single: uiState.page.name == 'download' || !filesSrv.currentNodesList || !filesSrv.currentNodesList.slideShowingNodes || filesSrv.currentNodesList.slideShowingNodes.length <= 1}">
+	<div class="header">
+		<a class="navbar-brand" href="#!/"><span class="logo"></span><b>tenlua.vn</b></a>
+		<span class="btn btn-success btn-xs" ng-click="filesSrv.goToDownload(filesSrv.slideShowingNode)"><i class="icon tl-icon-download"></i> <span class="icon-label">Tải về</span></span>
+		<a class="btn btn-success btn-xs" ng-click="filesSrv.share(filesSrv.slideShowingNode)"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+		<a class="btn btn-default btn-xs" ng-if="authSrv.isAuthenticated()"><i class="icon tl-icon-file-manager"></i> <span class="icon-label">Quản lý file</span></a>
+		<!-- <a class="btn btn-default btn-xs" ng-if="authSrv.isAuthenticated()"><i class="icon tl-icon-save-disk"></i> <span class="icon-label">Lưu cá nhân</span></a> -->
+		<span class="pipe">|</span>
+		<span class="hint--bottom hint--rounded" data-hint="Toàn màn hình" ng-if="!uiState.fullscreen" ng-click="uiState.goFullscreen()"><i class="tl-icon-screen-full"></i></span>
+		<span class="hint--bottom hint--rounded" data-hint="Màn hình thường" ng-if="uiState.fullscreen" ng-click="uiState.exitFullscreen()"><i class="tl-icon-screen-normal"></i></span>
+		<span class="hint--bottom hint--rounded" data-hint="Thoát" ng-click="filesSrv.closeSlideshow()"><i class="tl-icon-delete"></i></span>
+	</div>
+	<!-- <div class="preview" ng-style="filesSrv.slideShowingNode.viewingImage || filesSrv.slideShowingNode.image ? {'background-image': filesSrv.slideShowingNode.viewingImage ? 'url(' + filesSrv.slideShowingNode.viewingImage + '), url(' + filesSrv.slideShowingNode.image + ')' : 'url(' + filesSrv.slideShowingNode.image + ')'} : ''" hm-swipeleft="showNextNode()" hm-swiperight="showPrevNode()"> -->
+	<div class="preview" ng-style="filesSrv.slideShowingNode.viewingImage || filesSrv.slideShowingNode.image ? {'background-image': filesSrv.slideShowingNode.viewingImage ? 'url(' + filesSrv.slideShowingNode.viewingImage + '), url(' + filesSrv.slideShowingNode.image + ')' : 'url(' + filesSrv.slideShowingNode.image + ')'} : ''">
+		<div id='{{jwplayerId}}'></div>
+		<iframe ng-src="{{docSrc}}" ng-if="docSrc" frameborder="0" allowtransparency="true" width="100%" height="100%"></iframe>
+		<div class="caption">
+			<div class="title"><i class="tl-icon-music"></i> {{filesSrv.slideShowingNode.name}}</div>
+			<div class="paging">{{filesSrv.indexOfSlideShowingNode() + 1}} trên {{filesSrv.currentNodesList.slideShowingNodes.length}}</div>
+		</div>
+	</div>
+	<div class="arrows-wrap">
+		<span class="arrow prev" ng-click="showPrevNode()"><i class="tl-icon-angle-left" ng-if="filesSrv.indexOfSlideShowingNode() > 0"></i></span>
+		<span class="arrow next" ng-click="showNextNode()"><i class="tl-icon-angle-right" ng-if="filesSrv.indexOfSlideShowingNode() > -1 && filesSrv.indexOfSlideShowingNode() < filesSrv.currentNodesList.slideShowingNodes.length - 1"></i></span>
+		<!-- <span class="arrow prev"><i class="tl-icon-angle-left" ng-if="filesSrv.indexOfSlideShowingNode() > 0"></i></span>
+		<span class="arrow next"><i class="tl-icon-angle-right" ng-if="filesSrv.indexOfSlideShowingNode() > -1 && filesSrv.indexOfSlideShowingNode() < filesSrv.currentNodesList.slideShowingNodes.length - 1"></i></span> -->
+	</div>
+	<div class="info"></div>
+	<div class="film-strip overthrow">
+		<div class="film-strip-inner" ng-if="slideshowHasItem() && !filesSrv.isMusic(filesSrv.slideShowingNode) && !filesSrv.isDoc(filesSrv.slideShowingNode)">
+			<!-- <a ng-repeat="node in filesSrv.currentNodesList.slideShowingNodes" class="file-img _{{::node.ext}} {{node === filesSrv.slideShowingNode ? 'active' : ''}}" ng-class="::{thumbnail: node.image}" ng-style="::node.style" ng-click="filesSrv.openNode(node)"></a> -->
+			<span ng-repeat="node in ::filesSrv.currentNodesList.slideShowingNodes track by node.id" class="file-img _{{::node.ext}} {{node === filesSrv.slideShowingNode ? 'active' : ''}} {{::(node.image ? 'thumbnail' : '')}}" ng-style="::node.style" ng-click="showNode(node)" title="{{node.name}}"></span>
+		</div>
+	</div>
+</div>

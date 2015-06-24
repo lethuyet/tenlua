@@ -1,0 +1,32 @@
+<form class="report-file-modal" name="reportFileForm" ng-submit="ok(reportFileForm)" novalidate="">
+<!-- <div class="do-lock-modal"> -->
+	<div class="modal-header">
+		<h2 class="modal-title"><i class="tl-icon-flag"></i>
+			<span>Báo vi phạm</span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-sm-12 message" ng-if="modalMessage" ng-bind-html="modalMessage"></div>
+		</div>
+		<div class="row content">
+			<div class="col col-sm-12">
+				<div class="reasons-wrap">
+					<h3>Lý do vi phạm:</h3>
+					<label><input type="radio" id="" name="report" value="1" ng-model="reportType" class="custom" required=""><b class="fake-input"></b> Vi phạm bản quyền nội dung</label>
+					<label><input type="radio" id="" name="report" value="2" ng-model="reportType" class="custom" required=""><b class="fake-input"></b> Nội dung không lành mạnh</label>
+				</div>
+				<div class="sec-code form-group" ng-if="payment.name != 'sms' && (payment.name == 'voucher' || (payment.name != 'voucher' && !goldEnough))">
+					<label>Mã bảo mật:</label>
+					<img class="captcha" ng-src="{{captchaImg}}">
+					<input type="text" class="form-control" placeholder="Nhập mã bảo mật..." name="captcha" ng-model="captcha" required="" maxlength="100">
+				</div>
+				<!-- <label class="checkbox-wrap"><input type="checkbox" class="custom" ng-model="node.lock"><b class="fake-input"></b> Xác nhận dùng mật khẩu trên</label> -->
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" ng-if="!isEnterNewPassword">
+		<button class="btn btn-md btn-success" type="submit">OK</button>
+		<a class="btn btn-md btn-default" ng-click="cancel()">Thôi</a>
+	</div>
+</form>

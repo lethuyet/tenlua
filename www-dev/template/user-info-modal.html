@@ -1,0 +1,28 @@
+<form class="user-info-modal" name="userInfoForm" ng-submit="ok(userInfoForm)" novalidate>
+	<div class="modal-header">
+		<h2 class="modal-title"><i class="tl-icon-user"></i>
+			<span>Thông tin tài khoản</span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		<!-- <div class="row">
+			<div class="col-sm-12 message" ng-if="modalMessage" ng-bind-html="modalMessage"></div>
+		</div> -->
+		<!-- <div class="row content">
+			<div class="col col-sm-12">
+				<input class="form-control" type="password" id="nodePassword" name="nodePassword" ng-model="node.password" placeholder="Mật khẩu" maxlength="{{passwordMaxLength}}">
+			</div>
+		</div> -->
+
+		<tabset id="UserInfoModalTabs">
+			<tab ng-repeat="tab in userInfoModalTabs" active="tab.active" heading="{{tab.heading}}">
+				<div ng-include="tab.include" ng-if="tab.active"></div>
+			</tab>
+		</tabset>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-md btn-success" type="submit" ng-if="newPassword.value && userInfoModalTabs[0].active">Lưu thông tin</button>
+		<a class="btn btn-md btn-default" ng-click="cancel()">Đóng</a>
+	</div>
+</form>

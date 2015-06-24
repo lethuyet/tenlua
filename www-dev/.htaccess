@@ -1,0 +1,69 @@
+RewriteBase /
+RewriteCond %{HTTP_HOST} !^www.tenlua.vn$ [NC]
+RewriteRule ^(.*)$ http://www.tenlua.vn/$1 [L,R=301]
+#order deny,allow
+#deny from all
+#allow from 203.162.100.19
+#Gzip file
+AddType image/svg+xml .svg
+AddType application/x-font-ttf .ttf
+AddType application/x-font-woff .woff
+AddType application/x-font-opentype .otf
+AddType application/vnd.ms-fontobject .eot
+AddType video/mp4 .mp4
+<IfModule mod_deflate.c>
+	# compress text, html, javascript, css, xml:
+	AddOutputFilterByType DEFLATE text/plain
+	AddOutputFilterByType DEFLATE text/html
+	AddOutputFilterByType DEFLATE text/xml
+	AddOutputFilterByType DEFLATE text/css
+	AddOutputFilterByType DEFLATE application/xml
+	AddOutputFilterByType DEFLATE application/xhtml+xml
+	AddOutputFilterByType DEFLATE application/rss+xml
+	AddOutputFilterByType DEFLATE application/javascript
+	AddOutputFilterByType DEFLATE text/javascript
+	AddOutputFilterByType DEFLATE application/x-javascript
+	#compress json
+	AddOutputFilterByType DEFLATE application/json
+	# compress fonts:
+	# no need to compress WOFF font
+	#AddOutputFilterByType DEFLATE application/x-font-woff
+	AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+	AddOutputFilterByType DEFLATE application/x-font-ttf
+	AddOutputFilterByType DEFLATE image/svg+xml
+
+	 # Dont't compress media files
+ 	SetEnvIf Request_URI ^/play_sound.php(.*) no-gzip dont-vary
+ 	SetEnvIf Request_URI ^/play_video.php(.*) no-gzip dont-vary
+	# End Dont't compress media files
+	<Files glow.zip>
+		SetOutputFilter DEFLATE
+	</Files>
+</IfModule>
+#End Gzip file
+<Files ~ "\.(zip|)$">
+  order allow,deny
+  allow from all
+</Files>
+
+
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} -s [OR]
+#RewriteCond %{REQUEST_FILENAME} -l [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^.*$ index.php [NC,L]
+
+
+RewriteEngine on
+
+# Don't rewrite files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^social-share/([^/]*)-([^/]*)$ share.php?nodeId=$2 [NC,L,B]
+
+RewriteRule ^([^/]*)-([^/]*)/?$ rewrite-old-url-download.php?node=$2&slug=$1 [NC,L,B]
+
+
+# Rewrite everything else to index.php to allow html5 state links
+RewriteRule ^ index.php [L]

@@ -1,0 +1,106 @@
+<div class="login-modal">
+	<div class="modal-header">
+		<h2 class="modal-title" ng-if="!isActivationLink && !isForgotPassword && !isEnterNewPassword"><i class="tl-icon-login" ng-class="{'tl-icon-login': !isSignUpModal, 'tl-icon-pencil': isSignUpModal}"></i>
+			<span ng-if="!isSignUpModal">Đăng nhập</span>
+			<span ng-if="isSignUpModal">Đăng ký</span>
+		</h2>
+		<h2 class="modal-title" ng-if="isActivationLink">
+			<span>Gửi lại mail kích hoạt</span>
+		</h2>
+		<h2 class="modal-title" ng-if="isForgotPassword">
+			<span>Quên mật khẩu</span>
+		</h2>
+		<h2 class="modal-title" ng-if="isEnterNewPassword">
+			<span>Đổi mật khẩu</span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		<div class="row" ng-if="authSrv.loginMessage">
+			<div class="col-sm-12 message" ng-if="authSrv.loginMessage" ng-bind-html="authSrv.loginMessage"></div>
+		</div>
+		<div class="row" ng-if="!isActivationLink && !isForgotPassword && !isEnterNewPassword">
+			<div class="col col-sm-7">
+				<div ng-if="!isSignUpModal" class="content">
+					<h3>Dùng tài khoản tenlua.vn:</h3>
+					<form name="loginForm" action="sink.html" target="sink" method="post" ng-submit="login(loginForm)" novalidate form-autofill-fix>
+						<input type="email" id="email" name="email" ng-model="user.email" placeholder="Email" required maxlength="100">
+						<input type="password" id="password" name="password" ng-model="user.password" placeholder="Mật khẩu" required maxlength="1000">
+						<div class="check-wrap">
+							<label for="login-remembered"><input type="checkbox" id="login-remembered" ng-model="user.loginRemembered" class="custom"><b class="fake-input"></b> Tự đăng nhập lần sau</label>
+						</div>
+						<div class="btn-wrap"><button type="submit" class="btn btn-success btn-sm">Đăng nhập</button></div>
+					</form>
+				</div>
+				<div ng-if="isSignUpModal && userSignup.captchaImg" class="content">
+					<h3>Tài khoản tenlua.vn mới:</h3>
+					<form name="signupForm" action="sink.html" target="sink" method="post" ng-submit="signup(signupForm)" novalidate form-autofill-fix>
+						<input type="text" id="name" name="name" ng-model="userSignup.name" placeholder="Họ tên" required maxlength="100">
+						<input type="email" id="email" name="email" ng-model="userSignup.email" placeholder="Email" required maxlength="100">
+						<input type="password" id="password" name="password" ng-model="userSignup.password" placeholder="Mật khẩu" required maxlength="1000">
+						<div class="sec-code form-group">
+							<label>Mã bảo mật:</label>
+							<img class="captcha" ng-src="{{userSignup.captchaImg}}">
+							<input type="text" class="form-control" placeholder="Nhập mã bảo mật..." name="captcha" ng-model="userSignup.captcha" required maxlength="100">
+						</div>
+						<div class="check-wrap">
+							<label for="term-accepting"><input type="checkbox" id="term-accepting" name="termAccepted" ng-model="userSignup.termAccepted" class="custom" required ><b class="fake-input"></b> Đồng ý với</label>
+							<a href="">điều khoản của tenlua.vn</a>
+						</div>
+						<div class="btn-wrap"><button type="submit" class="btn btn-success btn-sm">Đăng ký</button></div>
+					</form>
+				</div>
+			</div>
+			<div class="col col-sm-5">
+				<h3>Hoặc thông qua:</h3>
+				<div class="oauth-buttons-wrap">
+					<a href="#" ng-click="modalWin('facebook', null, $event)" target="_blank" class="facebook"></a>
+					<a href="#" ng-click="modalWin('google', null, $event)" target="_blank" class="google"></a>
+					<a href="#" ng-click="modalWin('yahoo', null, $event)" target="_blank" class="yahoo"></a>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row content" ng-if="isActivationLink">
+			<div class="col col-sm-12">
+				<form name="activationLinkForm" ng-submit="resendActivationLink(activationLinkForm)" novalidate>
+					<p>Hãy nhập địa chỉ email bạn đã đăng ký với tenlua.vn để chúng tôi gửi lại thông tin kích hoạt tài khoản.</p>
+					<input type="email" id="email" name="email" ng-model="activationLink.email" placeholder="Email" required maxlength="100">
+					<div class="btn-wrap"><button type="submit" class="btn btn-success btn-sm">Gửi yêu cầu</button></div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row content" ng-if="isForgotPassword">
+			<div class="col col-sm-12">
+				<form name="forgotPasswordForm" ng-submit="resendPassword(forgotPasswordForm)" novalidate>
+					<p>Hãy nhập địa chỉ email bạn đã đăng ký với tenlua.vn để chúng tôi gửi bản hướng dẫn đổi mật khẩu.</p>
+					<input type="email" id="email" name="email" ng-model="forgotPassword.email" placeholder="Email" required maxlength="100">
+					<div class="btn-wrap"><button type="submit" class="btn btn-success btn-sm">Gửi yêu cầu</button></div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row content" ng-if="isEnterNewPassword">
+			<div class="col col-sm-12">
+				<form name="enterNewPasswordForm" ng-submit="sendNewPassword(enterNewPasswordForm)" novalidate>
+					<p>Hãy nhập mật khẩu mới mà bạn muốn áp dụng.</p>
+					<input type="password" id="password" name="password" ng-model="newPassword.password" placeholder="Nhập mật khẩu mới" required maxlength="100">
+					<input type="password" id="passwordConfirm" name="passwordConfirm" ng-model="newPassword.confirm" placeholder="Nhập lại mật khẩu mới" required maxlength="100">
+					<div class="btn-wrap"><button type="submit" class="btn btn-success btn-sm">Áp dụng</button></div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer" ng-if="!isEnterNewPassword">
+		<div class="signup" ng-if="!isSignUpModal">Bạn chưa có tài khoản? <b><a href="" ng-click="changeView('signup', $event)">Đăng ký ngay</a></b></div>
+		<div class="login"  ng-if="isSignUpModal">Bạn đã có tài khoản? <b><a href="" ng-click="changeView('login', $event)">Đăng nhập</a></b></div>
+		<div class="links">
+			<a ng-if="!isSignUpModal" href="" ng-click="changeView('activationLink', $event)">Gửi lại mail kích hoạt</a>
+			<a ng-if="!isSignUpModal" href="" ng-click="changeView('forgotPassword', $event)">Quên mật khẩu?</a>
+		</div>
+		<!-- <button class="btn btn-lg btn-success" ng-click="ok()">Login</button> -->
+		<!-- <button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button> -->
+	</div>
+</div>

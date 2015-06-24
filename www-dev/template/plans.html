@@ -1,0 +1,97 @@
+<div class="view-wrapper" id="Plans">
+	<div class="container-fluid">
+		<div class="main">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<ul class="upgrade-progress clearfix _3">
+						<li class="active"><b></b><span>Chọn dịch vụ</span></li>
+						<li><b></b><span>Đăng ký tài khoản</span></li>
+						<li><b></b><span>Thanh toán</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-4 paper-box-wrap">
+					<div class="paper-box" ng-class="{disabled: authSrv.isAuthenticated()}">
+						<h2>Free</h2>
+						<div class="img free"></div>
+						<strong class="price original">&nbsp;</strong>
+						<strong class="price">Miễn phí</strong>
+						<button class="btn btn-lg btn-success" ng-disabled="authSrv.isAuthenticated()" ng-click="startFree()">Bắt đầu</button>
+						<div class="paper-box-inner">
+							<ul>
+								<li ng-repeat="item in features.free"><i class="tl-icon-check"></i>{{item.benefit}}</li>
+								<!-- <li><i class="tl-icon-check"></i>Tốc độ bình thường</li>
+								<li><i class="tl-icon-check"></i>Xóa file sau 15 ngày</li>
+								<li><i class="tl-icon-check"></i>Lượng file tải: 1 file</li>
+								<li><i class="tl-icon-check"></i>Thời gian chờ tải: {{timeWaitToDownload}} giây</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-4 paper-box-wrap">
+					<div class="paper-box" ng-class="{discount: features.gold[0]['price-discount'] > 0}">
+						<div class="discount-tag">
+							<span><b>{{features.gold[0]['price-discount']}}% <i>Off</i></b></span>
+						</div>
+						<h2>Gold</h2>
+						<div class="img gold"></div>
+						<strong class="price original" ng-class="{shown: features.gold[0]['price-original'] > features.gold[0]['price']}">{{features.gold[0]['price-original'] | number}} {{features.gold[0]['price-unit']}} / {{features.gold[0]['price-time']}}</strong>
+						<strong class="price">{{features.gold[0].price | number}} {{features.gold[0]['price-unit']}} / {{features.gold[0]['price-time']}}</strong>
+						<button class="btn btn-success btn-lg" ng-click="startGold()">Nâng cấp</button>
+						<div class="paper-box-inner">
+							<ul>
+								<li ng-repeat="item in features.gold"><i class="tl-icon-check"></i>{{item.benefit}}</li>
+								<!-- <li><i class="tl-icon-check"></i>Tốc độ tối đa</li>
+								<li><i class="tl-icon-check"></i>File không bị xóa</li>
+								<li><i class="tl-icon-check"></i>Lượng file tải: không giới hạn</li>
+								<li><i class="tl-icon-check"></i>Thời gian chờ tải: 0 giây</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-4 paper-box-wrap {{features.lifetime[0]['status']}}">
+					<div class="paper-box" ng-class="{discount: features.lifetime[0]['price-discount'] > 0}">
+						<div class="discount-tag">
+							<span><b>{{features.lifetime[0]['price-discount']}}% <i>Off</i></b></span>
+						</div>
+						<h2>Life-Time</h2>
+						<div class="img lifetime"></div>
+						<strong class="price original" ng-class="{shown: features.lifetime[0]['price-original'] > features.lifetime[0]['price']}">{{features.lifetime[0]['price-original'] | number}} {{features.lifetime[0]['price-unit']}} / {{features.lifetime[0]['price-time']}}</strong>
+						<strong class="price">{{features.lifetime[0].price | number}} {{features.lifetime[0]['price-unit']}} / {{features.lifetime[0]['price-time']}}</strong>
+						<button class="btn btn-success btn-lg" ng-click="startLifetime()">Nâng cấp</button>
+						<div class="paper-box-inner">
+							<ul>
+								<li ng-repeat="item in features.lifetime"><i class="tl-icon-check"></i>{{item.benefit}}</li>
+								<!-- <li><i class="tl-icon-check"></i>Tốc độ tối đa</li>
+								<li><i class="tl-icon-check"></i>File không bị xóa</li>
+								<li><i class="tl-icon-check"></i>Lượng file tải: không giới hạn</li>
+								<li><i class="tl-icon-check"></i>Thời gian chờ tải: 0 giây</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12 btn-voucher-wrap">
+					<a class="btn btn-lg btn-warning" href="#!/payment/gold">Nạp Voucher</a>
+				</div>
+			</div>
+
+			<div class="row services-compare overthrow">
+				<div class="col-sm-12">
+					<h2>Chính sách các gói dịch vụ</h2>
+					<ng-include src="'/services-compare.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+		<!-- /.main -->
+	</div>
+	<!-- /.container-fluid -->
+</div>

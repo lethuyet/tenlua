@@ -1,0 +1,98 @@
+.share-modal{
+	.modal-title{
+		strong{
+			font-weight: bold;
+			font-family: Arial, Tahoma, Verdana;
+		}
+	}
+
+	.modal-body{
+		text-align: center;
+		.input-group{
+			// margin-top: .3em;
+			width: 100%;
+			.input-group-btn{
+				display: none;
+			}
+			.btn{
+				font-size: 16px;
+				height: 44px;
+				&.btn-success{
+					background-color: $brand-success !important;
+				}
+				&.zeroclipboard-is-hover:not([disabled=true]){
+					background-color: $brand-warning-hot;
+				}
+			}
+			&.zeroclipboard-button-ready{
+				.input-group-btn{
+					display: table-cell;
+				}
+				.form-control{
+					border-radius: 50em 0 0 50em;
+				}
+			}
+		}
+		.form-control{
+			text-align: center;
+			height: 44px;
+			position: relative;
+			// top: 1px;
+			top: 0;
+			cursor: default;
+			font-size: 1.1em;;
+			// margin-top: .2em;
+			margin-top: 0;
+			border-radius: 50em;
+			// border-radius: 50em 0 0 50em;
+			//background-color: $brand-success-lighter;
+		}
+		.social-links{
+			margin-top: 1em;
+			text-align: center;
+			a{
+				display: inline-block;
+				cursor: pointer;
+			}
+			i{
+				display: inline-block;
+				font-size: 1.4em;
+				padding: .4em;
+				width: 2em;
+				height: 2em;
+				text-align: center;
+				color: white;
+				overflow: hidden;
+				border-radius: 50%;
+				@include transition(all .2s);
+				@extend %no-flick;
+				&:hover{
+					@include transform(scale(1.1));
+				}
+			}
+			.tl-icon-facebook{
+				background-color: #244a95;
+			}
+			.tl-icon-twitter{
+				background-color: #2bbfe3;
+			}
+			.tl-icon-google-plus{
+				background-color: #de0b11;
+			}
+			.tl-icon-letter-mail{
+				background-color: #999;
+			}
+			.tl-icon-zing{
+				background-color: rgb(0,160,224);
+				// @include filter-gradient(#00a0e0, #ff0084, horizontal);
+				@include background-image(linear-gradient(left,  rgba(0,160,224,1) 0%,rgba(0,160,224,1) 13%,rgba(0,160,224,1) 25%,rgba(131,219,0,1) 26%,rgba(131,219,0,1) 38%,rgba(131,219,0,1) 50%,rgba(131,219,0,1) 50%,rgba(252,197,0,1) 51%,rgba(252,197,0,1) 63%,rgba(252,197,0,1) 75%,rgba(255,0,132,1) 76%,rgba(255,0,132,1) 88%,rgba(255,0,132,1) 100%));
+				text-shadow: 0 0 3px rgba(black, .5);
+				&:before{
+					font-family: Verdana, Arial, Tahoma !important;
+					content: "Z";
+					font-weight: bold !important;
+				}
+			}
+		}
+	}
+}

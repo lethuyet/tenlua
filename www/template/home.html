@@ -1,0 +1,84 @@
+<div class="view-wrapper" id="Home" home-parallax="">
+	<section id="welcome">
+		<b class="bg"></b>
+		<div home-side-nav="1"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-md-push-6 start-upload-wrap">
+					<a href="#!/plans" class="start-upload">
+						<!-- <input type="file" id="StartUploadField" name="StartUploadField" class="hidden" multiple> -->
+						<!-- <div flow-btn></div> -->
+						<span class="low-layer"></span>
+						<!-- <i class="tl-icon-rocket"></i> -->
+						<span class="logo"></span>
+						<!-- <span class="cursor"><i class="tl-icon-file-text"></i><i class="tl-icon-file-text"></i></span> -->
+						<span class="hand"></span>
+					</a>
+					<!-- <p class="help"><b>Hãy thử ngay!</b><br>Nhấn biểu tượng tenlua.vn để chọn file cần upload<span class="drag-drop">,<br> hoặc kéo thả file<span ng-if="$flow.supportDirectory">&nbsp;/&nbsp;folder</span> từ máy tính vào trang để bắt đầu upload.</span></p> -->
+				</div>
+				<div class="col-md-6 col-md-pull-6 text-block">
+					<h1 class="clearfix"><span>Dịch vụ lưu trữ</span> <span>và chia sẻ dữ liệu</span> <span>tốc độ cao!</span></h1>
+					<a href="#!/plans" class="btn btn-success">Bắt đầu ngay</a>
+					<a class="btn btn-default view-more">Tìm hiểu thêm</a>
+					<!-- <a href="" class="btn btn-default">Tìm hiểu thêm</a> -->
+				</div>
+			</div>
+		</div>
+		<i class="page-down-arrow tl-icon-chevron-down"></i>
+	</section>
+
+	<section id="fm">
+		<b class="bg"></b>
+		<div home-side-nav="2"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-block">
+						<h2>Trình quản lý file siêu việt!</h2>
+						<p class="desc">Lưu trữ và quản lý bộ sưu tập ảnh, nhạc, video và tài liệu của bạn mọi lúc mọi nơi.<br>Hãy đăng ký để có ngay <b>51GB lưu trữ miễn phí</b>!</p>
+					</div>
+					<div class="ipad"></div>
+					<div class="bee-cells-wrap">
+						<b class="empty"></b><b></b><b></b><b></b><b></b><b></b><b class="empty"></b><b class="empty"></b>
+					</div>
+				</div>
+			</div>
+		</div>
+		<i class="page-down-arrow tl-icon-chevron-down"></i>
+	</section>
+
+	<section id="share">
+		<b class="bg"></b>
+		<div home-side-nav="3"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-block">
+						<h2>Chia sẻ kho nội dung số</h2>
+						<p class="desc">Chia sẻ file, thư mục, album ảnh hoặc bộ sưu tập video. Gửi liên kết đến bạn bè qua email hoặc mạng xã hội.<br>Với tenlua.vn, bạn bè có thể chia sẻ và thưởng thức kho nội dung số <b>ngay trên trình duyệt web</b>!</p>
+					</div>
+					<div class="share-img"></div>
+				</div>
+			</div>
+		</div>
+		<i class="page-down-arrow tl-icon-chevron-down"></i>
+	</section>
+
+	<section id="anytime">
+		<b class="bg"></b>
+		<div home-side-nav="4"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="text-block">
+						<h2>Mọi lúc mọi nơi, trên mọi thiết bị</h2>
+					</div>
+					<div class="devices-img"></div>
+					<a href="#!/plans" class="btn btn-success btn-lg">Bắt đầu ngay</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<ng-include src="'template/app-footer.html'" ng-if="!uiState.page.name"></ng-include>
+</div>

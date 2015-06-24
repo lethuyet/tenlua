@@ -1,0 +1,70 @@
+<form class="payment-methods-modal" name="paymentForm" ng-submit="ok($event)" novalidate="">
+	<div class="modal-header" ng-init="setForm(paymentForm);">
+		<h2 class="modal-title">Thanh toán - {{paymentNames[payment.name]}}</h2>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<!-- <div class="spinner-wrap" ng-if="payment.name != 'sms' && (goldEnough === null || goldTransfering)"><i class="tl-icon-spinner"></i></div> -->
+			<div class="spinner-wrap" ng-show="gettingGoldInfo || goldTransfering || submiting"><i class="tl-icon-spinner"></i></div>
+			<div class="col-sm-12" ng-show="payment.name == 'sms' || payment.name == 'voucher' || (goldEnough !== null && !gettingGoldInfo)">
+
+				<div class="gold-status" ng-class="{warning: !goldEnough, success: goldEnough}" ng-show="payment.name != 'voucher' && payment.name != 'sms'">
+					<div ng-show="!goldEnough">
+						Bạn đang có <strong>{{goldCount}} GOLD</strong>, bạn cần thêm <strong>{{moreGold}} GOLD</strong> (tương ứng <strong>{{moreMoney | number}} {{moneyUnit}}</strong>) để mua <strong>{{textDays}}</strong>.
+						<label><input type="checkbox" ng-model="formData.autoGoldTransfer"> Tự chuyển GOLD thành ngày sử dụng</label>
+					</div>
+					<div ng-show="goldEnough">
+						Bạn đang có <strong>{{goldCount}} GOLD</strong>, đủ để mua <strong>{{textDays}}</strong> (chỉ cần <strong>{{needGold}} GOLD</strong>) <span ng-if="discount">(giảm giá <strong>{{discount}}%</strong>)</span>. Vui lòng nhấn nút "Xác nhận" để tiến hành chuyển đổi.
+					</div>
+				</div>
+
+				<div class="sms-help" ng-if="payment.name == 'sms'">
+					<spinner ng-if="!smsInfoRequested"></spinner>
+					<div ng-if="smsUserId && smsInfoRequested">
+						Soạn tin nhắn theo cú pháp:
+						<h3>TENLUA GOLD {{smsUserId}}<br><span>gửi đến 8738</span></h3>
+					</div>
+					<div ng-if="!smsUserId && smsInfoRequested">
+						<h3>{{smsLoginRequiredMsg}}</h3>
+					</div>
+					<u>Ghi chú:</u>
+					<ul>
+						<li>1 SMS giá <strong>15000 VNĐ</strong> tương ứng <strong>3 ngày</strong> GOLD MEMBER</li>
+						<li>Sau khi có tin nhắn trả về thành công, bạn vui lòng <strong>đăng xuất</strong> và <strong>đăng nhập</strong> lại để hệ thống cập nhật thông tin</li>
+					</ul>
+				</div>
+
+				<div ng-if="payment.name == 'card' && !goldEnough">
+					<div class="form-group">
+                 <input name="cardProvider" type="radio" id="vms" value="VMS" ng-model="formData.cardProvider" required=""> <label for="vms">Mobifone</label>
+                 <input name="cardProvider" type="radio" id="vnp" value="VNP" ng-model="formData.cardProvider" required=""> <label for="vnp">Vinaphone</label>
+                 <input name="cardProvider" type="radio" id="viettel" value="VIETTEL" ng-model="formData.cardProvider" required=""> <label for="viettel">Viettel</label>
+            	</div>
+            	<div class="form-group">
+            		<input type="text" class="form-control" placeholder="Nhập mã thẻ cào..." name="cardCode" ng-model="formData.cardCode" required="" maxlength="100">
+            	</div>
+            	<div class="form-group">
+               	<input type="text" class="form-control" placeholder="Nhập serial thẻ cào..." name="cardSerial" ng-model="formData.cardSerial" required="" maxlength="100">
+               </div>
+				</div>
+
+				<div class="form-group" ng-if="payment.name == 'voucher'"><input type="text" class="form-control" placeholder="Nhập mã Voucher..." name="voucherCode" ng-model="formData.voucherCode" required="" maxlength="100"></div>
+
+				<div class="sec-code form-group" ng-if="payment.name != 'sms' && (payment.name == 'voucher' || (payment.name != 'voucher' && !goldEnough))">
+					<label>Mã bảo mật:</label>
+					<img class="captcha" ng-src="{{captchaImg}}">
+					<input type="text" class="form-control" placeholder="Nhập mã bảo mật..." name="captcha" ng-model="formData.captcha" required="" maxlength="100">
+				</div>
+				<!-- <button type="submit" class="btn btn-success btn-md">Xác nhận</button> -->
+
+			</div>
+
+		</div>
+
+	</div>
+	<div class="modal-footer" ng-if="payment.name == 'sms' || payment.name == 'voucher' || (goldEnough !== null && !gettingGoldInfo)">
+		<button type="submit" class="btn btn-lg btn-success" ng-if="payment.name != 'sms' && !goldEnough" ng-disabled="submiting">Tiếp</button>
+		<button class="btn btn-lg btn-success" ng-click="goldTransfer($event)" ng-if="payment.name != 'sms' && goldEnough" ng-disabled="goldTransfering">Xác nhận</button>
+		<button class="btn btn-lg btn-default" ng-click="cancel($event)">Đóng</button>
+	</div>
+</form>

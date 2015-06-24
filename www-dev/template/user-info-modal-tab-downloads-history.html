@@ -1,0 +1,16 @@
+<table class="table-downloads-history" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>STT</td>
+		<td>File</td>
+		<td>Dung lượng</td>
+		<td>Ngày</td>
+	</tr>
+	<tr ng-repeat="item in moreUserInfo.downloadHistory">
+		<td>{{::($index + 1)}}</td>
+		<td><a target="_blank" ng-href="{{::item.link}}" title="{{::item.file_name}}" class="file-name">{{::item.file_name}}</a>
+		</td>
+		<td>{{::item.size}}</td>
+		<td>{{::item.download_date}}</td>
+	</tr>
+</table>
+<div class="meassage" ng-if="moreUserInfo.moreInfoError">Ko có dữ liệu, xin thử lại sau.</div>

@@ -1,0 +1,19 @@
+Số files có thưởng: <strong>{{::moreUserInfo.infoGoldForDownload.files}}</strong><br>
+Tổng gold được thưởng: <strong>{{::moreUserInfo.infoGoldForDownload.golds}}</strong>
+<table class="table-gold-for-download" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>STT</td>
+		<td>File</td>
+		<td>Dung lượng</td>
+		<td>Lượt tải</td>
+		<td>Thưởng gold</td>
+	</tr>
+	<tr ng-repeat="item in moreUserInfo.infoGoldForDownload.nodes">
+		<td>{{::($index + 1)}}</td>
+		<td><a target="_blank" ng-href="#!/download/{{::item.node_id}}/{{::item.file_name_safe}}" title="{{::item.file_name}}" class="file-name">{{::item.file_name}}</a></td>
+		<td>{{::item.size | byteFormat}}</td>
+		<td>{{::item.total}}</td>
+		<td>{{::item.gold}}</td>
+	</tr>
+</table>
+<div class="meassage" ng-if="moreUserInfo.infoGoldForDownloadError">Ko có dữ liệu, xin thử lại sau.</div>

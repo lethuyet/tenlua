@@ -1,0 +1,698 @@
+// UTILITIES
+
+.clearfix{
+	@include clearfix;
+}
+.mask-fix{
+	position: absolute;
+	z-index: 0;
+	// width: 100%;
+	// height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	cursor: default !important;
+}
+
+
+%backface-perspective{
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+}
+
+%backface-hidden{
+	@include backface-visibility(hidden);
+}
+
+@mixin noFlick(){
+	@include backface-visibility(hidden);
+	@include perspective(1000px);
+}
+%no-flick{
+	@include noFlick;
+}
+
+.is-3d{
+	//@include translate3d(0,0,0);
+	@include transform(translate3d(0,0,0));
+}
+
+
+/* Overthrow CSS:
+   Enable overflow: auto on elements with overthrow class when html element has overthrow class too */
+@mixin overthrow(){
+	.overthrow-enabled &{
+		@extend %dark-scrollbar;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		-ms-scroll-chaining: none;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		> *{
+			-webkit-transform: translateZ(0px);
+		}
+	}
+}
+.overthrow {
+	@include overthrow();
+	>.mask-fix{
+		display: none;
+		// position: absolute;
+		// @include transform(translateY(-9999px))
+	}
+	&.scrolling >.mask-fix{
+		// visibility: visible;
+		@include transform(translateY(0))
+	}
+
+}
+
+@mixin absolute-full(){
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+%absolute-full{
+	@include absolute-full;
+}
+
+
+@mixin text-truncate {
+  overflow: hidden;
+  o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+%text-truncate{
+	@include text-truncate;
+}
+
+
+%noTransition{
+	@include transition(none !important);
+}
+
+
+
+@mixin touch-action-auto(){
+	-webkit-touch-action: auto !important;
+	-moz-touch-action: auto !important;
+	-ms-touch-action: auto !important;
+	-o-touch-action: auto !important;
+	touch-action: auto !important;
+}
+@mixin touch-action-pan-y(){
+	-webkit-touch-action: pan-y !important;
+	-moz-touch-action: pan-y !important;
+	-ms-touch-action: pan-y !important;
+	-o-touch-action: pan-y !important;
+	touch-action: pan-y !important;
+}
+@mixin touch-action-none(){
+	-webkit-touch-action: none !important;
+	-moz-touch-action: none !important;
+	-ms-touch-action: none !important;
+	-o-touch-action: none !important;
+	touch-action: none !important;
+}
+@mixin user-drag-auto(){
+	-webkit-user-drag: auto !important;
+	-moz-user-drag: auto !important;
+	-ms-user-drag: auto !important;
+	-o-user-drag: auto !important;
+	user-drag: auto !important;
+}
+@mixin user-drag-none(){
+	-webkit-user-drag: none !important;
+	-moz-user-drag: none !important;
+	-ms-user-drag: none !important;
+	-o-user-drag: none !important;
+	user-drag: none !important;
+}
+@mixin user-select-auto(){
+	-webkit-touch-callout: auto;
+	-webkit-user-select: auto !important;
+	-moz-user-select: auto !important;
+	-ms-user-select: auto !important;
+	-o-user-select: auto !important;
+	user-select: auto !important;
+}
+@mixin user-select-none(){
+	-webkit-touch-callout: none;
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	-o-user-select: none !important;
+	user-select: none !important;
+}
+%touch-action-auto{
+	@include touch-action-auto;
+}
+%touch-action-pan-y{
+	@include touch-action-pan-y;
+}
+%touch-action-none{
+	@include touch-action-none;
+}
+%user-drag-auto{
+	@include user-drag-auto;
+}
+%user-drag-none{
+	@include user-drag-none;
+}
+%user-select-auto{
+	@include user-select-auto;
+}
+%user-select-none{
+	@include user-select-none;
+}
+
+@mixin hidden(){
+	visibility: hidden;
+	opacity: 0;
+}
+
+@mixin unHidden(){
+	visibility: visible;
+	opacity: 1;
+}
+
+@mixin hideAway(){
+	@include transform(translateY(-999rem));
+}
+
+@mixin unHideAway(){
+	@include transform(translateY(0));
+}
+
+
+@mixin valign-middle-container(){
+	&:before{
+		content: "";
+		vertical-align: middle;
+		width: 0;
+		height: 100%;
+		overflow: hidden;
+		display: inline-block;
+	}
+	>*{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+%valign-middle-container{
+	@include valign-middle-container;
+}
+
+.valign-middle-container{
+	@extend %valign-middle-container;
+}
+
+// %defaultTextShadow{
+// 	@include text-shadow(1px 1px 1px fade-out(black,.5));
+// }
+
+// %defaultBoxShadow{
+// 	@include box-shadow(1px 1px 3px fade-out(black,.95));
+// }
+
+
+
+
+
+// @mixin borderShadow($fadeout, $borderWidth){
+// 	@include background-clip(padding-box);
+// 	border: 1px solid fade-out(black, $fadeout);
+// 	border-width: #{$borderWidth};
+// 	.lt-ie9 &{
+// 		border: 1px solid #e1e1e1;
+// 	}
+// }
+// %defaultBorderShadow{
+// 	@include borderShadow(.97, '2px 2px 4px 2px');
+// }
+
+
+
+
+
+// .button{
+// 	@include box-shadow(none !important);
+// }
+
+
+
+@mixin balloon{
+	position: absolute;
+	width: 1.7em;
+	height: 1.7em;
+	background: $brand-danger;
+	// border-radius: 20px;
+	border-radius: .3em;
+	color: white;
+	line-height: 1.7em;
+	text-align: center;
+	font-size: 1.1em;
+	font-style: normal;
+	left: 0;
+	top: 0;
+	// @extend %defaultTextShadow;
+	// @extend %tada;
+
+	// &.ng-leave{
+	// 	display: none;
+	// }
+
+	&.success{
+		background: $brand-success-light;
+	}
+	// &.favorite{
+	// 	background: white;
+	// 	color: black;
+	// 	border: 1px solid black;
+	// 	@include text-shadow(none);
+	// }
+}
+.balloon{
+	@include balloon;
+}
+
+
+
+// .reveal-modal{
+// 	@extend %defaultBorderShadow;
+// 	h2{
+// 		border-bottom: 1px solid #e1e1e1;
+// 		padding-bottom: 10px;
+// 	}
+// }
+
+
+// .default-simptip{
+// 	@extend .simptip-position-bottom;
+// 	@extend .half-arrow;
+// 	@extend .simptip-movable;
+// 	&:before{
+// 		margin-top: -10px !important;
+// 	}
+// }
+
+
+// .no-tip{
+// 	&:before, &:after{
+// 		display: none !important;
+// 	}
+// }
+
+
+// .currency{
+// 	font-size: 80%;
+// }
+
+// .icon-rounded-signed{
+// 	text-align: center;
+// 	display: inline-block;
+// 	color: white;
+// 	background-color: #666;
+// 	width: 25px;
+// 	height: 25px;
+// 	line-height: 27px !important;
+// 	font-size: 16px !important;
+// 	font-style: normal !important;
+// 	font-weight: normal !important;
+// 	text-decoration: none !important;
+// 	@include border-radius(30px);
+// 	&:hover{
+// 		@include scale(1.15);
+// 	}
+// }
+
+.icon-rounded{
+	color: #666 !important;
+	font-size: 14px;
+	border: 2px solid #999 !important;
+	border-radius: 50%;
+	background: white;
+	display: inline-block;
+	width: 30px;;
+	height: 30px;
+	overflow: hidden;
+	line-height: 25px !important;
+	text-align: center;
+	opacity: .8;
+	cursor: pointer;
+
+	&.highlight{
+		color: $highlight-color !important;
+		border-color: $highlight-color !important;
+	}
+
+	&:hover{
+		// color: $brand-success !important;
+		// border-color: $brand-success !important;
+		opacity: 1;
+	}
+
+	&.disabled{
+		color: #999;
+		border-color: #999;
+		cursor: default;
+	}
+}
+
+// .button{
+// 	display: inline-block;
+// 	margin: 0 3px;
+// 	height: 38px;
+// 	line-height: 38px;
+// 	color: #dcfa9a;
+// 	background: transparent url(../images/green-tape.png) no-repeat;
+// 	background-size: 100% 100%;
+// 	border: none;
+// 	color: #e6feb0;
+// 	font-weight: bold;
+// 	font-size: 16px;
+// 	text-align: center;
+// 	padding: 0 20px;
+// 	cursor: pointer;
+// 	@extend %defaultTextShadow;
+// 	@include transition(transform .05s);
+
+// 	&.alert{
+// 		color: #ffd4d2;
+// 		background-image: url(../images/red-tape.png);
+// 	}
+
+// 	&.warning{
+// 		color: #ffe8c0;
+// 		background-image: url(../images/orange-tape.png);
+// 	}
+
+// 	&.secondary, &.disabled{
+// 		color: #e0e0e0;
+// 		background-image: url(../images/gray-tape.png);
+// 	}
+
+// 	&:hover{
+// 		color: white;
+// 		@include translate(0, 3px);
+// 	}
+
+// 	&:focus {
+// 		color: white;
+// 		outline: none;
+// 		background-color: fade-out(#ffea00,.6);
+// 		@include box-shadow(0 0 25px #ffea00);
+// 	}
+
+// 	// &:active{
+// 	// 	color: black;
+// 	// 	@include text-shadow(1px 1px 1px white);
+// 	// }
+
+//  	&.disabled{
+// 		color: #9f9f9f !important;
+// 		@include translate(0, 0);
+// 		@include box-shadow(none);
+// 	}
+// }
+
+
+
+
+// DROPDOWN
+// @mixin drop-down($width:'auto', $top:100%, $triangleSize: 8px, $triangleRightPos:50%, $shadowSizes: '2px 5px 5px 2px'){
+// 	list-style: none;
+// 	margin: 0;
+// 	padding: 0;
+// 	position: absolute;
+// 	// z-index: 2;
+// 	top: $top;
+// 	width: $width;
+// 	// max-height: 400px;
+// 	// padding-bottom: 35px;
+// 	background-color: white;
+// 	// @include borderShadow(.9, '0 0 4px');
+// 	@include borderShadow(.95, $shadowSizes);
+// 	// font-style: normal;
+// 	opacity: 0;
+// 	visibility: hidden;
+// 	// @include translate3d(0,-15px,0);
+// 	// @include translateY(-15px);
+// 	.no-csstransforms &{
+// 		margin-top: -15px;
+// 	}
+// 	.csstransforms &{
+// 		@include translateY(-15px);
+// 	}
+// 	.csstransforms3d &{
+// 		@include translate3d(0,-15px,0);
+// 	}
+// 	// @include transition(all .3s, visibility 0s .3s);
+// 	-webkit-transition: all .3s, visibility 0s .3s;
+// 	-moz-transition: all .3s, visibility 0s .3s;
+// 	-ms-transition: all .3s, visibility 0s .3s;
+// 	-o-transition: all .3s, visibility 0s .3s;
+// 	transition: all .3s, visibility 0s .3s;
+
+// 	&:before{
+// 		@include cssTriangle($triangleSize, white, bottom);
+// 		position: absolute;
+// 		z-index: 1;
+// 		// right: $iconSearchWidth + 12;
+// 		margin-left: $triangleSize/2;
+// 		right: $triangleRightPos;
+// 		top: -8px;
+// 	}
+
+// 	&:after{
+// 		// @include cssTriangle($triangleSize+2, fade-out(black,.9), bottom);
+// 		@include cssTriangle($triangleSize+2, #aaa, bottom);
+// 		position: absolute;
+// 		z-index: 0;
+// 		// right: $iconSearchWidth + 12;
+// 		margin-left: $triangleSize/2;
+// 		right: $triangleRightPos - 3;
+// 		top: -10px;
+// 	}
+
+// 	&.shown{
+// 		opacity: 1;
+// 		visibility: visible;
+// 		// @include translate3d(0,0,0);
+// 		@include translateY(0);
+// 		.no-csstransforms &{
+// 			margin-top: 0;
+// 		}
+// 		.csstransforms &{
+// 			@include translateY(0);
+// 		}
+// 		.csstransforms3d &{
+// 			@include translate3d(0,0,0);
+// 		}
+// 		// @include transition(all .3s, visibility 0s 0s);
+// 		-webkit-transition: all .3s, visibility 0s 0s;
+// 		-moz-transition: all .3s, visibility 0s 0s;
+// 		-ms-transition: all .3s, visibility 0s 0s;
+// 		-o-transition: all .3s, visibility 0s 0s;
+// 		transition: all .3s, visibility 0s 0s;
+// 	}
+// }
+
+// .drop-down{
+// 	@include drop-down;
+// }
+
+
+
+
+// FORM
+// form{
+// 	.error-msg, .submit-error-msg, .submit-success-msg{
+// 		// background-color: $alert-colorLight;
+// 		// border: 2px solid $alert-color;
+// 		color: $alert-color;
+// 		padding-top: 0;
+// 		// margin-bottom: 10px;
+// 		text-align: center;
+// 		font-size: 12px;
+// 		font-weight: bold;
+// 		// display: none;
+// 		max-height: 0;
+// 		overflow: hidden;
+// 		@include transition(all .5s);
+// 	}
+// 	.submit-error-msg, .submit-success-msg{
+// 		font-size: 14px;
+// 	}
+// 	.submit-success-msg{
+// 		color: $success-color;
+// 	}
+// 	// &.ng-invalid{
+// 	// 	.error-msg{
+// 	// 		// display: block;
+// 	// 		max-height: 100px;
+// 	// 		padding-top: 10px;
+// 	// 	}
+// 	// }
+// 	&.ng-invalid .error-msg, &.submit-success .submit-success-msg, &.submit-error .submit-error-msg,{
+// 		max-height: 100px;
+// 		padding-top: 10px;
+// 		margin-bottom: 10px
+// 	}
+// }
+
+
+
+// CUSTOM INPUT
+
+@mixin customRadioCheckbox($size:2em, $border-color:#aaa, $border-width:.2em, $background-color:#fff){
+	display: none;
+	& ~ .fake-input{
+		position: relative;
+		display: inline-block;
+		border: $border-width solid $border-color;
+		border-radius: .3em;
+		width: $size;
+		height: $size;
+		vertical-align: middle;
+		background: $background-color;
+		&:hover{
+			border-color: #666;
+		}
+	}
+}
+// input[type=checkbox].custom{
+@mixin customCheckbox($size:2em, $border-color:#aaa, $border-width:1px, $background-color:#fff, $core-color:$brand-success){
+	// @extend %customRadioCheckbox;
+	@include customRadioCheckbox($size, $border-color, $border-width, $background-color);
+	&:checked ~ .fake-input:before{
+		font-family: ten-lua;
+		content: "N";
+		color: $core-color;
+		// font-size: $size * 1.2;
+		font-size: $size/1.15;
+		line-height: 1.2;
+		// line-height: 2em;
+		position: absolute;
+		left: 0;
+		top: -$border-width;
+		// left: -.5em;
+		// top: -.2em;
+		font-weight: normal;
+		width: 100%;
+		text-align: center;
+	}
+}
+
+// input[type=radio].custom{
+@mixin customRadio($size:2em, $border-color:#aaa, $border-width:.2em, $background-color:#fff, $core-color:$brand-success){
+	// @extend %customRadioCheckbox;
+	@include customRadioCheckbox($size, $border-color, $border-width, $background-color);
+	& ~ .fake-input{
+		border-radius: 50%;
+		text-align: center;
+	}
+	&:checked ~ .fake-input:before{
+		@extend %absolute-full;
+		@include transform(scale(.5));
+		content: "";
+		display: inline-block;
+		background-color: $core-color;
+		border-radius: 50%;
+		// position: relative;
+		// width: 100%;
+		// height: 100%;
+		// width: 1.2em;
+		// height: 1.2em;
+		// top: .3em;
+	}
+}
+
+input[type=checkbox].custom{
+	@include customCheckbox;
+}
+input[type=radio].custom{
+	@include customRadio;
+}
+
+
+
+
+// LOADING DOTS
+
+$loadingDotsSize: 8px;
+$loadingDotsDuration: 2.5s;
+.loading-dots {
+	position: fixed;
+	z-index: 9999;
+	display: none;
+	margin-left: 0 /*20%*/;
+	width: 100% /*60%*/;
+	height: $loadingDotsSize;
+	overflow: hidden;
+	text-align: left;
+	left: 0;
+	// top: $HeaderHeight - $loadingDotsSize;
+	top: 2px;
+
+	// @include respondTo(smallScreen){
+	// 	width: 100%;
+	// 	margin-left: 0;
+	// 	top: 45px;
+	// }
+
+	b {
+		width:100%;
+		position:absolute;
+		height:0px;
+		opacity: 0;
+
+		&:after{
+			content:"";
+			background: orange /* #e9e9e9 */;
+			border-radius: $loadingDotsSize;
+			display: block;
+			width: $loadingDotsSize;
+			height: $loadingDotsSize;
+			border: 1px solid darken(orange,15%);
+		}
+
+	}
+
+	&.show{
+		display: block;
+		// .no-csstransitions &{
+		// 	background: url('../images/flyingdots.gif') no-repeat;
+		// 	background-size: contain;
+		// }
+
+		b{
+			&:first-child {
+				@include animation(loadingDots $loadingDotsDuration ease-in-out infinite);
+			}
+			&:first-child + b {
+				@include animation(loadingDots $loadingDotsDuration ease-in-out .3s infinite);
+			}
+			&:first-child + b + b {
+				@include animation(loadingDots $loadingDotsDuration ease-in-out .6s infinite);
+			}
+		}
+	}
+}
+@include keyframes(loadingDots) {
+	from {
+		@include transform(translate3d(0, 0, 0));
+		opacity: 0;
+	}
+	50% {
+		@include transform(translate3d(50%, 0, 0));
+		opacity: 1;
+	}
+	to {
+		@include transform(translate3d(100%, 0, 0));
+		opacity: 0;
+	}
+}

@@ -1,0 +1,42 @@
+<div class="user dropdown {{::(hasAvatar ? '' : 'no-avatar')}}">
+	<div class="dropdown-toggle" ng-click="login()">
+		<span class="avatar-wrap">
+			<div class="cp _{{storeUsedPercent()}}">
+				<div class="cir">
+					<div class="m fu">
+						<div class="fi"></div>
+					</div>
+					<div class="m half">
+						<div class="fi"></div>
+						<!-- <div class="fill fix"></div> -->
+					</div>
+					<!-- <div class="shadow"></div> -->
+				</div>
+			</div>
+			<span class="avatar default" ng-if="::hasAvatar"></span>
+			<span class="avatar" ng-style="{'background-image':'url(' + localStorage.AUTH_currentUser.avatar + ')'}"></span>
+		</span>
+		<span class="wrapper">
+			<span class="user-name"><span>{{title()}}</span> <b class="caret"></b></span>
+			<div ng-if="authSrv.isAuthenticated()">
+				<span class="storage">{{storeStr()}}</span>
+				<div class="storage-remain">Còn trống <b>{{storeRemainStr()}}</b></div>
+			</div>
+		</span>
+	</div>
+	<!-- <ul class="dropdown-menu" role="menu" ng-if="authSrv.isAuthenticated()"> -->
+	<ul class="dropdown-menu" role="menu" ng-if="hasDropdown">
+		<li class="user-name no-link"><a><em>{{localStorage.AUTH_currentUser.email}}</em></a></li>
+		<li class="no-link"><a class="storage">{{storeStr()}}</a></li>
+		<li class="no-link"><a class="storage-remain">Còn trống <b>{{storeRemainStr()}}</b></a></li>
+		<li class="divider"></li>
+		<!-- <li><a href="#"><i class="tl-icon-text-edit"></i><span>Sửa tên tài khoản</span></a></li> -->
+		<!-- <li><a href="#"><i class="tl-icon-user"></i><span>Ảnh đại diện</span></a></li> -->
+		<li><a ng-click="openUserInfo()"><i class="tl-icon-user"></i><span>Thông tin tài khoản</span></a></li>
+		<li><a href="#!/plans"><i class="tl-icon-dollar-sign"></i><span>Nâng cấp Gold member</span></a></li>
+		<li><a ng-click="logout()"><i class="tl-icon-logout"></i><span>Đăng xuất</span></a></li>
+		<li class="divider about-item"></li>
+		<li class="about-item"><a ng-click="uiState.appFooterShown = !uiState.appFooterShown"><i class="tl-icon-info"></i><span>Về tenlua.vn</span></a></li>
+		<li class="about-item"><a ng-click="uiState.appFooterSupportShown = !uiState.appFooterSupportShown"><i class="tl-icon-question"></i><span>Hỗ trợ</span></a></li>
+	</ul>
+</div>

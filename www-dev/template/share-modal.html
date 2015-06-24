@@ -1,0 +1,38 @@
+<div class="share-modal">
+	<div class="modal-header">
+		<h2 class="modal-title"><i class="tl-icon-link"></i>
+			<span>Chia sẻ <strong>"{{node.name}}"</strong></span>
+		</h2>
+	</div>
+	<div class="modal-body">
+		Liên kết chia sẻ
+		<form>
+			<!-- <input class="form-control" type="text" ng-model="shareLink" readonly="true"> -->
+			<!-- <div class="input-group">
+				<input class="form-control" type="text" ng-model="shareLink" text-select="{{textSelected}}">
+				<span class="input-group-btn">
+					<button class="btn btn-success" type="button" ng-click="textSelected = true">Chọn</button>
+				</span>
+			</div> -->
+			<div class="input-group" ng-class="{'zeroclipboard-button-ready': zeroclipboardButtonReady}">
+				<input id="ShareLink" class="form-control" type="text" ng-model="shareLink" readonly="true">
+				<span class="input-group-btn">
+					<button class="btn btn-warning" type="button" zeroclipboard-button data-clipboard-target="ShareLink">Copy</button>
+				</span>
+			</div>
+		</form>
+		<div class="social-links">
+			<!-- <a ng-href="{{facebookLink}}" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên Facebook"><i class="tl-icon-facebook" target="_blank" ng-click="modalWin(facebookLink,null,$event)"></i></a> -->
+			<a ng-show="FBLoaded" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên Facebook"><i class="tl-icon-facebook" target="_blank" share-facebook="fileShareFacebook"></i></a>
+			<a ng-href="{{twitterLink}}" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên Twitter"><i class="tl-icon-twitter" target="_blank" ng-click="modalWin(twitterLink,null,$event)"></i></a>
+			<!-- <a ng-href="{{googleplusLink}}" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên Google+"><i class="tl-icon-google-plus" target="_blank" ng-click="modalWin(googleplusLink,null,$event)"></i></a> -->
+			<a ng-show="gapiLoaded" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên Google+"><i class="tl-icon-google-plus" target="_blank" share-google-plus="fileShareGooglePlus"></i></a>
+			<a ng-href="{{zingmeLink}}" class="hint--bottom hint--rounded" data-hint="Chia sẻ lên ZingMe"><i class="tl-icon-zing" target="_blank" ng-click="modalWin(zingmeLink,null,$event)"></i></a>
+			<a ng-href="{{emailLink}}" class="hint--bottom hint--rounded" data-hint="Chia sẻ qua email"><i class="tl-icon-letter-mail" target="_blank" ng-click="modalWin(emailLink,null,$event)"></i></a>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<!-- <button class="btn btn-lg btn-success" ng-click="ok()"></button> -->
+		<button class="btn btn-lg btn-default" ng-click="cancel()">Đóng</button>
+	</div>
+</div>

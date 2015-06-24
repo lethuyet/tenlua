@@ -1,0 +1,153 @@
+// .alertify,
+// .alertify-show{
+// 	@include transition(all 700ms);
+// }
+// .alertify-hide {
+// 	@include transition(all 800ms);
+// }
+.alertify-log {
+	@include transition(all 500ms);
+}
+.alertify-log-hide {
+	@include transition(all 300ms 0s);
+}
+
+
+// .alertify-cover {
+// 	@extend .mask-fix;
+// 	z-index: 9999;
+// 	background-color: fade-out(black,.7);
+// 	// position: absolute;
+// 	// top: 0; right: 0; bottom: 0; left: 0;
+// 	// opacity:0.3;
+// }
+// .alertify-cover-hidden {
+// 	display: none;
+// }
+
+
+// .alertify {
+// 	position: absolute;
+// 	z-index: 9999;
+// 	top: $AppHeaderHeight + 20px;;
+// 	left: 50%;
+// 	width: 550px;
+// 	margin-left: -275px;
+// 	// @include border-radius(5px);
+// 	@extend %backface-perspective;
+// }
+	// .alertify-hidden {
+	// 	@include translate3d(0,-300px,0);
+	// 	visibility: hidden;
+	// }
+	// // overwrite display: none; for everything except IE6-8 
+	// :root *> .alertify-hidden {
+	// 	display: block;
+	// 	visibility: hidden;
+	// }
+.alertify-logs {
+	position: absolute;
+	z-index: 9999;
+	top: 5px;
+	right: 10px;
+	width: 300px;
+}
+.alertify-logs-hidden {
+	display: none;
+}
+	.alertify-log {
+		display: block;
+		// margin-top: 10px;
+		margin-bottom: 10px;
+		position: relative;
+		cursor: pointer;
+		// right: -300px;
+		@extend %backface-perspective;
+		// @include translate3d(320px,0,0);
+		@include transform(translateX(320px));
+		// opacity: 0;
+		&:before{
+			font-family: 'ten-lua';
+			position: absolute;
+			right: 5px;
+			top: 3px;
+			color: white;
+			font-size: 11px;
+			content: "y";
+			@include transition(all .2s);
+		}
+		&:hover{
+			&:before{
+				@include transform(scale(1.7));
+			}
+		}
+	}
+	.alertify-log-show {
+		// right: 0;
+		// @include translate3d(0,0,0);
+		@include transform(translateX(0));
+		// opacity: 1;
+	}
+	.alertify-log-hide {
+		// @include translate3d(320px, 0, 0);
+		@include transform(translateX(320px));
+		// opacity: 0;
+	}
+
+
+
+// .alertify-dialog {
+// 	padding: 25px;
+// }
+// .alertify-resetFocus {
+// 	border: 0;
+// 	clip: rect(0 0 0 0);
+// 	height: 1px;
+// 	margin: -1px;
+// 	overflow: hidden;
+// 	padding: 0;
+// 	position: absolute;
+// 	width: 1px;
+// }
+// .alertify-inner {
+// 	text-align: center;
+// }
+// .alertify-text {
+// 	margin-bottom: 15px;
+// 	width: 100%;
+// 	-webkit-box-sizing: border-box;
+// 	   -moz-box-sizing: border-box;
+// 	        box-sizing: border-box;
+// 	font-size: 100%;
+// }
+// .alertify-buttons {
+// }
+
+// .alertify-isHidden {
+// 	display: none;
+// }
+
+@media only screen and (max-width: 680px) {
+	.alertify,
+	.alertify-logs {
+		width: 90%;
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		        box-sizing: border-box;
+	}
+	// .alertify {
+	// 	left: 5%;
+	// 	margin: 0;
+	// }
+}
+
+@media #{$small}{
+	.alertify-logs {
+		top: auto;
+		bottom: 10px;
+	}
+	.alertify-log {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+}

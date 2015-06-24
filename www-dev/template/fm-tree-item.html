@@ -1,0 +1,6 @@
+<!-- <button ng-click="add(data)">Add node</button> -->
+<i class="tl-icon-caret-right" ng-click="open(node, $event)"></i>
+<a ng-click="select(node, $event)"><i class="tl-icon-folder"></i> <span>{{node.name}}</span></a>
+<ul ng-if="(isOnModal && node.treeOpen && hasChild(node) )   ||   ( !isOnModal && !device.mobile() &&  node.treeOpenOnSidebar && hasChild(node) )" ng-class="{overthrow:node.type==2 && !isOnModal}">
+	<li ng-repeat="node in node.nodes | orderBy: 'name'" ng-if="node.type==1" ng-class="nodeClass(node)" ng-include="'template/fm-tree-item.html'"></li>
+</ul>

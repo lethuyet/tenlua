@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="vn.tenlua.cordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>TenLua.vn</name>
+    <description>
+        Dịch vụ lưu trữ và chia sẻ dữ liệu tốc độ cao!
+    </description>
+    <author email="media@tenlua.vn" href="http://tenlua.vn">
+        TenLua.vn team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

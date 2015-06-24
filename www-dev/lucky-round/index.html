@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html class="no-js lt-ie10" ng-class="{
+	fm: uiState.page.name == 'fm'
+}">
+<![endif]-->
+
+<!--[if gt IE 9]><!-->
+<html>
+<!-- 	'slideshow-mode': filesSrv.slideShowingNode, -->
+<!--<![endif]-->
+<head>
+
+
+<!-- UPDATE BROWSER -->
+<!--[if lt IE 9]><script>location.href="update-browser.html"</script><![endif]-->
+
+	<meta name="fragment" content="!">
+
+	<!-- -->
+	<!--[if lte IE 9]><script>var html5Mode = false;</script><![endif]-->
+
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Tên Lửa - Dịch vụ lưu trữ và chia sẻ dữ liệu tốc độ cao!</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+
+	<meta name="msapplication-TileImage" content="apple-touch-icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#9b79aa">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="css/5dc8ae1f.tenlua.css"/>
+	<link rel="stylesheet" href="css/quayso.css"/>
+
+	
+</head>
+<body>
+<center>
+	<h2 style="color:white;">QUAY CỰC NHANH, TRÚNG CỰC ĐÃ</h2>
+	<a href="javascript:void(0);" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalThele">Xem thể lệ chương trình</a>
+
+<div id="circle" class="circle animate-enter ld-quayso">
+	<div class="ld-vongtron animate-enter" ></div>
+	<div class="ld-kim"></div>
+</div>
+
+</center>
+<!-- Small modal -->
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="notificationModal" aria-hidden="true" id="notificationModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <span id="thongbao"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnClose1" style="display:none;" >Đóng</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnClose2" style="display:none;" onclick="window.location.href='/'">Đóng</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnClose3" style="display:none;" onclick="resetQS()">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="modalThele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Thể lệ chương trình</h4>
+      </div>
+      <div class="modal-body" style="font-size:12px;">
+		<p>Chào mừng sự kiện ra mắt <b>www.tenlua.vn version 2</b>, với giao diện hiện đại, đẹp mắt cùng sự nâng cấp những tính năng vượt trội và cực kỳ hữu ích cho người dùng, game <b>“QUAY CỰC NHANH, TRÚNG CỰC ĐÃ”</b> như một món quà tenlua dành tặng cho tất cả các bạn đã và đang sử dụng tenlua.vn và cả những thành viên mới.</p>
+		<p>Với hàng ngàn quà tặng may mắn và thiết thực là 1 năm, 6 tháng, 3 tháng, 1 tháng hay 7 ngày GOLD MEMBER trên tenlua.vn, sẽ mang đến cho bạn những trải nghiệm thú vị nhất trên <b>tenlua.vn</b> version mới.</p>
+		<p><b style="text-decoration: underline;">THỜI GIAN: </b> 20/10 – 26/10/14<br></p>
+		<b style="text-decoration: underline;">GIẢI THƯỞNG</b>
+        <p>-	20 giải 1 năm GOLD MEMBER trên tenlua.vn</p>
+        <p>-	50 giải 6 tháng GOLD MEMBER trên tenlua.vn</p>
+        <p>-	100 giải 3 tháng GOLD MEMBER trên tenlua.vn</p>
+		<p>-	200 giải 1 tháng GOLD MEMBER trên tenlua.vn</p>
+		<p>-	Hàng ngàn giải 7 ngày GOLD MEMBER trên tenlua.vn</p>
+
+		<b style="text-decoration: underline;">LUẬT CHƠI</b>
+		<p>Bạn đăng nhập tài khoản tenlua.vn để tham gia (nếu chưa có tài khoản thì bạn đăng ký mới, rất nhanh và hoàn toàn miễn phí nhé).</p>
+		<p>Số lượt quay không giới hạn/người. Nhưng mỗi bạn chỉ được trúng giải 1 lần, để đảm bảo may mắn công bằng cho tất cả các bạn tham gia.
+		Các bạn trúng giải sẽ được cộng số ngày GOLD tương ứng trực tiếp vào tài khoản ngay sau khi trúng giải. </p>
+
+		<b style="text-decoration: underline;">Một vài lưu ý nhé:</b>
+		<p>-	Mỗi  account tenlua chỉ được trúng 1 giải duy nhất để đảm bảo công bằng.</p>
+		<p>-	Trong suốt quá trình diễn ra chương trình, quyết định của BTC là quyết định cuối cùng.</p>
+		<p>-	Hỗ trợ: <a href="//www.facebook.com/tenlua.vn">www.facebook.com/tenlua.vn</a>  / <a href="mailto:support@tenlua.vn">support@tenlua.vn</a> </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/jquery.quayso.js"></script>
+<script src="js/quayso.js"></script>
+
+
+
+</body>
+</html>

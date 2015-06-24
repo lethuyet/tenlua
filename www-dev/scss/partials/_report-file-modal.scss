@@ -1,0 +1,33 @@
+.report-file-modal{
+	// .modal-body, .modal-footer{
+	// 	text-align: center;
+	// }
+	.message{
+		color: $brand-danger;
+		font-weight: bold;
+	}
+	h3{
+		margin-top: 0;
+	}
+	.reasons-wrap{
+		label{
+			display: block;
+			// text-align: left;
+			margin-bottom: .5em;
+			// margin: 0 auto .5em;
+			// width:95%;
+			font-weight: normal;
+			.fake-input{
+				font-size: .7em;
+			}
+		}
+	}
+	.sec-code{
+		margin-top: 1em;
+	}
+	.captcha{
+		display: inline-block;
+		margin-left: 1em;
+	}
+
+}

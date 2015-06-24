@@ -1,0 +1,336 @@
+.user{
+	background-color: hsla(0,0%,0%,.3);
+	height: $fm-header-height;
+	text-align: center;
+	border-top: 1px solid transparent;
+	white-space: nowrap;
+	z-index: 2;
+	@include valign-middle-container;
+	.dropdown-toggle{
+		width: 100%;
+		cursor: pointer;
+		margin-left: -.3em;
+	}
+	.avatar-wrap{
+		position: relative;
+		width: $app-sidebar-width * 80 / 100;
+		display: block;
+		vertical-align: middle;
+		margin: 0 auto;
+		max-width: 6em;
+		.cp{
+			font-size: .67em;
+			position: absolute;
+			z-index: 0;
+			background-color: #f1f1f1;
+			// @include box-shadow(.18em .18em .5em rgba(orange,.8));
+			@include box-shadow(.18em .18em 0 rgba(orange,.4), .3em .3em 0 rgba(orange,.2));
+			// @include transform(rotate(90deg));
+		}
+	}
+	.avatar{
+		position: relative;
+		z-index: 1;
+		// width: $app-sidebar-width * 80 / 100;
+		width: 100%;
+		background-color: transparent;
+		background-repeat: no-repeat;
+		-webkit-background-size: cover;
+		background-size: cover;
+		display: block;
+		border-width: .2em;
+		@include transform(scale(.85));
+		@include box-shadow(none);
+		// background: transparent !important;
+		// margin: 0 auto;
+		&.default{
+			position: absolute;
+			overflow: hidden;
+			border: none;
+			background: white;
+			text-align: center;
+			font-size: 3.5em;
+			&:after{
+				@include absolute-full;
+				font-family: "ten-lua";
+				content: "B";
+				color: $gray-light;
+				text-shadow: none;
+			}
+		}
+	}
+	&.no-avatar{
+		.avatar{
+			visibility: hidden;
+		}
+	}
+	.wrapper{
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.user-name{
+		display: block;
+		margin-top: .3em;
+		margin-bottom: -.3em;
+		span{
+			display: none;
+			vertical-align: middle;
+			color: white;
+			font-weight: bold;
+			max-width: $app-sidebar-width-sm - 2rem;
+			@extend %text-truncate;
+		}
+		.caret{
+			border-top-color: white;
+			vertical-align: middle;
+		}
+	}
+	.storage, .storage-remain{
+		display: none;
+		color: lighten($brand-success,25%) !important;
+		font-size: .8em !important;
+		font-weight: bold !important;
+	}
+	.storage-remain{
+		font-weight: normal !important;
+		text-shadow: none;
+		opacity: .8;
+		b{
+			font-weight: bold !important;
+			color: lighten($brand-success,25%) !important;
+		}
+	}
+	.dropdown-menu{
+		.storage, .storage-remain b{
+			color: darken($brand-success,5%) !important;
+		}
+	}
+	&.warning {
+		.storage, .storage-remain b{
+			color: lighten($highlight-color,25%) !important;
+		}
+		.dropdown-menu{
+			.storage, .storage-remain b{
+				color: $highlight-color !important;
+			}
+		}
+	}
+	&.alert {
+		.storage, .storage-remain b{
+			color: lighten($brand-danger,25%) !important;
+		}
+		.dropdown-menu{
+			.storage, .storage-remain b{
+				color: $brand-danger !important;
+			}
+		}
+	}
+	.dropdown-menu{
+		text-align: left;
+		top: 97%;
+		left: .3em;
+		&:before{
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 1.5em;
+			margin-top: -1.4em;
+			margin-left: -.75em;
+			@include triangle (1.5em, white, up);
+		}
+		>li{
+			span{
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: .5em;
+			}
+		}
+		.user-name{
+			a{
+				font-weight: bold;
+			}
+		}
+		.storage, .storage-remain{
+			display: block;
+			padding-top: 0;
+			// padding-bottom: 10px;
+		}
+		.storage-remain{
+			padding-bottom: 10px;
+			color: #666 !important;
+		}
+		.about-item{
+			display: none;
+			.page-fm &{
+				display: block;
+			}
+		}
+	}
+
+
+	&.invert{
+		background-color: transparent;
+		.dropdown-toggle{
+			text-shadow: none;
+			.wrapper{
+				.user-name{
+					span{
+						color: #333;
+						text-shadow: none;
+					}
+					.caret{
+						border-top-color: #333;
+						display: none;
+					}
+				}
+				.storage, .storage-remain b{
+					color: darken($brand-success,5%) !important;
+				}
+				.storage-remain{
+					color: #777 !important;
+				}
+			}
+		}
+	}
+
+
+	#AppNavBar &{
+		// background-color: transparent;
+		height: $my-navbar-height;
+		.dropdown-toggle{
+			margin-left: 0;
+			.avatar-wrap{
+				float: right;
+				.cp{
+					box-shadow: none;
+				}
+			}
+			.wrapper{
+				float: right;
+				margin-right: .2em;
+				.user-name{
+					margin-top: 1em;
+					text-align: right;
+					span{
+						// color: #333;
+						// text-shadow: none;
+						font-weight: normal;
+					}
+					.caret{
+						// border-top-color: #333;
+						margin-left: 0;
+						// display: none;
+					}
+				}
+				.storage, .storage-remain{
+					display: none;
+				}
+			}
+		}
+
+		.dropdown-menu{
+			left: auto;
+			right: 0;
+			&:before{
+				left: auto;
+				right: .7em;
+			}
+		}
+	}
+
+
+
+	@media #{$small}{
+		height: $fm-header-height-sm;
+		.dropdown-toggle{
+			text-shadow: 1px 1px 0 hsla(0,0%,0%,.25);
+		}
+		.avatar-wrap{
+			width: 100%;
+			.cp{
+				font-size: 1em;
+			}
+		}
+		.avatar{
+			// width: 100%;
+			&.default{
+				font-size: 5.2em;
+			}
+		}
+		.user-name{
+			white-space: nowrap;
+			span{
+				display: inline-block;
+				// vertical-align: middle;
+				// color: white;
+				// font-weight: bold;
+				// max-width: $app-sidebar-width-sm - 2rem;
+				// @extend %text-truncate;
+			}
+			.btn{
+				margin-bottom: .2em;
+				font-size: .95em;
+				padding: .2em .8em;
+			}
+		}
+		.storage{
+			display: inline-block;
+		}
+		.dropdown-menu{
+			&:before{
+				left: 3.5em;
+			}
+		}
+
+		#AppNavBar &{
+			width: 15em;
+			.avatar-wrap{
+				font-size: .6em;
+			}
+			.wrapper{
+				.user-name{
+					span{
+						max-width: 14rem;
+					}
+					.caret{
+						display: inline-block !important;
+					}
+				}
+			}
+			.dropdown-menu{
+				&:before{
+					left: auto;
+					right: 1em;
+				}
+			}
+		}
+
+
+	} // end @media #{$small}
+
+	@media #{$medium}{
+		.dropdown-menu{
+			&:before{
+				left: 5.5em;
+			}
+		}
+	} // end @media #{$medium}
+
+	@media #{$large}{
+		text-align: left;
+		.avatar-wrap{
+			display: inline-block;
+			margin-left: 1em;
+			margin-right: .3em;
+		}
+		.storage-remain{
+			display: block;
+			color: white !important;
+		}
+		.dropdown-menu{
+			&:before{
+				left: 3em;
+			}
+		}
+	} // end @media #{$large}
+}

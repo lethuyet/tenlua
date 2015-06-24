@@ -1,0 +1,40 @@
+#AccountConfirm{
+	display: block;
+	.main {
+		width: 95%;
+		margin: 3em auto;
+	}
+	.paper-box-wrap{
+		float: none;
+		margin: 3em auto 0;
+		h2{
+			text-align: center;
+			font-size: 2.3em;
+			text-transform: none;
+			margin-bottom: .7em;
+			i{
+				vertical-align: top;
+				font-size: 1.5em;
+				color: $brand-success;
+			}
+			.tl-icon-delete{
+				color: $brand-danger;
+			}
+		}
+	}
+	.paper-box-inner{
+		padding: 2em;
+		p{
+			font-size: 1.4em;
+		}
+	}
+
+	@media #{$medium}{
+		.container-fluid{
+			width: 90%;
+		}
+		.main{
+			width: 90%;
+		}
+	} // end @media #{$medium}
+}

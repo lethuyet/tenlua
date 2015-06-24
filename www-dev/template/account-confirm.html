@@ -1,0 +1,41 @@
+<div class="view-wrapper" id="AccountConfirm">
+	<div class="container-fluid">
+		<div class="main">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<ul class="upgrade-progress clearfix" ng-class="{'_3': hasPayment()}">
+						<li class="done"><b style="width: 100%;"></b><span>Chọn dịch vụ</span></li>
+						<li class="active"><b></b><span>Đăng ký tài khoản</span></li>
+						<li ng-if="hasPayment()"><b></b><span>Thanh toán</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-7 paper-box-wrap">
+					<div class="paper-box" ng-if="routeParams.activeId === '0'">
+						<h2><i class="tl-icon-check"></i> Đăng ký thành công!</h2>
+						<div class="paper-box-inner">
+							<p>Vui lòng kiểm tra email để kích hoạt tài khoản. Nếu không có trong INBOX, xin kiểm tra trong SPAM (hoặc JUNK).</p>
+							<p>Chúc bạn có nhiều trải nghiệm thú vị cùng tenlua.vn!</p>
+						</div>
+					</div>
+					<div class="paper-box clearfix" ng-if="hasActiveId() && !authSrv.isFailLogin && !authSrv.isErrorLogin">
+						<h2><i class="tl-icon-spinner"></i> Đang kích hoạt tài khoản...</h2>
+					</div>
+					<div class="paper-box clearfix" ng-if="hasActiveId() && authSrv.isFailLogin">
+						<h2><i class="tl-icon-delete"></i> Không thể kích hoạt tài khoản vì mã kích hoạt không hợp lệ.</h2>
+					</div>
+					<div class="paper-box clearfix" ng-if="hasActiveId() && authSrv.isErrorLogin">
+						<h2><i class="tl-icon-delete"></i> Không thể kích hoạt tài khoản, xin thử lại.</h2>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /.main -->
+	</div>
+	<!-- /.container-fluid -->
+</div>

@@ -1,0 +1,49 @@
+<div class="view-wrapper" id="Payment">
+	<div class="container-fluid">
+		<div class="main">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<ul class="upgrade-progress clearfix _3">
+						<li class="done"><b style="width:100%"></b><span>Chọn dịch vụ</span></li>
+						<li class="done"><b style="width:100%"></b><span>Đăng ký tài khoản</span></li>
+						<li class="active"><b></b><span>Thanh toán</span></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12 paper-box-wrap">
+					<h3>Vui lòng chọn một mức giá bên dưới để tiến hành thanh toán.</h3>
+					<div class="paper-box overthrow" ng-if="prices.length">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr class="table-head">
+								<td></td>
+								<td></td>
+								<td class="payment-image {{payment.name}}" ng-repeat="payment in prices[0].payments" ng-if="payment.name != 'sms' || (payment.name == 'sms' && routeParams.plan != 'lifetime')"></td>
+								<td class="payment-image voucher"></td>
+								<td></td>
+							</tr>
+							<tr ng-repeat="priceRow in prices" ng-if="(routeParams.plan != 'lifetime' && priceRow.day != 'lifetime') || (routeParams.plan == 'lifetime' && priceRow.day == 'lifetime')">
+								<td></td>
+								<td>{{priceRow.day == 'lifetime' ? 'Trọn đời' : priceRow.day + ' ngày'}}</td>
+								<td ng-repeat="payment in priceRow.payments" ng-class="{'cell-price': payment.price !== null}" ng-click="openPayment(payment, priceRow.day)" ng-if="payment.name != 'sms' || (payment.name == 'sms' && routeParams.plan != 'lifetime')">
+									<i class="tl-icon-delete" ng-if="payment.price === null"></i>
+									<span ng-if="payment.price !== null" class="hint--bottom hint--rounded" data-hint="{{priceRow.day == 'lifetime' ? '' : priceRow.day + ' ngày'}} ({{paymentNames[payment.name]}})">{{payment.price | number}} {{payment.unit}}</span>
+								</td>
+								<td ng-if="$first" rowspan="6" class="cell-voucher"><p>Thẻ voucher giành cho những khách hàng tham gia chương trình, sự kiện do tenlua.vn tổ chức</p>
+									<button class="btn btn-default btn-sm" ng-click="openPayment('voucher')">Nhập mã voucher</button>
+								</td>
+								<td ng-if="$first" rowspan="6" class="cell-padding-right"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /.main -->
+	</div>
+	<!-- /.container-fluid -->
+</div>

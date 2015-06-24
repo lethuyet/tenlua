@@ -1,0 +1,101 @@
+<div class="view-wrapper" id="Download">
+	<div class="container-fluid">
+		<div class="main">
+			<div class="row" ng-class="{'can-view': filesSrv.canView(file)}" ng-if="dataOk()">
+				<div class="col col-sm-2">
+					<!-- <b class="file-img _{{::file.ext}}" ng-class="::{thumbnail: file.image, folder: file.type==1}" ng-style="::file.style"></b> -->
+					<b class="file-img _{{::file.ext}}" ng-click="viewFile()"></b>
+				</div>
+				<div class="col col-sm-6 file-detail">
+					<h1 title="{{file.name}}">{{file.name}}</h1>
+					<h3><span>Dung lượng: <b>{{file.size | byteFormat}}</b></span><span>Loại: <b>{{file.ext}}</b></span></h3>
+				</div>
+				<div class="col col-sm-4 file-actions">
+					<a ng-click="viewFile()" class="view-file"><i class="icon tl-icon-eye"></i> <span class="icon-label">Xem</span></a>
+					<a ng-click="filesSrv.share(file)"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+					<a ng-click="reportFile()"><i class="icon tl-icon-flag"></i> <span class="icon-label">Báo vi phạm</span></a>
+					<!-- <span>
+						<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ftenlua.vn&amp;width&amp;layout=box_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:65px; width:50px;" allowTransparency="true"></iframe>
+					</span> -->
+				</div>
+			</div>
+
+
+			<div class="paper-box-inner fast" ng-if="dataOk() && authSrv.isAuthorized(['gold','admin','uploader','lifetime'])">
+				<!-- <a class="download fast" ng-href="{{file.downloadUrl}}" target="_top"> -->
+				<a class="download fast" target="_top" ng-click="downloadFast()">
+					<b class="count-down loading" ng-if="fastDownloaded">
+						<div class="loading-dots show"><b></b><b></b><b></b></div>
+					</b>
+					<i class="tl-icon-angle-double-down" ng-if="!fastDownloaded"></i>
+					<span>Tải xuống nhanh</span>
+				</a>
+			</div>
+
+			<div class="row" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])">
+				<div class="col-sm-6 paper-box-wrap">
+					<div class="paper-box">
+						<h2>Free</h2>
+						<ul>
+							<li ng-repeat="item in features.free"><i class="tl-icon-check"></i>{{item.benefit}}</li>
+							<!-- <li><i class="tl-icon-check"></i>Tốc độ bình thường</li>
+							<li><i class="tl-icon-check"></i>Xóa file sau 15 ngày</li>
+							<li><i class="tl-icon-check"></i>Lượng file tải: 1 file</li>
+							<li><i class="tl-icon-check"></i>Thời gian chờ tải: {{timeWaitToDownload}} giây</li> -->
+						</ul>
+						<div class="paper-box-inner">
+							<a class="download" ng-click="download()">
+								<b class="count-down" ng-class="{loading:countDown===0}" ng-if="countDownStarted">{{countDown}}
+									<div class="loading-dots" ng-class="{show: countDown===0}"><b></b><b></b><b></b></div>
+								</b>
+								<i class="tl-icon-angle-double-down" ng-if="!countDownStarted"></i>
+								<span>Tải xuống</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 paper-box-wrap">
+					<div class="paper-box">
+						<h2>Gold</h2>
+						<ul>
+							<li ng-repeat="item in features.gold"><i class="tl-icon-check"></i>{{item.benefit}}</li>
+							<!-- <li><i class="tl-icon-check"></i>Tốc độ tối đa</li>
+							<li><i class="tl-icon-check"></i>File không bị xóa</li>
+							<li><i class="tl-icon-check"></i>Lượng file tải: không giới hạn</li>
+							<li><i class="tl-icon-check"></i>Thời gian chờ tải: 0 giây</li> -->
+						</ul>
+						<div class="paper-box-inner">
+							<a class="download fast" href="#!/plans">
+								<i class="tl-icon-angle-double-down"></i>
+								<span>Tải xuống nhanh</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.main -->
+
+		<div id="BottomAd">
+			<div class="fb-like-wrap">
+				<h3><i class="tl-icon-arrow-down-long"></i>Like để kết nối <a href="https://www.facebook.com/tenlua.vn" target="_blank">tenlua.vn trên Facebook</a></h3>
+				<!-- <span class="logo"></span>
+				<span><iframe class="fb-like" src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ftenlua.vn&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=80" scrolling="no" frameborder="0" allowTransparency="true"></iframe></span> -->
+				<span><iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Ftenlua.vn&amp;width=380&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=false&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:380px; height:62px;" allowTransparency="true"></iframe></span>
+			</div>
+
+			<div class="ad-frame" page="uiState.page.name" position="'bottom'" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'"></div>
+		</div>
+
+		<div id="RightAd">
+			<iframe width="160px" height="500px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-right.html"></iframe>
+		</div>
+
+		<div id="LeftAd">
+			<iframe width="120px" height="600px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-left.html"></iframe>
+		</div>
+
+	</div>
+	<!-- /.container-fluid -->
+</div>

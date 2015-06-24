@@ -1,0 +1,262 @@
+.app-footer-mask-fix, .app-footer-support-mask-fix{
+	display: none;
+	position: fixed;
+	z-index: 9999;
+	.page-fm &{
+		display: block;
+	}
+}
+.app-footer-support-mask-fix{
+	display: block;
+}
+
+#AppFooter, #AppFooterSupport{
+	font-size: 1.2rem;
+	text-align: left;
+	// margin-top: 4em;
+	margin-top: -11em;
+	padding: 2.5em 0;
+	// min-height: 23em;
+	min-height: 5em;
+	box-shadow: 0 -4px 0 rgba(black,.08);
+	color: #666;
+	background: rgba(white, .8);
+	// @include background-image(linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0.88) 67%,rgba(255,255,255,0.3) 100%));
+	.container-fluid > .row > .col{
+		border-top: 1px solid #ccc;
+		// border-right: 1px solid #ccc;
+		padding-top: 1.7em;
+		&:first-child{
+			border-top: none;
+			padding-top: 0;
+		}
+	}
+	@media #{$small}{
+		.container-fluid > .row > .col{
+			border-top: none;
+			border-right: 1px solid #ccc;
+			padding-top: 0;
+			&:last-child{
+				border-right: none;
+			}
+		}
+		ul{
+			margin-bottom: 0;
+		}
+		.about, .support{
+			width: 15%;
+		}
+		.community{
+			li{
+				display: inline-block;
+				width: 35%;
+				&:nth-child(odd){
+					width: 65%;
+				}
+			}
+		}
+		.policy{
+			width: 13%;
+		}
+		.partner{
+			width: 10%;
+		}
+		.company-info{
+			width: 30%;
+		}
+
+	}
+	@media #{$medium}{
+		.container-fluid{
+			width: 90%;
+		}
+	}
+}
+
+#AppFooterSupport{
+	padding: 1.5em 0;
+	text-align: center;
+	h2{
+		font-size: 1.8em;
+		margin: 0;
+		border-bottom: 1px solid #e1e1e1;
+		padding-bottom: .5em;
+		margin-bottom: .5em;
+		text-transform: uppercase;
+	}
+	.support-col{
+		h3{
+			text-transform: uppercase;
+		}
+		a{
+			i{
+				font-size: 4em;
+				color: #00aff0;
+				@include transition(all .2s);
+				&:hover{
+					@include transform(scale(1.2));
+				}
+			}
+			b{
+				display: block;
+				margin-top: .5em;
+				color: #666;
+			}
+		}
+	}
+	.support-skype{
+		a{
+			i{
+				color: #00aff0;
+			}
+		}
+	}
+	.support-yahoo{
+		a{
+			i{
+				color: #ffb300;
+			}
+		}
+	}
+	.support-ticket{
+		a{
+			.tl-icon-lifebuoy{
+				font-size: 7em;
+				color: #934f97;
+			}
+		}
+	}
+
+	@media #{$xSmallDown}{
+		.support-col{
+			.row{
+				margin-bottom: 3em;
+			}
+			.col{
+				width: 50%;
+				float: left
+			}
+		}
+	}
+}
+
+.page-fm #AppFooter, #AppFooterSupport{
+	@include absolute-full;
+	position: fixed;
+	z-index: 9999;
+	top: auto;
+	// min-height: 5em;
+	max-height: 60%;
+	margin-top: 0;
+	background: rgba(white, .95);
+	// @include transition(all .3s);
+	@include transform(translateY(100%));
+	&.shown{
+		@include transform(translateY(0));
+	}
+
+	&.shown-add{
+		@include transform(translateY(100%));
+	}
+	&.shown-add-active{
+		@include transform(translateY(0));
+		@include transition(all .3s);
+	}
+	&.shown-remove{
+		@include transform(translateY(0));
+	}
+	&.shown-remove-active{
+		@include transform(translateY(100%));
+		@include transition(all .3s);
+	}
+}
+
+#AppFooter{
+	h3{
+		// font-size: 1.2em;
+		color: #333;
+		margin: 0 0 1em;
+		text-transform: uppercase;
+	}
+	ul{
+		margin: 0 0 1.7em;
+		padding: 0;
+		list-style: none;
+	}
+
+	li{
+		margin-bottom: .7em;
+	}
+
+	a{
+		color: #666;
+		// line-height: 1.6em;
+		&:hover{
+			text-decoration: underline !important;
+		}
+	}
+
+	.company{
+		color: #333;
+	}
+
+	.copyright{
+		margin-top: 1.3em;
+		strong{
+			font-style: italic;
+		}
+	}
+
+	.logo{
+		width: 2em;
+	}
+
+
+	.page-null &{
+		display: none;
+	}
+	// .page-fm &{
+	// 	@include absolute-full;
+	// 	position: fixed;
+	// 	z-index: 9999;
+	// 	top: auto;
+	// 	// min-height: 5em;
+	// 	max-height: 60%;
+	// 	margin-top: 0;
+	// 	background: rgba(white, .95);
+	// 	@include transition(all .3s);
+	// 	@include transform(translateY(100%));
+	// 	&.shown{
+	// 		@include transform(translateY(0));
+	// 	}
+	// }
+
+	// @media #{$small}{
+	// 	.col{
+	// 		border-top: none;
+	// 		border-right: 1px solid #ccc;
+	// 		padding-top: 0;
+	// 		&:last-child{
+	// 			border-right: none;
+	// 		}
+	// 	}
+	// 	ul{
+	// 		margin-bottom: 0;
+	// 	}
+	// 	.community{
+	// 		li{
+	// 			display: inline-block;
+	// 			width: 35%;
+	// 			&:nth-child(odd){
+	// 				width: 65%;
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	// @media #{$medium}{
+	// 	.container-fluid{
+	// 		width: 90%;
+	// 	}
+	// }
+}

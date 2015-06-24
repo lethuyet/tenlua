@@ -1,0 +1,110 @@
+<nav id="AppNavBar" class="navbar navbar-default navbar-fixed-top" role="navigation" ng-class="{expanded: uiState.fm.appNavBarExpanded, 'search-box-shown': uiState.searchBoxShown}" ng-cloak>
+	<a class="mask-fix" ng-click="uiState.fm.appNavBarExpanded=false; uiState.searchBoxShown=false"></a>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#!/"><span class="logo"></span><b>tenlua.vn</b></a>
+		<span class="global-actions" ng-if="uiState.page.name == 'fm'">
+
+			<span class="fm-context-actions" ng-if="filesSrv.checkedNodes.length && uiState.page.fmName != 'folder'" file-node-related>
+				<a class="btn btn-default btn-xs btn-view" ng-click="filesSrv.openNode(filesSrv.checkedNodes[0],$event)" ng-if="filesSrv.checkedNodes.length==1 && filesSrv.canView(filesSrv.checkedNodes[0])"><i class="icon tl-icon-eye"></i> <span class="icon-label">Xem</span></a>
+				<a class="btn btn-default btn-xs" ng-click="filesSrv.goToDownload()"><i class="icon tl-icon-download"></i> <span class="icon-label">Tải về</span></a>
+				<a class="btn btn-default btn-xs" ng-click="filesSrv.share(filesSrv.checkedNodes[0])"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+				<a class="btn btn-default btn-xs" ng-click="filesSrv.deleteCheckedNodes()"><i class="icon tl-icon-trash"></i> <span class="icon-label">Xóa</span></a>
+				<a class="btn btn-default btn-xs" ng-click="filesSrv.initRename()" ng-if="filesSrv.checkedNodes.length==1"><i class="icon tl-icon-text-edit"></i> <span class="icon-label">Sửa tên</span></a>
+				<a class="btn btn-default btn-xs" ng-click="filesSrv.moveTo()"><i class="icon tl-icon-move"></i> <span class="icon-label">Di chuyển</span></a>
+				<!-- <a class="btn btn-default btn-xs"><i class="icon tl-icon-copy"></i> <span class="icon-label">Sao chép</span></a> -->
+				<a class="btn btn-default btn-xs btn-archive" ng-click="filesSrv.archive()" ng-if="filesSrv.checkedNodes.length==1"><i class="icon tl-icon-save-disk"></i> <span class="icon-label">{{filesSrv.checkedNodes[0].archived ? 'Bỏ lưu trữ' : 'Lưu trữ'}}</span></a>
+				<a class="btn btn-default btn-xs btn-refresh" ng-click="reload()"><i class="icon tl-icon-refresh"></i> <span class="icon-label">Refresh</span></a>
+			</span>
+
+			<span ng-if="uiState.page.fmName == 'folder' && !searchSrv.isSearchingCurrent()" class="folder-actions">
+				<!-- <span class="btn btn-success btn-xs"><i class="icon tl-icon-download"></i> <span class="icon-label">Tải về</span></span> -->
+				<a class="btn btn-success btn-xs" ng-click="filesSrv.share(filesSrv.currentFolder)"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+				<a class="btn btn-default btn-xs" ng-if="authSrv.isAuthenticated()"><i class="icon tl-icon-file-manager"></i> <span class="icon-label">Quản lý file</span></a>
+				<!-- <a class="btn btn-default btn-xs" ng-if="authSrv.isAuthenticated()"><i class="icon tl-icon-save-disk"></i> <span class="icon-label">Lưu cá nhân</span></a> -->
+			</span>
+
+			<span ng-if="!filesSrv.checkedNodes.length">
+				<!-- <span ng-if="uiState.page.fmName != 'folder' && !searchSrv.searchMode()"> -->
+				<span ng-if="uiState.page.fmName == 'files' && !searchSrv.isSearchingCurrent() && !routeParams.libName">
+					<span class="btn btn-success btn-xs file-upload" flow-btn><i class="icon tl-icon-upload"></i> <span class="icon-label">Upload file</span></span>
+					<span class="btn btn-success btn-xs folder-upload" ng-if="$flow.supportDirectory" flow-btn flow-directory><b class="icon icon-folder-upload"><i class="tl-icon-folder"></i><i class="tl-icon-arrow-up"></i></b> <span class="icon-label">Upload thư mục</span></span>
+					<a class="btn btn-success btn-xs create-folder hint--bottom hint--rounded" data-hint="Tạo Thư mục" ng-click="filesSrv.initNewFolder()"><b class="icon icon-new-folder"><i class="tl-icon-folder"></i><i class="icon-plus">+</i></b> <span class="icon-label">Tạo thư mục</span></a>
+					<a class="btn btn-success btn-xs share-link hint--bottom hint--rounded" data-hint="Chia sẻ" ng-click="filesSrv.share(filesSrv.currentFolder)" ng-if="filesSrv.currentFolder.type !== 2"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+				</span>
+				<div class="btn-toolbar">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-default btn-xs select hint--bottom hint--rounded" data-hint="Chọn" file-node-related ng-click="uiState.fm.inSelectionMode=!uiState.fm.inSelectionMode"><b class="icon icon-check-list"><i class="tl-icon-check"></i><i class="tl-icon-list"></i></b> <span class="icon-label">Chọn</span></a>
+						<!-- <a class="btn btn-default btn-xs select" onclick="$('html').toggleClass('fm-list-touch-selection')"><b class="icon icon-check-list"><i class="tl-icon-check"></i><i class="tl-icon-list"></i></b> <span class="icon-label">Chọn</span></a> -->
+					</div>
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-default thumbnails hint--bottom hint--rounded" data-hint="Chế độ ảnh nhỏ" ng-click="uiState.fm.listMode='thumbnails'"><i class="icon tl-icon-thumbnails"></i> <span class="icon-label">Ảnh nhỏ</span></a>
+						<a class="btn btn-default details hint--bottom hint--rounded" data-hint="Chế độ chi tiết" ng-click="uiState.fm.listMode='details'"><i class="icon tl-icon-details-list"></i> <span class="icon-label">Chi tiết</span></a>
+						<!-- <a class="btn btn-default thumbnails" onclick="$('html').removeClass('fm-list-mode-details'); $('html').addClass('fm-list-mode-thumbnails')"><i class="icon tl-icon-thumbnails"></i> <span class="icon-label">Ảnh nhỏ</span></a>
+						<a class="btn btn-default details" onclick="$('html').removeClass('fm-list-mode-thumbnails'); $('html').addClass('fm-list-mode-details')"><i class="icon tl-icon-details-list"></i> <span class="icon-label">Chi tiết</span></a> -->
+					</div>
+				</div>
+			</span>
+
+			<a class="tl-icon-ellipsis-vert" file-node-related ng-click="uiState.fm.appNavBarExpanded=!uiState.fm.appNavBarExpanded"></a>
+
+		</span>
+
+		<!-- <form class="navbar-form" role="search" ng-submit="searchSrv.searchSubmit($event)" ng-if="!filesSrv.checkedNodes.length && uiState.page.fmName != 'folder'"> -->
+		<form class="navbar-form" role="search" ng-submit="searchSrv.searchSubmit($event)" ng-if="!filesSrv.checkedNodes.length || uiState.page.name != 'fm'">
+			<input type="text" class="search-box" placeholder="Tìm {{searchSrv.activeOption.name == 'current' ? filesSrv.fsRootNode.name : searchSrv.options[0].text}}..." ng-model="searchSrv.keyword" ng-model-options="{debounce: 300}">
+			<button class="search-btn" ng-click="uiState.searchBoxShown=true"><i class="tl-icon-search"></i> <span class="icon-label">Tìm kiếm</span></button>
+			<button type="submit" class="search-btn" ng-hide="searchSrv.isSearchingCurrent()"><i class="tl-icon-search"></i></button>
+			<button class="search-btn cancel" ng-click="$event.preventDefault(); searchSrv.keyword=''" ng-if="searchSrv.isSearchingCurrent()"><i class="tl-icon-delete"></i></button>
+			<div class="btn-group" dropdown is-open="searchSrv.optionsOpen" ng-if="searchSrv.hasOptions()">
+				<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="disabled">
+					<!-- <span>{{searchSrv.activeOption.text}}</span> -->
+					<i class="logo" ng-if="searchSrv.activeOption.name == 'all'"></i>
+					<i class="tl-icon-folder" ng-if="searchSrv.activeOption.name == 'current'"></i>
+					<b class="caret"></b>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					<li ng-repeat="option in searchSrv.options" ng-class="{active: option===searchSrv.activeOption}" ng-click="searchSrv.selectOption(option)"><a>{{option.text}}</a></li>
+				</ul>
+			</div>
+
+		</form>
+
+		<div class="right more-actions" ng-class="{overthrow: uiState.page.name == 'fm'}">
+			<span ng-if="uiState.page.name == 'fm' && uiState.page.fmName != 'folder'" class="fm-actions">
+				<span class="fm-context-actions" ng-if="filesSrv.checkedNodes.length">
+					<a class="action" ng-click="filesSrv.archive()" ng-if="filesSrv.checkedNodes.length==1">{{filesSrv.checkedNodes[0].archived ? 'Bỏ lưu trữ...' : 'Lưu trữ...'}}</a>
+				</span>
+				<span ng-if="!filesSrv.checkedNodes.length">
+					<span ng-if="uiState.page.fmName == 'files' && !searchSrv.isSearchingCurrent() && !routeParams.libName">
+						<a href="#" class="action folder-upload" ng-if="$flow.supportDirectory">Upload thư mục</a>
+						<a class="action new-folder" ng-click="filesSrv.initNewFolder()">Tạo thư mục mới</a>
+						<a class="action refresh" ng-click="reload()">Refresh</a>
+					</span>
+					<span class="dropdown sort action">
+						<span class="dropdown-toggle">Sắp xếp theo... <b class="caret"></b></span>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-class="{active: filesSrv.nodeListOrder=='name'}"><a ng-click="filesSrv.setNodeListOrder('name',false)">Tên</a></li>
+							<li ng-class="{active: filesSrv.nodeListOrder=='size'}"><a ng-click="filesSrv.setNodeListOrder('size',false)">Dung lượng</a></li>
+							<li ng-class="{active: filesSrv.nodeListOrder=='timeStamp'}"><a ng-click="filesSrv.setNodeListOrder('timeStamp',false)">Ngày sửa đổi</a></li>
+							<li ng-class="{active: filesSrv.nodeListOrder=='fileType'}"><a ng-click="filesSrv.setNodeListOrder('fileType',false)">Loại</a></li>
+							<li class="divider"></li>
+							<li ng-class="{active: !filesSrv.nodeListReverse}"><a ng-click="filesSrv.nodeListReverse = false">Tăng dần</a></li>
+							<li ng-class="{active: filesSrv.nodeListReverse}"><a ng-click="filesSrv.nodeListReverse = true">Giãm dần</a></li>
+						</ul>
+					</span>
+				</span>
+			</span>
+			<!-- <span class="dropdown language action" ng-if="!filesSrv.checkedNodes.length"> -->
+			<!-- <span class="dropdown language action" ng-if="!authSrv.isAuthenticated()">
+				<a class="dropdown-toggle">Ngôn ngữ <b class="caret"></b></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">English</a></li>
+					<li><a href="#">Tiếng Việt</a></li>
+				</ul>
+			</span> -->
+			<a href="#!/plans" class="btn btn-success btn-signup" ng-if="!authSrv.isAuthenticated() && uiState.page.name != 'plans'">Đăng ký</a>
+			<a class="btn btn-default btn-signin" ng-click="authSrv.openLoginModal()" ng-if="!authSrv.isAuthenticated()">Đăng nhập</a>
+			<user class="invert" has-dropdown="{{authSrv.isAuthenticated()}}" ng-if="!route.current.guestOnly && uiState.page.name && uiState.page.name != 'fm' && authSrv.isAuthenticated()"></user>
+		</div>
+	</div>
+</nav>

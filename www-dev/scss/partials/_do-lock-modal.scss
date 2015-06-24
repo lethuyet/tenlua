@@ -1,0 +1,22 @@
+.do-lock-modal{
+	.modal-body{
+		text-align: center;
+	}
+	.message{
+		color: $brand-danger;
+		font-weight: bold;
+	}
+	.form-control{
+		width: 90%;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.btn-remove{
+		float: left;
+	}
+	@media #{$small}{
+		.form-control{
+			width: 60%;
+		}
+	}
+}

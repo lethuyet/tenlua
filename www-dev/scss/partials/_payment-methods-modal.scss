@@ -1,0 +1,96 @@
+.payment-methods-modal{
+	.modal-title{
+		font-size: 1.3em;
+	}
+
+	.modal-body{
+		&:after{
+			display: none;
+		}
+	}
+
+	.modal-footer{
+		text-align: center;
+	}
+
+	.gold-status{
+		background: #f5f5f5;
+		border: 1px solid #e1e1e1;
+		border-radius: .5em;
+		padding: .7em;
+		margin-bottom: 2em;
+		font-size: .8em;
+		&.warning{
+			background: $brand-warning-light;
+		}
+		&.success{
+			background: $brand-success-lighter;
+			strong{
+				//color: darken($brand-success,5%);
+			}
+		}
+		strong{
+			color: darken($highlight-dark-color,5%);
+			text-transform: uppercase;
+		}
+		input{
+			vertical-align: top;
+			margin-right: .3em;
+			margin-top: -.01em;
+		}
+		label{
+			display: block;
+			margin-top: 1em;
+			font-size: .85em;
+			color: #999;
+			font-weight: normal;
+		}
+	}
+	
+	.sms-help{
+		h3{
+			color: $highlight-color;
+			span{
+				color: black;
+			}
+		}
+		ul{
+			padding-left: 1em;
+			li{
+				margin-bottom: .5em;
+			}
+		}
+	}
+
+	input[type=radio]{
+		//vertical-align: middle;
+	}
+
+	label{
+		font-size: .8em;
+		vertical-align: middle;
+		margin-right: .8em;
+		margin-left: .2em;
+	}
+
+	.form-control{
+		font-size: 1em;
+		border-radius: 50em;
+		height: 2em;
+	}
+	
+	.sec-code{
+		label{
+			vertical-align: bottom;
+		}
+		img{
+			border-radius: .3em;
+		}
+		.form-control{
+			margin-top: .5em;
+			// width: 40%;
+			// display: inline-block;
+			// margin-left: .5em;
+		}
+	}
+}

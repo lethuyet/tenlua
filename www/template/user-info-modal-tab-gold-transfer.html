@@ -1,0 +1,86 @@
+<div class="gold-transfer-wrap">
+	<div class="row" ng-if="user2userGoldTransfer.message">
+		<div class="col-sm-12 message" ng-bind-html="user2userGoldTransfer.message"></div>
+	</div>
+
+	<div class="row">
+		<div class="col col-sm-6">
+			<div class="row">
+				<div class="col col-sm-12">
+					<input type="number" name="user2userGoldTransferGold" class="form-control" ng-model="user2userGoldTransfer.gold" placeholder="Số gold cần chuyển" required="" integer="" min="10" ng-maxlength="100" ng-disabled="user2userGoldTransfer.transfering">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col col-sm-12">
+					<input type="email" name="user2userGoldTransferEmail" class="form-control" ng-model="user2userGoldTransfer.email" placeholder="Email người nhận gold" required="" maxlength="100" ng-disabled="user2userGoldTransfer.transfering">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col col-sm-12">
+					<div class="sec-code form-group">
+						<input type="text" class="form-control" placeholder="Nhập mã bảo mật..." name="user2userGoldTransferCaptcha" ng-model="user2userGoldTransfer.captcha" required="" maxlength="100" ng-disabled="user2userGoldTransfer.transfering">
+						<label>Mã bảo mật:</label>
+						<img class="captcha" ng-src="{{user2userGoldTransfer.captchaImg}}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col col-sm-6">
+			<div class="row">
+				<div class="col col-sm-12">
+					<textarea name="user2userGoldTransferNote" class="form-control" ng-model="user2userGoldTransfer.note" placeholder="Ghi chú" maxlength="500" ng-disabled="user2userGoldTransfer.transfering"></textarea>
+					<button class="btn btn-xs btn-success" type="submit" ng-disabled="user2userGoldTransfer.transfering">Chuyển</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row">
+		<div class="col col-sm-12 btn-wrap">
+			<button class="btn btn-xs btn-success" type="submit" ng-disabled="user2userGoldTransfer.transfering">Chuyển</button>
+		</div>
+	</div> -->
+
+	<tabset id="UserInfoModalTabGoldTransfer">
+		<tab heading="Lịch sử chuyển gold">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>STT</td>
+					<td>Người chuyển</td>
+					<td>Người nhận</td>
+					<td>Số gold</td>
+					<td>Ngày chuyển</td>
+					<td></td>
+				</tr>
+				<tr ng-repeat="item in user2userGoldTransfer.history">
+					<td>{{::($index + 1)}}</td>
+					<td>{{::item.from_name}}</td>
+					<td>{{::item.to_name}}</td>
+					<td>{{::item.gold_transfer}}</td>
+					<td>{{::item.date_transfer}}</td>
+					<td><a class="tl-icon-info" title="Ghi chú" ng-if="item.note" ng-click="user2userGoldTransfer.showNote(item.note)"></a></td>
+				</tr>
+			</table>
+			<div class="meassage" ng-if="user2userGoldTransfer.historyError">Ko có dữ liệu, xin thử lại sau.</div>
+		</tab>
+
+		<tab heading="Lịch sử nạp gold">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>STT</td>
+					<td>Gold</td>
+					<td>Ngày Gold</td>
+					<td>Hình thức</td>
+					<td>Ngày nạp</td>
+				</tr>
+				<tr ng-repeat="item in moreUserInfo.transferHistory">
+					<td>{{::($index + 1)}}</td>
+					<td>{{::item.transfer_gold}}</td>
+					<td>{{::item.day_of_transfer}}</td>
+					<td>{{::item.description}}</td>
+					<td>{{::item.start_transfer_date}}</td>
+				</tr>
+			</table>
+			<div class="meassage" ng-if="moreUserInfo.moreInfoError">Ko có dữ liệu, xin thử lại sau.</div>
+		</tab>
+	</tabset>
+</div>

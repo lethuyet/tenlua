@@ -1,0 +1,181 @@
+#Payment{
+	display: block;
+	.main {
+		width: 95%;
+		margin: 3em auto;
+	}
+	.paper-box-wrap{
+		padding: 0;
+		h3{
+			text-align: center;
+			font-size: 1.6em;
+			font-weight: normal;
+		}
+	}
+	.paper-box{
+		// overflow: auto;
+		padding: 0 0 2em;
+		background: rgba(white,.7);
+		table{
+			width: 100%;
+			border-collapse: collapse;
+			text-align: right;
+			font-size: 1.1em;
+			border: none;
+			padding: 0 0 2em;
+			.table-head{
+				background: white;
+				border-bottom: 1px solid #ddd;
+				td{
+					border: none;
+					padding: 0;
+					&:before{
+						content: "";
+						display: block;
+						padding-top: 60%;
+					}
+				}
+			}
+			.payment-image{
+				background: no-repeat center;
+				background-size: 100% auto;
+				&.card{
+					background-image: url(../img/payments/mobile-cards.gif);
+				}
+				&.nganluong{
+					background-image: url(../img/payments/nganluong.gif);
+				}
+				&.ebanking{
+					background-image: url(../img/payments/internet-banking.gif);
+				}
+				&.paypal{
+					background-image: url(../img/payments/paypal.gif);
+				}
+				&.sms{
+					background-image: url(../img/payments/sms.gif);
+				}
+				&.voucher{
+					background-size: auto 75%;
+					background-image: url(../img/payments/voucher.gif);
+				}
+			}
+			tr{
+				&:last-child{
+					td{
+						border-bottom: none;
+					}
+				}
+			}
+			td{
+				border: 1px solid #ddd;
+				padding: .5em;
+				&:first-child{
+					border: none;
+				}
+				&:nth-child(2){
+					padding-right: .5em;;
+					color: #333;
+					font-weight: bold;
+					text-align: left;
+					border-left: none;
+				}
+				&.cell-price{
+					text-transform: uppercase;
+					color: $link-color;
+					cursor: pointer;
+					span{
+						&:after{
+							text-transform: none;
+						}
+					}
+					&:hover{
+						background-color: white;
+					}
+				}
+				&.voucher{
+					width: 10%;
+				}
+				&.cell-voucher{
+					vertical-align: top;
+					text-align: left;
+					color: #666;
+					border: none;
+				}
+				&.cell-padding-right{
+					border: none;
+				}
+			}
+		}
+		.tl-icon-delete{
+			color: #aaa;
+			font-size: 1.5em;
+			display: block;
+			text-align: center;
+		}
+	}
+	// .paper-box-wrap{
+	// 	float: none;
+	// 	margin: 3em auto 0;
+	// 	h2{
+	// 		text-align: center;
+	// 		font-size: 2.3em;
+	// 		text-transform: none;
+	// 		margin-bottom: .7em;
+	// 		i{
+	// 			vertical-align: top;
+	// 			font-size: 1.5em;
+	// 			color: $brand-success;
+	// 		}
+	// 		.tl-icon-delete{
+	// 			color: $brand-danger;
+	// 		}
+	// 	}
+	// }
+	// .paper-box-inner{
+	// 	padding: 2em;
+	// 	p{
+	// 		font-size: 1.4em;
+	// 	}
+	// }
+
+	@media #{$xSmallDown}{
+		.paper-box{
+			table{
+				td:first-child{
+					padding: .3em;
+				}
+			}
+		}
+	}
+
+	@media #{$small}{
+		.paper-box{
+			table{
+				font-size: 1.3em;
+				td{
+					padding: .7em;
+				}
+				.payment-image{
+					background-size: 90%;
+				}
+			}
+		}
+	}
+
+	@media #{$medium}{
+		.container-fluid{
+			width: 90%;
+		}
+		.main{
+			width: 90%;
+		}
+		.paper-box{
+			table{
+				font-size: 1.5em;
+				.payment-image{
+					background-size: 70%;
+				}
+			}
+		}
+	} // end @media #{$medium}
+}

@@ -1,0 +1,73 @@
+<div class="row storage-info">
+	<div class="col col-sm-7 storage-overview-wrap">
+		<user class="invert storage-overview" has-dropdown="false"></user>
+		<!-- <a class="edit-avatar"><i class="tl-icon-pencil"></i> avatar</a> -->
+	</div>
+	<div class="col col-sm-5 storage-detail-wrap">
+		<div>
+			<user title="Vùng lưu trữ thông thường" class="invert storage-normal" has-avatar="false" has-dropdown="false" storage-type="normal"></user>
+		</div>
+		<div>
+			<user title="Vùng lưu trữ vĩnh viễn" class="invert storage-permanent" has-avatar="false" has-dropdown="false" storage-type="permanent"></user>
+		</div>
+	</div>
+</div>
+<div class="row gold-info">
+	<div class="col col-sm-2"></div>
+	<div class="col col-sm-10">
+		Loại tài khoản:
+		<strong class="role {{localStorage.AUTH_currentUser.role.name}}">{{localStorage.AUTH_currentUser.role.name}}</strong>
+	</div>
+	<div class="col col-sm-2">
+		<i class="tl-icon-dollar-sign"></i>
+	</div>
+	<div class="col col-sm-10">
+		<div>Số Gold đang sở hữu: <b>{{localStorage.AUTH_currentUser.golds}}</b>
+		</div>
+		<div>Ngày hết hạn Gold Member: <b>{{localStorage.AUTH_currentUser.endGold}}</b>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12 message" ng-if="modalMessage" ng-bind-html="modalMessage"></div>
+</div>
+<div class="row user-info">
+	<div class="col col-sm-7 user-info-detail">
+		<div class="row">
+			<div class="col col-sm-4"></div>
+			<div class="col col-sm-8">
+				<h3>Thông tin cá nhân</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-4">Tên:</div>
+			<div class="col col-sm-8">
+				<input type="text" class="form-control" value="{{localStorage.AUTH_currentUser.fullName}}" disabled="true">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-4">Email:</div>
+			<div class="col col-sm-8">
+				<input type="text" class="form-control" value="{{localStorage.AUTH_currentUser.email}}" disabled="true">
+			</div>
+		</div>
+	</div>
+	<div class="col col-sm-5 change-password">
+		<h3>Đổi mật khẩu</h3>
+		<div class="row">
+			<div class="col col-sm-12">
+				<input type="password" name="oldPassword" class="form-control" ng-model="oldPassword.value" placeholder="Mật khẩu cũ" required="newPassword || newPasswordConfirm" maxlength="{{passwordMaxLength}}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-12">
+				<input type="password" name="newPassword" class="form-control" ng-model="newPassword.value" placeholder="Mật khẩu mới" required="oldPassword || newPasswordConfirm" maxlength="{{passwordMaxLength}}">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-12">
+				<input type="password" name="newPasswordConfirm" class="form-control" ng-model="newPasswordConfirm.value" placeholder="Nhập lại mật khẩu mới" required="oldPassword || newPassword" maxlength="{{passwordMaxLength}}">
+			</div>
+		</div>
+	</div>
+</div>

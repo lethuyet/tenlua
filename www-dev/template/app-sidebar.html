@@ -1,0 +1,89 @@
+<div id="AppSideBar" ng-if="uiState.page.name == 'fm'">
+	<user has-dropdown="{{authSrv.isAuthenticated()}}"></user>
+	<!-- <ul class="fm-nav">
+		<li ng-class="{active:uiState.page.fmName=='files'}"><a href=""><i class="tl-icon-folder-open"></i> <span>Files</span></a></li>
+		<li ng-class="{active:uiState.page.fmName=='pictures'}"><a href=""><i class="tl-icon-picture"></i> <span>Ảnh</span></a></li>
+		<li ng-class="{active:uiState.page.fmName=='music'}"><a href=""><i class="tl-icon-music"></i> <span>Nhạc</span></a></li>
+		<li ng-class="{active:uiState.page.fmName=='videos'}"><a href=""><i class="tl-icon-videos"></i> <span>Videos</span></a></li>
+		<li ng-class="{active:uiState.page.fmName=='links'}"><a href=""><i class="tl-icon-link"></i> <span>Chia sẻ</span></a></li>
+	</ul> -->
+	<div class="app-sidebar-scroll-hider"></div>
+	<div class="app-sidebar-content overthrow">
+
+		<ul class="fm-nav fm-tree" ng-if="uiState.page.fmName != 'search'">
+			<li ng-class="{active:routeParams.libName=='pictures'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/pictures"><i class="tl-icon-picture"></i> <span>{{filesSrv.pictures.name}}</span></a></li>
+			<li ng-class="{active:routeParams.libName=='music'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/music"><i class="tl-icon-music"></i> <span>{{filesSrv.music.name}}</span></a></li>
+			<li ng-class="{active:routeParams.libName=='videos'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/videos"><i class="tl-icon-videos"></i> <span>{{filesSrv.videos.name}}</span></a></li>
+
+			<div class="btn-wrap">
+				<a href="#!/plans" class="btn btn-xs btn-success btn-upgrade"><span>Nâng cấp</span> Gold Member</a>
+			</div>
+			<!-- <li ng-class="{active:uiState.page.fmName=='links'}"><a href=""><i class="tl-icon-link"></i> <span>Chia sẻ</span></a></li> -->
+			<!-- <li ng-if="uiState.page.fmName == 'folder'"> -->
+			<!-- <li>
+				<div class="property-box">
+					<h2>Thông tin</h2>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Số đối tượng:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.nodes.length}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Dung lượng:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.size | byteFormat}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Lượt tải:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.download}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Ngày tạo:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.timeStampCreated | date:'dd/MM/yyyy'}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Ngày sửa:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.timeStamp | date:'dd/MM/yyyy'}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Lưu trữ:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.archived ? '(có)' : '(không)'}}</div>
+					</div>
+					<div class="row">
+						<div class="col col-sm-12 col-md-6">Mật khẩu:</div>
+						<div class="col col-sm-12 col-md-6">{{filesSrv.currentFolder.password ? '(có)' : '(không)'}}</div>
+					</div>
+				</div>
+			</li> -->
+		</ul>
+
+
+		<ul class="fm-nav fm-tree search-top-list" ng-if="uiState.page.fmName == 'search'">
+			<li class="fm-tree-item has-child open">
+				<a><i class="tl-icon-download"></i> <span>Hot Downloads</span></a>
+				<ul class="overthrow">
+					<li ng-repeat="node in searchSrv.hotItems | orderBy: 'dl' track by node.h" class="has-child">
+						<i class="tl-icon-caret-right"></i>
+						<a ng-href="#!/download/{{node.h}}/{{node.ns}}" title="{{node.n}}"><span>{{node.n}}</span></a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="fm-tree-item has-child open">
+				<a><i class="tl-icon-star-fill"></i> <span>Chọn lọc</span></a>
+				<ul class="overthrow">
+					<li ng-repeat="node in searchSrv.topItems | orderBy: 'dl' track by node.h" class="has-child">
+						<i class="tl-icon-caret-right"></i>
+						<a ng-href="#!/download/{{node.h}}/{{node.ns}}" title="{{node.n}}"><span>{{node.n}}</span></a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+	<!-- /.app-sidebar-content -->
+
+
+	<div class="foot">
+		<a ng-click="uiState.appFooterShown = !uiState.appFooterShown"><i class="tl-icon-info"></i> <span>Về tenlua.vn</span></a>
+		<a ng-click="uiState.appFooterSupportShown = !uiState.appFooterSupportShown"><i class="tl-icon-question"></i> <span>Hỗ trợ</span></a>
+	</div>
+</div>

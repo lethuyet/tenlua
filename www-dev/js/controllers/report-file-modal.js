@@ -38,7 +38,7 @@ angular.module( 'TenLua' )
 			}
 			var postData = [{
 				a: "user_index_reportbadlink",
-				captcha: $scope.captcha,
+				captcha: form.captcha.$viewValue,
 				n: $routeParams.nodeId,
 				r: Math.random(),
 				type: "1",

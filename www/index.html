@@ -147,7 +147,7 @@
 
 <!-- <script src="cordova.js"></script> -->
 
-<script src="js/08459a85.tenlua.js"></script>
+<script src="js/62746ee0.tenlua.js"></script>
 
 
 <!-- <script src="http://jwpsrv.com/library/Lxm14DgXEeSVmSIACtqXBA.js"></script> -->

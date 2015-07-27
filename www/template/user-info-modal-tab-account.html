@@ -54,7 +54,7 @@
 	</div>
 	<div class="col col-sm-5 change-password">
 		<h3>Đổi mật khẩu</h3>
-		<div class="row">
+		<div class="row" ng-hide="localStorage.AUTH_currentUser.is_social==1">
 			<div class="col col-sm-12">
 				<input type="password" name="oldPassword" class="form-control" ng-model="oldPassword.value" placeholder="Mật khẩu cũ" required="newPassword || newPasswordConfirm" maxlength="{{passwordMaxLength}}">
 			</div>

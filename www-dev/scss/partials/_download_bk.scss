@@ -9,169 +9,115 @@
 	.main{
 		width: 95%;
 		margin: 0 auto;
-		.user{
-			&.dropdown{
-				background:none;
-				clear: both;
-    			display: block;
-			}
-		}
-		.navbar-brand{
-			color: white;
-		    font-size: 2em;
-		    text-align: center;
-		    width: 100%;
-		}
-
-		.dl-header{
-			margin-top:20px;
-			margin-bottom:20px;
-			overflow:hidden;
-			#TopAd{
-				overflow:hidden;
-				img{
-					float:right;
+		>.row:first-child{
+			background: rgba(white, .4);
+			border-radius: .5em;
+			// margin-bottom: 3em;
+			// margin-bottom: 1.5em;
+			margin-bottom: 1em;
+			box-shadow: .3em .3em 0 rgba(black,.08);
+			>.col{
+				float: left;
+				&:last-child{
+					float: none;
+					clear: both;
+					text-align: center;
 				}
 			}
-		}
-		.content-file{
-			font-size:1.3em;
-		}
-		.file-info{
-			>.row:first-child{
-				background: rgba(white, .4);
-				border-radius: .5em;
-				// margin-bottom: 3em;
+			.col-sm-2{
+				width: 20%;
+				padding: 0;
+				.file-img{
+					width: 100%;
+					margin: 0;
+					background: transparent !important;
+					&:before{
+						@include transform(scale(1));
+					}
+				}
+			}
+			.file-detail{
+				width: 80%;
+				h1{
+					font-family: Arial, Tahoma, Verdana;
+					// margin: .5em 0 0;
+					margin: .2em 0 0;
+					font-size: 2.2em;
+					font-weight: bold;
+					@extend %text-truncate;
+					// white-space: nowrap;
+					// overflow: hidden;
+					// text-overflow: ellipsis;
+				}
+				h3{
+					margin-top: 0;
+					margin-bottom: .2em;
+					font-size: 1.6em;
+					color: #666;
+					font-weight: normal;
+					span{
+						display: inline-block;
+						&:first-child{
+							border-right: 1px solid #999;
+							padding-right: 1em;
+							margin-right: 1em;
+						}
+						b{
+							text-transform: uppercase;
+						}
+					}
+				}
+			}
+			.file-actions{
+				// text-align: right;
+				// margin-top: 1.5em;
 				// margin-bottom: 1.5em;
+				margin-top: 1em;
 				margin-bottom: 1em;
-				//box-shadow: .3em .3em 0 rgba(black,.08);
-				>.col{
-					float: left;
+				white-space: nowrap;
+				>*{
+					display: inline-block;
+					vertical-align: middle;
+					text-align: center;
+					margin-right: 1.5em;
+					color: #444;
+					cursor: pointer;
+					@include transition(all .1s);
+					@extend %no-flick;
+					&:hover{
+						@include transform(scale(1.05));
+					}
 					&:last-child{
-						float: none;
-						clear: both;
-						text-align: center;
+						margin-right: 0;
+					}
+					&.view-file{
+						display: none;
+					}
+					i{
+						font-size: 3em;
+					}
+					.icon-label{
+						display: block;
+						font-size: 1.1em;
 					}
 				}
-				.col-sm-2{
-					width: 20%;
-					padding: 0;
-					.file-img{
-						width: 100%;
-						margin: 0;
-						background: transparent !important;
-						&:before{
-							@include transform(scale(1));
-						}
-					}
-				}
-				.file-detail{
-					width: 80%;
-					h1{
-						font-family: Arial, Tahoma, Verdana;
-						// margin: .5em 0 0;
-						margin: .2em 0 0;
-						font-size: 2.2em;
-						font-weight: bold;
-						@extend %text-truncate;
-						// white-space: nowrap;
-						// overflow: hidden;
-						// text-overflow: ellipsis;
-					}
-					h3{
-						margin-top: 0;
-						margin-bottom: .2em;
-						font-size: 1.6em;
-						color: #666;
-						font-weight: normal;
-						span{
-							display: inline-block;
-							&:first-child{
-								border-right: 1px solid #999;
-								padding-right: 1em;
-								margin-right: 1em;
-							}
-							b{
-								text-transform: uppercase;
-							}
-						}
-					}
-					.file-detail-action{
-						>*{
-							display: inline-block;
-							vertical-align: middle;
-							text-align: center;
-							margin-right: 1.5em;
-							color: #444;
-							cursor: pointer;
-							@include transition(all .1s);
-							@extend %no-flick;
-							&:hover{
-								@include transform(scale(1.05));
-							}
-							&:last-child{
-								margin-right: 0;
-							}
-							&.view-file{
-								display: none;
-							}
-							i{
-								font-size: 3em;
-							}
-							.icon-label{
-								display: block;
-								font-size: 1.1em;
-							}
-						}
+			}
+
+			&.can-view{
+				.file-img{
+					cursor: pointer;
+					@include transition(all .2s);
+					&:hover{
+						@include transform(scale(1.1));
 					}
 				}
 				.file-actions{
-					// text-align: right;
-					// margin-top: 1.5em;
-					// margin-bottom: 1.5em;
-					margin-top: 1em;
-					margin-bottom: 1em;
-					white-space: nowrap;
-					
-
-					.btn-download{
-						background: #7ebb1b -moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.15)) repeat scroll 0 0;
-					    border: medium none;
-					    border-radius: 4px;
-					    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 0 0 1px hsla(83, 97%, 12%, 0.6), 0 2px 0 0 rgba(0, 0, 0, 0.15), 0 1px 0 0 rgba(0, 0, 0, 0.2);
-					    color: #fff;
-					    display: block;
-					    font: bold 12px/49px Arial,sans-serif;
-					    height: 49px;
-					    padding: 0;
-					    text-decoration: none;
-					    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-					    text-transform: uppercase;
-					    padding:0px 40px;
-					    margin:20px 0px;
-					    float:right;
-					}
-				}
-
-
-
-				&.can-view{
-					.file-img{
-						cursor: pointer;
-						@include transition(all .2s);
-						&:hover{
-							@include transform(scale(1.1));
-						}
-					}
-					.file-actions{
-						.view-file{
-							display: inline-block;
-						}
+					.view-file{
+						display: inline-block;
 					}
 				}
 			}
 		}
-		
 
 		// .download-col{
 		.paper-box-wrap{
@@ -326,7 +272,6 @@
 
 	#BottomAd{
 		text-align: center;
-		margin-top: 10px;
 		margin-left: -10px;
 		margin-right: -10px;
 		.fb-like-wrap{
@@ -384,60 +329,58 @@
 	}
 
 	#RightAd, #LeftAd{
-		//display: none;
+		display: none;
 	}
 
 	@media #{$small}{
 		.main{
-			.file-info{
-				>.row:first-child{
-					>.col{
-						&:last-child{
-							float: left;
-							clear: none;
-							text-align: right;
-						}
-					}
-					.col-sm-2{
-						// width: 11%;
-						width: 8.5%;
-					}
-					.file-detail{
-						// width: 55.66667%;
-						width: 57.66667%;
-					}
-					.file-action{
-						margin-bottom: 0;
+			>.row:first-child{
+				>.col{
+					&:last-child{
+						float: left;
+						clear: none;
+						text-align: right;
 					}
 				}
-				.paper-box-wrap{
-					font-size: 1em;
-					// &:first-child{
-					// 	padding-right: 2em;
-					// }
-					// &:last-child{
-					// 	padding-left: 2em;
-					// }
+				.col-sm-2{
+					// width: 11%;
+					width: 8.5%;
 				}
-				.paper-box-inner{
-					padding-bottom: 1em;
-					&.fast{
-						width: 65%;
-						.download{
-							span{
-								width: 40%;
-							}
-						}
-					}
+				.file-detail{
+					// width: 55.66667%;
+					width: 57.66667%;
+				}
+				.file-action{
+					margin-bottom: 0;
+				}
+			}
+			.paper-box-wrap{
+				font-size: 1em;
+				// &:first-child{
+				// 	padding-right: 2em;
+				// }
+				// &:last-child{
+				// 	padding-left: 2em;
+				// }
+			}
+			.paper-box-inner{
+				padding-bottom: 1em;
+				&.fast{
+					width: 65%;
 					.download{
-						width: 45%;
-						.count-down, .tl-icon-angle-double-down{
-							font-size: 7.6em;
-						}
 						span{
-							top: 80%;
-							width: 55%;
+							width: 40%;
 						}
+					}
+				}
+				.download{
+					width: 45%;
+					.count-down, .tl-icon-angle-double-down{
+						font-size: 7.6em;
+					}
+					span{
+						top: 80%;
+						width: 55%;
 					}
 				}
 			}
@@ -459,10 +402,10 @@
 
 	@media #{$medium}{
 		.container-fluid{
-			width: 80%;
+			width: 90%;
 		}
 		.main{
-			width: 90%;
+			width: 60%;
 			.paper-box-inner{
 				.download{
 					span{
@@ -496,32 +439,22 @@
 
 		#RightAd, #LeftAd{
 			display: block;
-			
-			//z-index: 1;
-			//right: 0;
-			//top: 70px;
-			//width: 160px;
-			//height: 500px;
+			position: absolute;
+			z-index: 1;
+			right: 0;
+			top: 70px;
+			width: 160px;
+			height: 500px;
 		}
 
 		#LeftAd{
-			//left: 0;
-			//right: auto;
-			//width: 120px;
-			//height: 600px;
+			left: 0;
+			right: auto;
+			width: 120px;
+			height: 600px;
 		}
 
 	}
 }
 
 
-
-
-/*Gia fix*/
-#AppNavBar{
-	display:none !important;
-}
-
-.view-wrapper::before{ 
-	height:0px !important;
-}

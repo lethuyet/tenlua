@@ -87,7 +87,7 @@
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
-	<link rel="stylesheet" href="css/232cdb1f.tenlua.css">
+	<link rel="stylesheet" href="css/c7da642a.tenlua.css">
 
 	<!-- Fix Viewport of IE Metro -->
 	<script type="text/javascript">
@@ -147,7 +147,7 @@
 
 <!-- <script src="cordova.js"></script> -->
 
-<script src="js/62746ee0.tenlua.js"></script>
+<script src="js/67211e93.tenlua.js"></script>
 
 
 <!-- <script src="http://jwpsrv.com/library/Lxm14DgXEeSVmSIACtqXBA.js"></script> -->

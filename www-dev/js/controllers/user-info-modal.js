@@ -30,12 +30,13 @@ angular.module( 'TenLua' )
 		];
 
 		function formInvalid(form){
+			consoloe.log( $localStorage.AUTH_currentUser);
 			$scope.modalMessage = '';
 			$scope.user2userGoldTransfer.message= '';
-			if(typeof form.oldPassword != 'undefined' && form.oldPassword.$error.required){
+			if(typeof form.oldPassword != 'undefined' && form.oldPassword.$error.required &&  $localStorage.AUTH_currentUser.is_social!=1){
 				$scope.modalMessage += 'Chưa nhập Mật khẩu cũ.<br>';
 			}
-			if(typeof form.oldPassword != 'undefined' && form.oldPassword.$error.maxlength){
+			if(typeof form.oldPassword != 'undefined' && form.oldPassword.$error.maxlength  &&  $localStorage.AUTH_currentUser.is_social!=1){
 				$scope.modalMessage += 'Mật khẩu cũ không hợp lệ.<br>';
 			}
 			if(typeof form.newPassword != 'undefined' && form.newPassword.$error.required){

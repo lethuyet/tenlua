@@ -171,4 +171,8 @@ angular.module( 'TenLua' )
 			}
 		});
 
+
+		jQuery("#Download").fadeIn("slow");
+
+
 	} );

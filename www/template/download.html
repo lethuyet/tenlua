@@ -1,14 +1,18 @@
-<div class="view-wrapper" id="Download">
+<div class="view-wrapper" id="Download" style="display:none">
 	<div class="container-fluid">
 		<div class="main">
 			<div class="row dl-header">
 				<div class="col col-sm-3">
 					<a class="navbar-brand" href="#!/"><span class="logo"></span><b>tenlua.vn</b></a>
-					<!--user has-dropdown="{{authSrv.isAuthenticated()}}"></user-->
+					<user has-dropdown="{{authSrv.isAuthenticated()}}"></user>
 				</div>
 				<div class="col col-sm-9" id="TopAd">
 					<!--iframe width="728px" height="90px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-top-new.html"></iframe-->
-					<img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg">
+					<div>
+						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
+						<div class="ad-frame" page="'download'" position="'top'"></div>
+						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
+					</div>
 				</div>
 			</div>
 			<div class="row dl-border">
@@ -16,10 +20,17 @@
 					
 					<!--iframe width="300px" height="250px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-right-new.html"></iframe>
 					<iframe width="300px" height="250px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-right-new.html"></iframe-->
-					<img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png">
+					<!--img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png" width="300" height="250">
 					<br>
 					<br>
-					<img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png">
+					<img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png" width="300" height="250"-->
+					<div>
+						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
+						<div class="ad-frame" page="'download'" position="'left'"></div>
+						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
+					</div>
+
+				
 				</div>
 				<div class="col col-sm-8 file-info">
 					<div class="row" ng-class="{'can-view ': filesSrv.canView(file)}" ng-if="dataOk()">
@@ -37,28 +48,35 @@
 							</div>
 						</div>
 						<div class="col col-sm-4 file-actions">
-							<button class="btn btn-success btn-download" ng-if="dataOk() && authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="downloadFast()" target="_top">Tải xuống nhanh {{file.size | byteFormat}}</button>
+							<button class="btn btn-success btn-download" ng-if="dataOk() && authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="downloadFast()" target="_top">Tải xuống nhanh (<em>{{file.size | byteFormat}}</em>)</button>
 
 
-							<button class="btn btn-success btn-download" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="download()" target="_top">Tải xuống {{file.size | byteFormat}}</button>
+							<button class="btn btn-success btn-download btn-download-slow" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="download()" target="_top">Tải xuống chậm(<em>{{file.size | byteFormat}}</em>)</button>
 
 
 							
 						</div>
+						<div class="col col-sm-12 call-for-action" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])">
+							Download quá chậm? Hãy bấm vào đây <a class="navbar-brand" href="#!/plans"><span class="logo"></span></a>
+						</div>
 					</div>
 
 					<div class="row" ng-class="{'can-view ': filesSrv.canView(file)}" ng-if="dataOk()">
-						<div class="col col-sm-7 content-file">
-							<b>About Compressed Archive Files</b><br>
+						<div class="col col-sm-8 content-file">
+							<b>Giới thiệu</b><br>
 							<p>
-								Compressed archives combine multiple files into a single file to make them easier to transport or save on diskspace. Archiving software may also provide options for encryption, file spanning, checksums, self-extraction, and self-installation. Zip is the most-widely used format, used by the Windows operating system and more recently by OSX as well. RAR is also a very popular and flexible format. Unix uses the tar file format, while Linux uses the tar and gz format.
+								Chưa có nội dung cho tập tin này.
 							</p>
 						</div>
-						<div class="col col-sm-5">
+						<div class="col col-sm-4" id="MiddelAd">
 							<span>
 								
-								<iframe frameborder="0" allowtransparency="true" scrolling="no" ng-src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Ftenlua.vn&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false&amp;width=300&amp;height=400" style="height: 400px" src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Ftenlua.vn&amp;colorscheme=light&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false&amp;width=300&amp;height=400"></iframe>
-
+								<!--img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png" width="200" height="200"-->
+								<div>
+									<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
+									<div class="ad-frame" page="'download'" position="'right'"></div>
+									<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
+								</div>
 							</span>
 						</div>
 					    
@@ -117,16 +135,43 @@
 				</div>
 			</div>
 
+			<div class="row dl-footer">
+			
+				<div class="col col-sm-9" id="BottomAd">
+
+					<div>
+						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
+						<div class="ad-frame" page="'download'" position="'bottom'"></div>
+						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
+					</div>
+
+					<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
+				</div>
+				<div class="col col-sm-3" style="padding-top: 10px">
+					<!--div class="ad-frame" page="uiState.page.name" position="'bottom'" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'"></div-->
+					
+					<span>
+						<div id="fb-root"></div>
+						<script>(function(d, s, id) {
+						  var js, fjs = d.getElementsByTagName(s)[0];
+						  if (d.getElementById(id)) return;
+						  js = d.createElement(s); js.id = id;
+						  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=219135141574534";
+						  fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));</script>
+
+						<div class="fb-like" data-href="https://www.facebook.com/tenlua.vn" data-width="200px" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
+					</span>
+				</div>
+				
+			</div>
+
+
 			
 		</div>
 		<!-- /.main -->
 
-		<div id="BottomAd">
-			
 
-			<!--div class="ad-frame" page="uiState.page.name" position="'bottom'" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'"></div-->
-			<img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg">
-		</div>
 
 		
 	</div>

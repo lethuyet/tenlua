@@ -7,13 +7,28 @@
 	// }
 
 	.main{
-		width: 95%;
+		
+		max-width:960px;
+
+		width: 100%;
 		margin: 0 auto;
 		.user{
 			&.dropdown{
+				.avatar-wrap{
+					display:none;
+				}
+				.wrap{
+
+				}
 				background:none;
-				clear: both;
+				
     			display: block;
+    			bottom: -40px;
+			    
+			    display: block;
+			    position: absolute;
+			    right: 0;
+			    z-index: 2;
 			}
 		}
 		.navbar-brand{
@@ -26,16 +41,20 @@
 		.dl-header{
 			margin-top:20px;
 			margin-bottom:20px;
-			overflow:hidden;
+			//overflow:hidden;
 			#TopAd{
-				overflow:hidden;
-				img{
-					float:right;
-				}
+				//overflow:hidden;
+				text-align: right;
+				padding:0px;
+				
 			}
 		}
 		.content-file{
 			font-size:1.3em;
+		}
+		#MiddelAd{
+			text-align: right;
+			padding-right:0;
 		}
 		.file-info{
 			>.row:first-child{
@@ -64,6 +83,24 @@
 							@include transform(scale(1));
 						}
 					}
+				}
+				.call-for-action{
+					background: white none repeat scroll 0 0;
+				    clear: both;
+				    padding: 0 20px;
+				    font-weight:bold;
+				    text-align: left;
+
+				    .navbar-brand{
+				    	color: #333;
+					    display: inline;
+					    float: none;
+					    font-size: 1em;
+					    width: auto;
+					    &:hover{
+					    	opacity:0.8;
+					    }
+				    }
 				}
 				.file-detail{
 					width: 80%;
@@ -150,7 +187,13 @@
 					    padding:0px 40px;
 					    margin:20px 0px;
 					    float:right;
+
+					    &.btn-download-slow{
+					    	background: #999 -moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.15)) repeat scroll 0 0;
+					    }
+
 					}
+
 				}
 
 
@@ -325,7 +368,7 @@
 	}
 
 	#BottomAd{
-		text-align: center;
+		text-align: left;
 		margin-top: 10px;
 		margin-left: -10px;
 		margin-right: -10px;
@@ -459,10 +502,13 @@
 
 	@media #{$medium}{
 		.container-fluid{
-			width: 80%;
+			width: 100%;
 		}
 		.main{
-			width: 90%;
+			max-width:960px;
+
+			width: 100%;
+
 			.paper-box-inner{
 				.download{
 					span{
@@ -515,13 +561,16 @@
 }
 
 
+.page-download 
+{
+	#AppNavBar{
+	  display: none;
+	}
+	.view-wrapper:before{
+	  display: none;
+	}
+	.close-ad{
+		background:none !important;
+	}
 
-
-/*Gia fix*/
-#AppNavBar{
-	display:none !important;
-}
-
-.view-wrapper::before{ 
-	height:0px !important;
 }

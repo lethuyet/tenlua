@@ -1,10 +1,10 @@
 // angular.module('TenLua', [  'ngRoute', 'ngAnimate', 'ngSanitize', 'hmTouchEvents', 'flow', 'ui.bootstrap.dropdown', 'ui.bootstrap.modal', 'ui.bootstrap.popover'])
 angular.module('TenLua', ['ngRoute', 'ngAnimate', 'ngSanitize', 'http-auth-interceptor', 'ngStorage', 'hmTouchEvents', 'flow', 'angulartics', 'angulartics.google.analytics', 'ui.bootstrap.dropdown', 'ui.bootstrap.modal', 'ui.bootstrap.pagination', 'ui.bootstrap.tabs'])
 
-.constant('DOMAIN_URL', 'https://demo.tenlua.vn')
-.constant('API_URL', 'https://p2.tenlua.vn')
-// .constant('DOMAIN_URL', 'https://tenlua.vn')
-// .constant('API_URL', 'https://api2.tenlua.vn')
+// .constant('DOMAIN_URL', 'https://demo.tenlua.vn')
+// .constant('API_URL', 'https://p2.tenlua.vn')
+.constant('DOMAIN_URL', 'https://tenlua.vn')
+.constant('API_URL', 'https://api2.tenlua.vn')
 .constant('PROTOCOL', 'https:')
 .constant('BRAND', 'tenlua.vn')
 	.config(function($routeProvider, $locationProvider, $httpProvider, $provide, $sceDelegateProvider, $compileProvider, flowFactoryProvider, PROTOCOL, API_URL, AUTH_ROLES) {

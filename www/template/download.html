@@ -10,7 +10,7 @@
 					<!--iframe width="728px" height="90px" scrolling="No" frameborder="0" style="overflow:hidden;" src="/ads-download-top-new.html"></iframe-->
 					<div>
 						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
-						<div class="ad-frame" page="'download'" position="'top'"></div>
+						<div class="ad-frame" page="'download'" position="'top'" nodeid="file.id"></div>
 						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 					<img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png" width="300" height="250"-->
 					<div>
 						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
-						<div class="ad-frame" page="'download'" position="'left'"></div>
+						<div class="ad-frame" page="'download'" position="'left'" nodeid="file.id"></div>
 						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
 					</div>
 
@@ -48,16 +48,25 @@
 							</div>
 						</div>
 						<div class="col col-sm-4 file-actions">
-							<button class="btn btn-success btn-download" ng-if="dataOk() && authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="downloadFast()" target="_top">Tải xuống nhanh (<em>{{file.size | byteFormat}}</em>)</button>
+							<button class="btn btn-success btn-download" ng-if="dataOk() && authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="downloadFast()" target="_top">Download nhanh (<em>{{file.size | byteFormat}}</em>)</button>
 
 
-							<button class="btn btn-success btn-download btn-download-slow" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="download()" target="_top">Tải xuống chậm(<em>{{file.size | byteFormat}}</em>)</button>
+							<button class="btn btn-success btn-download btn-download-slow" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])" ng-click="download()" target="_top">Download chậm (<em>{{file.size | byteFormat}}</em>)</button>
 
 
 							
 						</div>
 						<div class="col col-sm-12 call-for-action" ng-if="dataOk() && !authSrv.isAuthorized(['gold','admin','uploader','lifetime'])">
-							Download quá chậm? Hãy bấm vào đây <a class="navbar-brand" href="#!/plans"><span class="logo"></span></a>
+							<a class="navbar-brand" href="javascript:void(0);" ng-click="openUpgrade()">
+								<span class="logo"></span>
+								<span style="font-size:14px;font-style:italic">tenlua.vn</span>
+							</a>
+							<span class="call-for-action-content">
+								Download nhanh + 300GB lưu trữ Online
+								<a class="btn btn-success btn-upgrade" href="javascript:void(0);" ng-click="openUpgrade()">Nâng cấp ngay</a>
+							</span>
+							
+							
 						</div>
 					</div>
 
@@ -74,7 +83,7 @@
 								<!--img src="http://cdn.adnxs.com/p/f3/8d/7b/48/f38d7b48a26111dfdc0ecc844b20862c.png" width="200" height="200"-->
 								<div>
 									<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
-									<div class="ad-frame" page="'download'" position="'right'"></div>
+									<div class="ad-frame" page="'download'" position="'right'" nodeid="file.id"></div>
 									<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
 								</div>
 							</span>
@@ -141,7 +150,7 @@
 
 					<div>
 						<!--a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a-->
-						<div class="ad-frame" page="'download'" position="'bottom'"></div>
+						<div class="ad-frame" page="'download'" position="'bottom'" nodeid="file.id"></div>
 						<!--img src="http://cdn.adnxs.com/p/c7/4c/6f/c2/c74c6fc24ca6026dfc8d885b293748ad.jpg" width="728" height="90" -->
 					</div>
 

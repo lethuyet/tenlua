@@ -16,6 +16,12 @@ angular.module( 'TenLua' )
 		filesSrv.currentFolder = null;
 		// $scope.name = null;
 
+
+
+		
+
+
+
 		$scope.getDownloadInfo = function(){
 			$http.post(API_URL, [{"a":"filemanager_builddownload_getinfo", "n": $routeParams.nodeId, "r": Math.random()}], {})
 				.success(function(data, status, headers, config) {
@@ -91,6 +97,24 @@ angular.module( 'TenLua' )
 		}
 
 		$scope.viewFile = function(){
+			
+
+			try {
+				//_trackEvent('download', 'click', 'Click Preview', 1);
+				
+				if(typeof _gaq !== 'undefined'){
+					_gaq.push(['_trackEvent', 'download', 'click', 'Click Preview']);
+				}
+
+
+				 
+			}
+			catch(err) {
+			    console.log(err);
+			}
+
+
+
 			if(filesSrv.canView($scope.file)){
 				if(filesSrv.canSlideShow($scope.file)){
 					filesSrv.checkPassword($scope.file).then(function(){
@@ -118,6 +142,25 @@ angular.module( 'TenLua' )
 
 
 		$scope.download = function(){
+			
+			
+
+			try {
+
+				//_trackEvent('download', 'click', 'Click Low Download', 2);
+				
+				if(typeof _gaq !== 'undefined'){
+					_gaq.push(['_trackEvent', 'download', 'click', 'Click Low Download']);
+				}
+
+
+				 
+			}
+			catch(err) {
+			    console.log(err);
+			}
+
+
 			filesSrv.checkPassword($scope.file).then(function(){
 				if(!downloadInterval && !downloaded){
 					$scope.countDown = $scope.timeWaitToDownload;
@@ -134,9 +177,28 @@ angular.module( 'TenLua' )
 					}, timeInterval);
 				}
 			});
+
+			
 		}
 
 		$scope.downloadFast = function(){
+			
+			try {
+
+				
+				//_trackEvent('download', 'click', 'Click High Download', 3);
+
+				if(typeof _gaq !== 'undefined'){
+					_gaq.push(['_trackEvent', 'download', 'click', 'Click High Download']);
+				}
+
+
+				 
+			}
+			catch(err) {
+			    console.log(err);
+			}
+
 			filesSrv.checkPassword($scope.file).then(function(){
 				if(!downloaded){
 					downloaded = true;
@@ -145,6 +207,33 @@ angular.module( 'TenLua' )
 					// $scope.$apply();
 				}
 			});
+
+			
+
+		}
+
+		$scope.openUpgrade = function(){
+		
+
+
+			try {
+
+				//_trackEvent('download', 'click', 'Click Upgrade Gold Member', 4);
+
+				if(typeof _gaq !== 'undefined'){
+					_gaq.push(['_trackEvent', 'download', 'click', 'Click Upgrade Gold Member']);
+				}
+
+
+				 
+			}
+			catch(err) {
+			    console.log(err);
+			}
+
+
+			$location.path('/plans');
+			
 		}
 
 

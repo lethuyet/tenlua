@@ -8,11 +8,19 @@ angular.module('TenLua')
 		replace: true,
 		scope: {
 			page: '=page',
-			position: '=position'
+			position: '=position',
+			nodeid: '=nodeid'
 		},
 		link: function postLink(scope, element, attrs) {
 
-			var frameSrc = '/advertise.php?page=' + scope.page + '&pos=' + scope.position;
+			var d = new Date();
+			
+
+			var frameSrc = '/advertise.php?page=' + scope.page + '&pos=' + scope.position +'&r='+d.getTime();
+			if(typeof scope.nodeid !="undefined")
+				frameSrc+= '&nodeId=' + scope.nodeid;
+
+
 			scope.src = '';
 			scope.loaded = false;
 

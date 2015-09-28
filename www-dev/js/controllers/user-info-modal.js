@@ -30,7 +30,7 @@ angular.module( 'TenLua' )
 		];
 
 		function formInvalid(form){
-			consoloe.log( $localStorage.AUTH_currentUser);
+			
 			$scope.modalMessage = '';
 			$scope.user2userGoldTransfer.message= '';
 			if(typeof form.oldPassword != 'undefined' && form.oldPassword.$error.required &&  $localStorage.AUTH_currentUser.is_social!=1){

@@ -89,7 +89,7 @@
 				    clear: both;
 				    padding: 0 20px;
 				    font-weight:bold;
-				    text-align: left;
+				    line-height:40px;
 
 				    .navbar-brand{
 				    	color: #333;
@@ -100,7 +100,29 @@
 					    &:hover{
 					    	opacity:0.8;
 					    }
+					    float:left;
 				    }
+				    .call-for-action-content{
+				    	float:right;
+				    	text-align:right;
+				    	.btn-upgrade{
+					    	
+
+						    font-size: 10px;
+						    font-weight: bold;
+						    height: 26px;
+						    line-height: 26px;
+						    padding: 0 30px 0 20px;
+						    
+						    
+						    text-transform: uppercase;
+						    border-radius:0;
+						    margin-left:15px;
+						    font-size:11px;
+
+					    }
+				    }
+				    
 				}
 				.file-detail{
 					width: 80%;

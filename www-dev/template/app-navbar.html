@@ -3,17 +3,18 @@
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#!/"><span class="logo"></span><b>tenlua.vn</b></a>
 		<span class="global-actions" ng-if="uiState.page.name == 'fm'">
-
-			<span class="fm-context-actions" ng-if="filesSrv.checkedNodes.length && uiState.page.fmName != 'folder'" file-node-related>
+			
+			<span class="fm-context-actions" ng-if="filesSrv.checkedNodes.length && (uiState.page.fmName != 'folder' || uiState.page.fmName != 'files')" file-node-related>
 				<a class="btn btn-default btn-xs btn-view" ng-click="filesSrv.openNode(filesSrv.checkedNodes[0],$event)" ng-if="filesSrv.checkedNodes.length==1 && filesSrv.canView(filesSrv.checkedNodes[0])"><i class="icon tl-icon-eye"></i> <span class="icon-label">Xem</span></a>
-				<a class="btn btn-default btn-xs" ng-click="filesSrv.goToDownload()"><i class="icon tl-icon-download"></i> <span class="icon-label">Tải về</span></a>
-				<a class="btn btn-default btn-xs" ng-click="filesSrv.share(filesSrv.checkedNodes[0])"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
-				<a class="btn btn-default btn-xs" ng-click="filesSrv.deleteCheckedNodes()"><i class="icon tl-icon-trash"></i> <span class="icon-label">Xóa</span></a>
-				<a class="btn btn-default btn-xs" ng-click="filesSrv.initRename()" ng-if="filesSrv.checkedNodes.length==1"><i class="icon tl-icon-text-edit"></i> <span class="icon-label">Sửa tên</span></a>
-				<a class="btn btn-default btn-xs" ng-click="filesSrv.moveTo()"><i class="icon tl-icon-move"></i> <span class="icon-label">Di chuyển</span></a>
+				
+				<a class="btn btn-default btn-xs" ng-if="uiState.page.fmName == 'files'" ng-click="filesSrv.goToDownload()"><i class="icon tl-icon-download"></i> <span class="icon-label">Tải về</span></a>
+				<a class="btn btn-default btn-xs" ng-if="uiState.page.fmName == 'files'" ng-click="filesSrv.share(filesSrv.checkedNodes[0])"><i class="icon tl-icon-link"></i> <span class="icon-label">Chia sẻ</span></a>
+				<a class="btn btn-default btn-xs" ng-if="uiState.page.fmName == 'files'" ng-click="filesSrv.deleteCheckedNodes()"><i class="icon tl-icon-trash"></i> <span class="icon-label">Xóa</span></a>
+				<a class="btn btn-default btn-xs" ng-if="uiState.page.fmName == 'files'" ng-click="filesSrv.initRename()" ng-if="filesSrv.checkedNodes.length==1"><i class="icon tl-icon-text-edit"></i> <span class="icon-label">Sửa tên</span></a>
+				<a class="btn btn-default btn-xs" ng-if="uiState.page.fmName == 'files'" ng-click="filesSrv.moveTo()"><i class="icon tl-icon-move"></i> <span class="icon-label">Di chuyển</span></a>
 				<!-- <a class="btn btn-default btn-xs"><i class="icon tl-icon-copy"></i> <span class="icon-label">Sao chép</span></a> -->
 				<a class="btn btn-default btn-xs btn-archive" ng-click="filesSrv.archive()" ng-if="filesSrv.checkedNodes.length==1"><i class="icon tl-icon-save-disk"></i> <span class="icon-label">{{filesSrv.checkedNodes[0].archived ? 'Bỏ lưu trữ' : 'Lưu trữ'}}</span></a>
-				<a class="btn btn-default btn-xs btn-refresh" ng-click="reload()"><i class="icon tl-icon-refresh"></i> <span class="icon-label">Refresh</span></a>
+				<a class="btn btn-default btn-xs btn-refresh" ng-if="uiState.page.fmName == 'files'" ng-click="reload()"><i class="icon tl-icon-refresh"></i> <span class="icon-label">Refresh</span></a>
 			</span>
 
 			<span ng-if="uiState.page.fmName == 'folder' && !searchSrv.isSearchingCurrent()" class="folder-actions">

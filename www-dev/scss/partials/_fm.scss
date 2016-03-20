@@ -186,6 +186,17 @@
 			font-size: .7em;
 			line-height: 1;
 		}
+		.tl-icon-arrow-down{
+			position: absolute;
+			// margin-left: -1.2em;
+			// margin-top: .55em;
+			top: 45%;
+			//left: 15%;
+			left: 7%;
+			color: white;
+			font-size: .7em;
+			line-height: 1;
+		}
 	}
 	.icon-new-folder{
 		position: relative;
@@ -840,7 +851,7 @@
 	}
 } // end #FmContextMenu
 
-#FmUploader{
+#FmUploader,#FmDownloader{
 	border-top: .1em solid white;
 	background-color: white;
 	@include box-shadow(0 -.4em 1em hsla(0,0%,0%,.17));
@@ -856,6 +867,11 @@
 	@include transform(translateY(-$my-navbar-height * 2));
 	@include transition(all 0s);
 	&.fm-uploader-expanded{
+		// max-height: 500px;
+		@include transition(all .2s);
+		@include transform(translateY(-100%) !important);
+	}
+	&.fm-downloader-expanded{
 		// max-height: 500px;
 		@include transition(all .2s);
 		@include transform(translateY(-100%) !important);
@@ -1186,7 +1202,7 @@
 			}
 		}
 	}
-} // #FmUploader
+} // #FmUploader,#FmDownloader
 
 
 #SideAd{
@@ -1215,7 +1231,7 @@
 	}
 	#FmListHeader{
 		.checkbox-wrap{
-			display:  none;
+			//display:  none;
 		}
 		// a.sortable:nth-child(2){
 		// 	padding-left: 0;
@@ -1224,7 +1240,7 @@
 	#FmList{
 		>li{
 			.checkbox-wrap{
-				display:  none;
+				//display:  none;
 			}
 		}
 	}
@@ -1546,7 +1562,7 @@
 		}
 	} // end #FmList
 
-	#FmUploader{
+	#FmUploader,#FmDownloader{
 		min-height: $my-navbar-height * 2;
 		.files-list{
 			.row{
@@ -1566,7 +1582,7 @@
 				}
 			}
 		} // end .files-list
-	} // end #FmUploader
+	} // end #FmUploader,#FmDownloader
 
 	#BottomAd{
 		.page-fm.has-tenlua-promotion &{
@@ -1633,7 +1649,7 @@
 			// @include box-shadow(-3px 0 20px hsla(0,0%,0%,.3));
 			// @include box-shadow(-3px 0 0 hsla(0,0%,0%,.06), -4px 0 0 hsla(0,0%,0%,.04), -6px 0 0 hsla(0,0%,0%,.04), -10px 0 0 hsla(0,0%,0%,.02));
 		}
-		#FmUploader{
+		#FmUploader,#FmDownloader{
 			left: $app-sidebar-width-sm + 1.5rem;
 			right: 1.5rem;
 			@include transform(translateY(-$my-navbar-height));
@@ -1689,11 +1705,15 @@
 					}
 				}
 			}
-		} // end #FmUploader
+		} // end #FmUploader,#FmDownloader
 
 		#AppNavBar{
 			.icon-folder-upload{
 				.tl-icon-arrow-up{
+					color: $brand-success;
+					top: 35%;
+				}
+				.tl-icon-arrow-down{
 					color: $brand-success;
 					top: 35%;
 				}
@@ -2309,7 +2329,7 @@
 				}
 			}
 		}
-		#FmUploader{
+		#FmUploader,#FmDownloader{
 			left: $app-sidebar-width-md + 1.5rem;
 		}
 	} // end .fm
@@ -2424,7 +2444,7 @@
 		.view-wrapper{
 			margin-left: $app-sidebar-width-lg;
 		}
-		#FmUploader{
+		#FmUploader,#FmDownloader{
 			left: $app-sidebar-width-lg + 1.5rem;
 		}
 	} // end .fm
@@ -2587,3 +2607,4 @@
 		padding: 3px 0 0;
 	}
 }
+

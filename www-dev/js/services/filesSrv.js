@@ -29,7 +29,34 @@ angular.module( 'TenLua' )
 			// type: 2,
 			nodes: []
 		},
+		downloadSidebar: {
+			name: 'Downloads',
+			id: 'downloads',
+			
+		},
 		checkedNodes: [],
+
+
+		queueDownload: [],//files
+		currQueueDownloadIndex: 0,
+
+		queuePartDownload: [],//parts of file
+		currQueuePartDownloadIndex: 0,
+
+		isDownloading: 0,
+		retryDownload:20,//retry 3 lần nếu ko dc thì cho next 
+		
+		downloadConfig:{
+			dirid:'tenlua',
+			dl_id:null,
+			dl_fw:null,
+			startPos:0,
+			endPos:0,
+			part:[],
+			currSizeDownload:0
+		},
+
+
 		allNodesChecked: null,
 		currentNodesList: {
 			nodes: [],
@@ -975,7 +1002,641 @@ angular.module( 'TenLua' )
 		// 	createNodeIn(folder);
 		// 	return deferred.promise;
 		// },
+		/******************** GIA EDITED END *************************************/
+		isDownloadFolder: function(){
+			return uiState.page.fmName == 'download';
+		},
+		checkCompleteDownload:function(){
+			if (self.isDownloading == 1)
+				return 'Bạn đang trong tiến trình đownload! Bạn có chắc muốn thoát?';
+			return;
+			
+		},
+		downloadFolder:function(folder){
+			console.log('download Folder');
+			//console.log(folder);
+			var nodeId=folder.id;
+			var self = this;
+			self.fsDataReturn = false;
+			var postData = nodeId ? [{"a":"filemanager_gettree", "p": nodeId}] : [{"a":"filemanager_gettree"}];
+			
+			// var postData = [{"a":"filemanager_gettree", "p": "1037e42be90c6507"}];
+			var postConfig = {cache: false};
+			$http.post(API_URL, postData, postConfig)
+				.success(function(data, status, headers, config) {
+					self.fsDataReturn = true;
+					if($rootScope.wrongResponse(data[0])){
+						// alertify.error('Liên kết không tồn tại!',0);
+						// $location.path('/');
+					} else {
+						var arrNodeDownload = data[0].f;//self.unflatten(data[0].f);
+						//var arrNodeDownloads=[];
+						console.log(arrNodeDownload);
+						for (var i = 0; i < arrNodeDownload.length; i++) {
+							if(arrNodeDownload[i].t==0){
+								var nodeTemp = self.mapNodeProp(arrNodeDownload[i]);
+								self.queueDownload.push(nodeTemp);	
+							}
 
+							
+						}
+						
+						//console.log(arrNodeDownloads);
+
+						self.getNodeInfo(self.queueDownload[self.currQueueDownloadIndex]);
+
+						// angular.forEach(arrNodeDownload, function(value, key) {
+						// 	if(value.fileType!=="Folder")
+						// 	{
+						// 		value.retry=0;
+						// 		this.push(value);
+						// 	}
+						  	
+						// }, self.queueDownload);
+
+
+						
+						// alertify.success('Bạn đang có ' + ' <b>' + self.queueDownload.length + '</b> Files trong tiến trình Download. <a href="#" style="color:white;">Xem danh sách</a>');
+						// self.getNodeInfo(self.queueDownload[self.currQueueDownloadIndex]);
+					}
+				})
+				.error(function(data, status, headers, config) {
+					
+				});
+
+			//var self = this;
+			//var _folder = self.fsLookup[folder.id];
+			//console.log(self.fsLookup);
+		},
+		downloadMultiFiles : function(){
+
+			console.log('download Multifile');
+			//filesSrv.checkedNodes.length;
+			var self = this;
+			
+			// if(self.isDownloading==1)
+			// {
+			// 	return;
+			// }
+
+			//console.log(self.checkedNodes);
+		
+			//If lenght > 0	
+			window.onbeforeunload = function() {
+				return self.checkCompleteDownload();
+			};
+			if(self.checkedNodes.length>0)
+			{
+
+				if(self.isDownloading==0)
+				{
+					angular.forEach(self.checkedNodes, function(value, key) {
+						if(value.fileType!=="Folder")
+						{
+							value.retry=0;
+							this.push(value);
+						}
+					  	
+					}, self.queueDownload);
+
+
+					
+					alertify.success('Bạn đang có ' + ' <b>' + self.queueDownload.length + '</b> Files trong tiến trình Download. <a href="#" style="color:white;">Xem danh sách</a>');
+					self.getNodeInfo(self.queueDownload[self.currQueueDownloadIndex]);
+					
+				}
+				else
+				{
+					
+					//add node to queue
+					angular.forEach(self.checkedNodes, function(value, key) {
+					  	if(value.fileType!=="Folder")
+						{
+							value.retry=0;
+							this.push(value);
+						}
+					}, self.queueDownload);
+					alertify.success('Bạn đang có ' + ' <b>' + self.queueDownload.length + '</b> Files trong tiến trình Download. <a ng-href="#!/fm/files/download" style="color:white;">Xem danh sách</a>');
+				}
+				
+				
+			}
+			
+			
+
+
+			
+		},
+
+		getNodeInfo:function(node)
+		{
+			self=this;
+			// if(typeof(node) == "undefined")
+			// {
+			// 	self.currQueueDownloadIndex=0;
+			// 	self.starDownload(self.queueDownload[self.currQueueDownloadIndex]);
+			// 	return;
+			// }
+			console.log('node:');
+			console.log(node);
+			self.isDownloading=1;
+				
+			node.statusDownload=1;//Khởi tạo
+
+
+			var postData = [{
+						a: "filemanager_builddownload_getinfo",
+						n: node.id
+					}];
+			var postConfig = {cache: false};
+
+			console.log('getnodeInfo:'+API_URL);
+			$http.post(API_URL, postData, postConfig)
+				.success(function(data, status, headers, config) {
+					if(data[0]){
+						node.ready=1;
+						node.downloadInfo=data[0];
+
+						//start download
+						//self.currQueueDownloadIndex=0;
+						//self.starDownload(self.queueDownload[self.currQueueDownloadIndex]);
+						node.statusDownload=2;//bắt đầu download
+						node.downloadPercent=0;
+						node.currSizeCompleted=0;
+						node.retry=0;//reset retry
+						self.starDownload(node);
+						
+
+					} else {
+						//error();
+					}
+
+					
+					//self.currQueueDownloadIndex++;
+					//self.getNodeInfo(self.queueDownload[self.currQueueDownloadIndex]);
+				})
+				.error(function(data, status, headers, config) {
+					if(status != 401){
+						
+						console.log('Thử lấy lại thông tin NODE');
+						
+						if(node.retry<=self.retryDownload)
+						{
+							self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=4;//retry
+							//retry download
+							setTimeout(function(){
+								console.log('Retry Get node info: '+node.retry);
+								node.retry+=1;
+								self.getNodeInfo(node);
+
+							},2000);
+							
+						}
+						else
+						{
+							//error();
+							// alertify.error('Không thể kết nối với server! Xin kiểm tra mạng và bấm nút này để thử lại!', function(){
+							// 	self.getNodeInfo(node);
+							// });
+							self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=5;//retry
+							self.getNodeInfo(self.queueDownload[++self.currQueueDownloadIndex]);
+						}
+					}
+				});
+
+
+		},
+		starDownload:function(node)
+		{
+			
+			//console.log(node);
+			//return;
+
+			self=this;
+			if(typeof(node) == "undefined")
+			{				
+				return;
+			}
+
+			//get chunk
+			console.log(node.downloadInfo.chunksize);
+			$http.post(node.downloadInfo.chunksize, null,  {cache: false})
+			.success(function(data, status, headers, config) {
+				if(data['error_code']==0){
+
+					self.downloadConfig.dl_filesize=parseFloat(node.downloadInfo.real_size);
+					self.downloadConfig.dl_chunksize=parseFloat(data['chunksize']); 
+					self.downloadConfig.dl_partdownload=node.downloadInfo.partdownload;
+					self.downloadConfig.dl_id=node.id;					
+					self.downloadConfig.dl_name=node.name;
+					self.downloadConfig.currSizeDownload=0;
+
+					//tính số lượng part cần down
+					var numPart=Math.ceil(self.downloadConfig.dl_filesize/self.downloadConfig.dl_chunksize);
+					//nếu bé hơn chunk size thì gộp vào luôn node trước nó
+					var lastPartSize=self.downloadConfig.dl_filesize-(numPart-1)*self.downloadConfig.dl_chunksize;
+					if(lastPartSize<self.downloadConfig.dl_chunksize)
+					{
+						numPart-=1;
+					}
+					var pos=0;
+					var chunkTemp=0;
+					for (var i = 0; i < numPart; i++) {
+						chunkTemp=self.downloadConfig.dl_chunksize;
+						if(i==numPart-1 && lastPartSize<self.downloadConfig.dl_chunksize)
+						{
+							chunkTemp=self.downloadConfig.dl_chunksize+lastPartSize;
+						}
+						self.downloadConfig.part.push({'startPos':pos,'chunksize':chunkTemp,'retry':0});
+						pos+=self.downloadConfig.dl_chunksize;
+					};
+					
+					
+				
+					
+
+					window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem; 
+					//window.requestFileSystem(1, self.downloadConfig.dl_filesize, self.download_onInitFs, self.download_ErrorHandler);
+					//create file temp to download
+					window.requestFileSystem(window.TEMPORARY, self.downloadConfig.dl_filesize, self.download_onInitFs, self.download_ErrorHandler);
+					//window.requestFileSystem(window.PERSISTENT, self.downloadConfig.dl_filesize, self.download_onInitFs, self.download_ErrorHandler);
+
+
+				} else {
+					//error();
+					console.log('ko lay dc du lieu');
+				}
+
+				
+				
+			})
+			.error(function(data, status, headers, config) {
+				if(status != 401){
+					console.log('Thử lấy lại thông tin CHUNK SIZE');
+					
+					if(node.retry<=self.retryDownload)
+					{
+						self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=4;//retry
+						//retry download
+						setTimeout(function(){
+							console.log('Retry Get node CHUNK SIZE: '+node.retry);
+							node.retry+=1;
+							self.starDownload(node);
+
+						},2000);
+						
+					}
+					else
+					{
+						//error();
+						// alertify.error('Không thể kết nối với server! Xin kiểm tra mạng và bấm nút này để thử lại!', function(){
+						// 	self.starDownload(node);
+						// });
+						self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=5;//retry
+						self.starDownload(self.queueDownload[++self.currQueueDownloadIndex]);
+					}
+				}
+			});
+
+			
+			
+
+		},
+		nextFile:function()
+		{
+
+		},
+		//retry if part fail
+		retryPart:function(pos)
+		{
+
+			this.download_write_block(pos);			
+		},
+		download_onInitFs:function(fs) 
+		{
+
+			//self=this;
+			//tạo directory
+			fs.root.getDirectory(self.downloadConfig.dirid, {create: true}, function(dirEntry) 
+			{		
+				console.log('step 1: make dir '+self.downloadConfig.dirid);
+				document.dirEntry = dirEntry;
+			}, self.getDirectory_errorHandler);
+
+			// console.log(self.downloadConfig.dirid + '/' + self.downloadConfig.dl_id);
+			// console.log('fs: ');
+			// console.log(fs);
+			// console.log('---------------');
+			//ghi file
+			fs.root.getFile(self.downloadConfig.dirid + '/' + self.downloadConfig.dl_id, {create: true}, function(fileEntry) {
+
+				console.log('step 2: create file ' + self.downloadConfig.dirid + '/' + self.downloadConfig.dl_id);
+				console.log(fileEntry);
+
+
+			    // Create a FileWriter object for our FileEntry (log.txt).
+			    fileEntry.createWriter(function(fileWriter) {
+
+			    	//console.log(fileWriter);
+			    	self.downloadConfig.dl_fw=fileWriter;
+			    	//self.downloadConfig.dl_fw.seek(0);
+			    	self.downloadConfig.dl_fw.truncate(0);
+			    	//self.downloadConfig.dl_fw.truncate(self.downloadConfig.dl_filesize);
+
+			    	//event on download complete
+			      	self.downloadConfig.dl_fw.onwriteend = function(e) {
+
+			      		//nếu đã ghi đủ file chunk thì mới download
+			      		//alert(self.downloadConfig.currSizeDownload+' | '+self.downloadConfig.dl_filesize);
+			      		console.log('complete 1');
+			      		if(self.downloadConfig.currSizeDownload==self.downloadConfig.dl_filesize)
+			      		{
+			      			var myEl = angular.element( document.querySelector( 'body' ) );
+				      	
+
+					      	console.log(fileEntry.toURL());
+							myEl.append('<a id="dllink"></a>');
+							document.getElementById('dllink').download = self.downloadConfig.dl_name;
+							document.getElementById('dllink').href = fileEntry.toURL();
+
+							
+							//document.getElementById('dllink').href = self.downloadConfig.dl_url;
+
+							
+							
+							
+							if (document.getElementById('dllink').click) document.getElementById('dllink').click();	
+							//alert('completed ');
+
+							
+
+							console.log('complete 2');
+							self.download_completed();
+							
+							//next pos
+					        self.currQueueDownloadIndex++;
+
+					        //delete template file
+					  //       fw.flush();
+							// fw.close(); 
+
+					        //download next files
+
+					        console.log(self.currQueueDownloadIndex+' | '+self.queueDownload.length);
+					        if(self.currQueueDownloadIndex>=self.queueDownload.length)
+					        {
+					        	return;
+					        }
+					        else
+					        {
+					        	
+					        	console.log('step 5: download next files: '+self.currQueueDownloadIndex);
+					    		//self.starDownload(self.queueDownload[self.currQueueDownloadIndex]);    
+					    		
+					    		self.getNodeInfo(self.queueDownload[self.currQueueDownloadIndex]);
+					        }
+							
+			      		}
+
+
+
+				      	
+				    };
+
+				     self.downloadConfig.dl_fw.onerror = function(e) {
+				        console.log('Write failed: ' + e.toString());
+				      };
+
+				      // Create a new Blob and write it to log.txt.
+				      //var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
+
+				      //fileWriter.write(blob);
+				      self.download_write_block(0);//bắt đầu down từ pos 0
+
+
+			    }, self.download_ErrorHandler);
+
+			  }, self.download_ErrorHandler);
+
+
+		
+		},
+
+		download_write_block:function(pos) 
+		{
+			//tính toán xem đã hết part chưa
+			self=this;
+			// if(pos>=10)
+			// 	return;
+			var d=new Date();
+			// self.downloadConfig.startPos=self.downloadConfig.dl_chunksize*pos;
+			// self.downloadConfig.endPos=self.downloadConfig.startPos+self.downloadConfig.dl_chunksize;
+
+			
+			// if(self.downloadConfig.endPos>self.downloadConfig.dl_filesize)
+			// {
+			// 	self.downloadConfig.endPos=self.downloadConfig.dl_filesize;
+			// }
+			// else if(self.downloadConfig.startPos>=self.downloadConfig.dl_filesize)
+			// {
+
+			// 	console.log('het part để down!');
+			// 	return;
+			// }
+			if(typeof(self.downloadConfig.part[pos])=="undefined")
+				return;
+
+			var currentPart=self.downloadConfig.part[pos];
+
+
+			var url=self.downloadConfig.dl_partdownload+'?part='+currentPart['startPos']+'_'+currentPart['chunksize']+'&r='+d.getTime();
+			self.downloadConfig.dl_url=url;
+			
+			/*headers: {'TENLUA-Chrome-Antileak': self.downloadConfig.dl_partdownload*/
+			console.log('step 3: get data and write to file');
+			$http.post(url,null,{cache: false,responseType:'arraybuffer'})			
+			.success(function(data, status, headers, config) {
+
+				// alert('download data');
+				// //console.log(data);
+				if(data)
+				{
+					 //if (self.downloadConfig.dl_fw.length === 0) {
+				        // var databuf = new Uint8Array(data);
+						// console.log(databuf);
+						// return;
+						// console.log(databuf);
+						// console.log('buffer end');
+						// var databuf = new Uint8Array(data);
+						// var databuf = data;
+
+						self.downloadConfig.dl_fw.instance = self.currQueueDownloadIndex;			
+						
+						self.downloadConfig.dl_fw.targetpos = currentPart['startPos'];//self.downloadConfig.dl_filesize;
+						self.downloadConfig.currSizeDownload+=currentPart['chunksize'];
+
+
+						var myBlob = new Blob([data]);
+
+						// console.log(self.downloadConfig.dl_fw);
+						// //self.downloadConfig.dl_fw.write(new Blob([databuf]));	
+						// console.log('----------------------------------------');
+						// console.log('content-length:' +  databuf.length);
+						
+						// // console.log(databuf);
+						// console.log('----------------------------------------');
+						// console.log('blob size:' + myBlob.size);
+						// console.log('----------------------------------------');
+						// // self.downloadConfig.dl_fw.truncate(self.downloadConfig.dl_filesize);
+
+						
+						//tính phần trăm
+
+						self.queueDownload[self.currQueueDownloadIndex]['downloadPercent']=Math.ceil((self.downloadConfig.currSizeDownload/self.downloadConfig.dl_filesize)*100);//completed
+						self.queueDownload[self.currQueueDownloadIndex]['currSizeCompleted']=self.downloadConfig.currSizeDownload;
+						
+
+						setTimeout(function(){
+						    self.downloadConfig.dl_fw.write(myBlob);
+						},500);
+
+						
+						
+						console.log('step 4: Write completed.');
+
+						// Create a new Blob object
+
+						// var a = new Blob();
+
+						// // Create a 1024-byte ArrayBuffer
+						// // buffer could also come from reading a File
+
+						// var buffer = new ArrayBuffer(1024);
+
+						// // Create ArrayBufferView objects based on buffer
+
+						// var shorts = new Uint16Array(buffer, 512, 128);
+						// var bytes = new Uint8Array(buffer, shorts.byteOffset + shorts.byteLength);
+
+						// var b = new Blob([databuf], {type: "text/plain;charset=UTF-8"});
+
+						//  var c = new Blob([b, shorts]);
+
+						// // var b = new Blob([b, c, bytes]);
+
+						// // var b = new Blob([buffer, b, c, bytes]);
+
+
+
+						// self.downloadConfig.dl_fw.write(c);
+
+
+						//self.downloadConfig.dl_fw.write(databuf);	
+						
+						self.download_write_block(++pos);
+						//return;
+				    // } else {
+				    //     //file has been overwritten with blob
+				    //     //use callback or resolve promise
+				    // }
+					
+				}
+				else
+					return;
+				
+				//alert('write data');
+
+			})
+			.error(function(data, status, headers, config) {
+				//console.log('Error ');
+				if(status != 401){
+					//error();
+					console.log('vao day roi');
+					
+
+					if(currentPart.retry<=self.retryDownload)
+					{
+						self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=4;//retry
+						//retry download
+						setTimeout(function(){
+							console.log('Retry download: '+currentPart.retry);
+							currentPart.retry+=1;
+							self.download_write_block(pos);
+
+						},2000);
+						
+					}
+					else
+					{
+						self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=5;//retry
+						self.getNodeInfo(self.queueDownload[++self.currQueueDownloadIndex]);
+					}
+				}
+				
+			});
+
+
+			
+
+
+		},
+		download_completed:function(){
+			//delete self.downloadConfig;
+			//self=this;
+			//self.downloadConfig.dl_id=null;
+			//self.downloadConfig.dl_fw=null;
+			self.downloadConfig.startPos=0;
+			self.downloadConfig.endPos=0;
+			self.downloadConfig.part=[];
+			self.downloadConfig.currSizeDownload=0;
+			
+			
+			self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=3;//completed
+			// setTimeout(function(){
+			//  	self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=3;//completed
+			//  	$rootScope.$apply();
+			// },0);
+
+			//thực sự complete thì set = 0
+			if(self.currQueueDownloadIndex==self.queueDownload.length-1)
+			{
+				//self.queueDownload[self.currQueueDownloadIndex]['statusDownload']=3;
+				self.isDownloading=0;
+			}
+			
+		},
+		download_ErrorHandler:function(e) {
+		  var msg = '';
+
+		  switch (e.code) {
+		    case FileError.QUOTA_EXCEEDED_ERR:
+		      msg = 'QUOTA_EXCEEDED_ERR';
+		      break;
+		    case FileError.NOT_FOUND_ERR:
+		      msg = 'NOT_FOUND_ERR';
+		      break;
+		    case FileError.SECURITY_ERR:
+		      msg = 'SECURITY_ERR';
+		      break;
+		    case FileError.INVALID_MODIFICATION_ERR:
+		      msg = 'INVALID_MODIFICATION_ERR';
+		      break;
+		    case FileError.INVALID_STATE_ERR:
+		      msg = 'INVALID_STATE_ERR';
+		      break;
+		    default:
+		      msg = 'Unknown Error';
+		      break;
+		  };
+
+		  console.log('Error: ' + msg);
+		},
+		getDirectory_errorHandler:function(e)
+		{
+			errorHandler(e,'getDirectory');	
+		},
+		 
+		/******************** GIA EDITED END *************************************/
 		createNodeWithPath: function($file, nodeToken){
 			if(!nodeToken){
 				$rootScope.uploaderHasError = true;
@@ -1883,16 +2544,47 @@ angular.module( 'TenLua' )
 		},
 
 		goToDownload: function(node){
+
+			
+			//filesSrv.checkedNodes.length;
 			var self = this;
-			if(!node && self.checkedNodes.length){
-				var node = self.checkedNodes[0];
+				
+			//console.log(self.checkedNodes);
+		
+			//If lenght > 0	
+			window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+
+			var fnode=self.checkedNodes[0];
+
+			if(self.checkedNodes.length==1
+			 && fnode.fileType == "Folder"
+			 )
+			{
+
+				self.downloadFolder(fnode);
 			}
-			if(node && node.type == 1){
-				$location.url('/fm/folder/' + node.id + '/' + node.machineName);
-			} else if(node && node.type === 0){
-				this.slideShowingNode = null;
-				$location.url('/download/' + node.id + '/' + node.machineName);
+			else if(self.checkedNodes.length>0 && window.requestFileSystem)
+			{
+				self.downloadMultiFiles();
 			}
+			else{
+				
+				if(!node && self.checkedNodes.length){
+					var node = self.checkedNodes[0];
+				}
+
+				if(node && node.type == 1){
+					$location.url('/fm/folder/' + node.id + '/' + node.machineName);
+				} else if(node && node.type === 0){
+					this.slideShowingNode = null;
+					$location.url('/download/' + node.id + '/' + node.machineName);
+				}
+			}
+		},
+		cancelDownload:function(){
+
+			uiState.fm.fmDownloaderExpanded=false;
+			this.queueDownload=[];
 		},
 
 		share: function(node){

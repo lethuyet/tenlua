@@ -124,7 +124,7 @@
 
 
 		<span id="FmContextMenuMask" class="mask-fix"></span>
-		<div id="FmContextMenu" fm-context-menu class="list-group overthrow" ng-if="!device.mobile() && !device.tablet() && uiState.page.fmName != 'folder'" file-node-related>
+		<div id="FmContextMenu" fm-context-menu class="list-group overthrow" ng-if="!device.mobile() && !device.tablet() &&  (uiState.page.fmName != 'folder' || uiState.page.fmName != 'files')" file-node-related>
 			<span class="list-group-item" ng-click="filesSrv.openNode(filesSrv.checkedNodes[0],$event)" ng-if="filesSrv.checkedNodes.length==1 && filesSrv.canView(filesSrv.checkedNodes[0])"><i class="tl-icon-eye"></i> Xem...</span>
 			<span class="list-group-item" ng-click="filesSrv.goToDownload()"><i class="tl-icon-download"></i> Tải về</span>
 			<span class="list-group-item" ng-click="filesSrv.share(filesSrv.checkedNodes[0])"><i class="tl-icon-link"></i> Chia sẻ...</span>
@@ -196,6 +196,21 @@
 			<!-- / .files-list -->
 		</div>
 		<!-- / #FmUploader -->
+
+
+
+		<!-- / #FmDowloadFolder -->
+		<div class="FmList-wrap" ng-if="filesSrv.isDownloadFolder()"  ng-controller="DownloadFolderCtrl">
+		
+			<ul id="FmList" class="container-fluid" ng-class="{in: uiState.folderIn}" ng-if="!filesSrv.slideShowingNode || filesSrv.isMusic(filesSrv.slideShowingNode)">
+				<!-- <li file-node="node"  ng-repeat="node in filesSrv.currentFolder.nodes | orderBy: ['-type',filesSrv.nodeListOrder] : filesSrv.nodeListReverse  track by node.id"></li> -->
+				<li file-node="node" index="::$index"  ng-repeat="node in filesSrv.currentFolderNodes() track by node.id"></li>
+			</ul>
+			
+		</div>
+		<!-- / #FmDowloadFolder -->
+
+
 
 		<div id="SideAd" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'">
 			<a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a>

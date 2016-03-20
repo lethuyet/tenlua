@@ -38,6 +38,10 @@ angular.module( 'TenLua' )
 			}
 		}
 
+		
+
+
+
 
 		if($scope.routeParams.libName){
 			filesSrv.currentFolder = null;

@@ -1,9 +1,9 @@
-<li class="row" file-node-related ng-class="{selected: node.checked, updating: node.updating, archived: node.archived, lock: node.lock || node.justUnlocked, private: node.private}">
+<li class="FmList row" file-node-related ng-class="{selected: node.checked, updating: node.updating, archived: node.archived, lock: node.lock || node.justUnlocked, private: node.private}">
 	<label class="checkbox-wrap">
-		<input type="checkbox" class="custom" ng-model="node.checked" ng-change="filesSrv.nodeCheckToggle(node,$event)" ng-disabled="node.updating"><b class="fake-input"></b>
+		<input type="checkbox" class="custom" ng-model="node.checked" ng-change="filesSrv.nodeCheckToggle(node,$event)" ><b class="fake-input"></b>
 	</label>
 	<div class="col col-sm-6 col-md-5">
-		<span class="order-num" ng-if="uiState.page.fmName == 'folder'">{{::(index + 1)}}</span>
+		<!--span class="order-num" ng-if="uiState.page.fmName == 'folder'">{{::(index + 1)}}</span-->
 		<span class="item-link" ng-click="filesSrv.openNode(node,$event)"><b class="file-img _{{::node.ext}} {{::(node.type==1 ? 'folder' : '')}} {{::(node.image ? 'thumbnail' : '')}}" ng-style="::node.style"></b>
 			<span class="item-name" rename content-type="text" contenteditable="{{!!node.isRenaming}}" return-prevented="true" ng-model="node.name" title="{{node.name}}">{{node.name}}</span>
 		</span>

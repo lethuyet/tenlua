@@ -1,0 +1,77 @@
+<div class="view-wrapper" id="Files">
+	<div class="container-fluid">
+
+		
+
+		<div id="FmListHeader" class="container-fluid">
+			<div class="row">
+				<a class="col-sm-5 col-md-5 sortable" ng-class="filesSrv.nodeListHeaderClass('name')" ng-click="filesSrv.setNodeListOrder('name')" file-node-related>Tên</a>
+				
+				<!-- <a class="col-sm-2 col-md-2 sortable" ng-class="filesSrv.nodeListHeaderClass('timeStamp')" ng-click="filesSrv.setNodeListOrder('timeStamp')" file-node-related>Thời gian</a> -->
+				<a class="col-sm-2 col-md-2 sortable" ng-class="filesSrv.nodeListHeaderClass('size')" ng-click="filesSrv.setNodeListOrder('size')" file-node-related>Dung lượng</a>
+				<a class="col-sm-3 col-md-3 sortable" ng-class="filesSrv.nodeListHeaderClass('download')" ng-click="filesSrv.setNodeListOrder('download')" file-node-related>Trạng thái</a>
+			</div>
+		</div>
+
+		<!-- / #FmDowloadFolder -->
+		<div class="FmList-wrap">
+		
+			<ul id="FmList" class="container-fluid">
+				<li class="FmList row" ng-repeat="node in filesSrv.queueDownload">
+					
+					<div class="col col-sm-5 col-md-5">
+						<!--span class="order-num" ng-if="uiState.page.fmName == 'folder'">{{::(index + 1)}}</span-->
+						
+						<span class="item-link" ng-click="filesSrv.openNode(node,$event)">
+							<b class="file-img _{{::node.ext}} {{::(node.type==1 ? 'folder' : '')}} {{::(node.image ? 'thumbnail' : '')}}" ng-style="::node.style"></b>
+							<span class="item-name" rename content-type="text" contenteditable="{{!!node.isRenaming}}" return-prevented="true" ng-model="node.name" title="{{node.name}}">{{node.name}}</span>
+						</span>
+						
+						
+					</div>
+					
+					
+					<!-- <div class="col col-sm-2 col-md-2">10:10:10</div> -->
+					<div class="col col-sm-2 col-md-2">{{::node.size | byteFormat}}</div>
+					<div class="col col-sm-3 col-md-3">
+						<!--div class="progress progress-striped" ng-class="{active: file.isUploading()}">
+							<div class="progress-bar progress-bar-success" ng-class="{'progress-bar-danger':file.error}" role="progressbar" aria-valuenow="{{file.progress() * 100}}" aria-valuemin="0" aria-valuemax="100"  ng-style="{width: (file.progress() * 100) + '%'}">
+							
+							</div>
+						</div-->
+						<div class="icon-group downloadstatus">
+							<span	 ng-if="!node.statusDownload"		><i class="icon-rounded tl-icon-info"></i> Đợi...</span>
+							<span 	 ng-if="node.statusDownload==1"	><i class="icon-rounded tl-icon-info"></i> Khởi tạo</span>							
+							<span	 ng-if="node.statusDownload==2"	><i class="icon-rounded tl-icon-download"></i> {{node.currSizeCompleted | byteFormat}}/{{::node.size | byteFormat}} ({{node.downloadPercent | number:0}}%)</span>
+							<span	 ng-if="node.statusDownload==3"	style="color:#71a315 !important;"><i class="icon-rounded tl-icon-check" style="color:#71a315 !important;border-color:#71a315 !important"></i> Hoàn thành</span>
+							<span	 ng-if="node.statusDownload==4"	style="color:#ff941e;"><i class="icon-rounded tl-icon-refresh" style="color:#ff941e !important;border-color:#ff941e !important;"></i> Đang thử lại</span>
+							<span	 ng-if="node.statusDownload==5"	style="color:red;"><i class="icon-rounded tl-icon-warning" style="color:red !important;border-color:red !important;"></i> Download thất bại</span>
+						</div>
+					</div>
+
+
+
+					
+				</li>
+
+			</ul>
+			
+		</div>
+		<!-- / #FmDowloadFolder -->
+		
+
+
+		<div id="SideAd" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'">
+			<a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a>
+			<div class="ad-frame" page="uiState.page.fmName" position="'right'"></div>
+			<div class="ad-frame-fb"></div>
+		</div>
+
+		<div id="BottomAd" ng-if="localStorage.AUTH_currentUser.role.name != 'gold' && localStorage.AUTH_currentUser.role.name != 'uploader'">
+			<a class="close-ad" href="#!/plans"><i class="tl-icon-delete"></i> Tắt quảng cáo</a>
+			<div class="ad-frame" page="uiState.page.fmName" position="'bottom'"></div>
+		</div>
+
+	</div>
+	<!-- / .container-fluid -->
+</div>

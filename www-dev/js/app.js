@@ -5,6 +5,7 @@ angular.module('TenLua', ['ngRoute', 'ngAnimate', 'ngSanitize', 'http-auth-inter
 // .constant('API_URL', 'https://p2.tenlua.vn')
 .constant('DOMAIN_URL', 'https://tenlua.vn')
 .constant('API_URL', 'https://api2.tenlua.vn')
+
 .constant('PROTOCOL', 'https:')
 .constant('BRAND', 'tenlua.vn')
 	.config(function($routeProvider, $locationProvider, $httpProvider, $provide, $sceDelegateProvider, $compileProvider, flowFactoryProvider, PROTOCOL, API_URL, AUTH_ROLES) {
@@ -108,6 +109,19 @@ angular.module('TenLua', ['ngRoute', 'ngAnimate', 'ngSanitize', 'http-auth-inter
 					}
 				}
 			})
+			// /* GIA EDITED : download multi file */
+			.when('/fm/files/download', {
+				templateUrl: 'template/downloadfolder.html',
+				controller: 'FilesCtrl',
+				reloadOnSearch: false,
+				roles: ['*'],
+				resolve: {
+					isAuthorized: function(authSrv) {
+						return authSrv.checkAuthorized();
+					}
+				}
+			})
+			/* GIA EDITED  download multi file */
 			.when('/fm/files/:libName', {
 				templateUrl: 'template/files.html',
 				controller: 'FilesCtrl',
@@ -152,6 +166,7 @@ angular.module('TenLua', ['ngRoute', 'ngAnimate', 'ngSanitize', 'http-auth-inter
 					}
 				}
 			})
+			
 			.when('/download/:nodeId/:downloadName', {
 				templateUrl: 'template/download.html',
 				controller: 'DownloadCtrl',

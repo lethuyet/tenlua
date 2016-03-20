@@ -14,6 +14,7 @@
 			<li ng-class="{active:routeParams.libName=='pictures'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/pictures"><i class="tl-icon-picture"></i> <span>{{filesSrv.pictures.name}}</span></a></li>
 			<li ng-class="{active:routeParams.libName=='music'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/music"><i class="tl-icon-music"></i> <span>{{filesSrv.music.name}}</span></a></li>
 			<li ng-class="{active:routeParams.libName=='videos'}"><a ng-href="#!/fm/{{uiState.page.fmName == 'files' ? 'files' : 'folder/' + routeParams.nodeId + '/' + routeParams.folderName}}/videos"><i class="tl-icon-videos"></i> <span>{{filesSrv.videos.name}}</span></a></li>
+			<li ng-class=""><a ng-href="#!/fm/files/download"><i class="tl-icon-download"></i> <span>{{filesSrv.downloadSidebar.name}}</span></a></li>
 
 			<div class="btn-wrap">
 				<a href="#!/plans" class="btn btn-xs btn-success btn-upgrade"><span>Nâng cấp</span> Gold Member</a>
